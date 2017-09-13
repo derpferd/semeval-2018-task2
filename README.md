@@ -1,5 +1,7 @@
 # semeval-2018-task2
 
+You can find the problem statement with details at [https://competitions.codalab.org/competitions/17344](https://competitions.codalab.org/competitions/17344).
+
 ## Running
 Simply run `./runit.sh` to run and see the results of the program. `runit.sh` will train a model for both the English and Spanish trial data sets and print out the results on a sample test.
 
