@@ -1,44 +1,59 @@
 from __future__ import print_function
 import os
-from hopper import RandModel, Tweet
 import shutil
+from scorer_semeval18 import main
 from typing import List
+from hopper import Tweet
+from hopper.model_rand import RandModel
+from hopper.model_unigram_baseline import BaselineModel
 
+# The models to test
+models = [RandModel, BaselineModel]
 
 if os.path.exists("output"):
     shutil.rmtree("output")
 
 os.mkdir("output")
 
-langauges = ["es", "us"]
+langauges = {"es": "Spanish", "us": "English"}
 trial_root = os.path.join("data", "trial")
 
-for langauge in langauges:
-    # Read in input
-    try:
-        text_data_filename = os.path.join(trial_root, langauge + "_trial.text")
-        text_fp = open(text_data_filename, 'r')
-        text = text_fp.readlines()
-        text_fp.close()
-    except IOError:
-        print("Had error reading from: {}".format(text_data_filename))
-    labels = open(os.path.join("data", "trial", langauge + "_trial.labels"), 'r').readlines()  # noqa
 
-    tweets = []  # type: List[Tweet]
-    for text, label in zip(text, labels):
-        tweets += [Tweet(text, int(label))]
+for model_cls in models:
+    print("============= {} =============".format(model_cls.__name__))
+    for langauge in langauges:
+        # Read in input
+        try:
+            text_data_filename = os.path.join(trial_root, langauge + "_trial.text")
+            text_fp = open(text_data_filename, 'r')
+            text = text_fp.readlines()
+            text_fp.close()
+        except IOError:
+            print("Had error reading from: {}".format(text_data_filename))
+        labels = open(os.path.join("data", "trial", langauge + "_trial.labels"), 'r').readlines()  # noqa
 
-    model = RandModel()
-    model.train(tweets[:-100])
+        tweets = []  # type: List[Tweet]
+        for text, label in zip(text, labels):
+            tweets += [Tweet(text, int(label))]
 
-    output_fp = open(os.path.join("output", langauge + ".trial.output.txt"), 'w')
-    gold_fp = open(os.path.join("output", langauge + ".trial.gold.txt"), 'w')
+        model = model_cls()
+        model.train(tweets[:-100])
 
-    for tweet in tweets[-100:]:
-        output = model.predict(tweet.text)
-        gold = tweet.emoji
-        output_fp.write(str(output) + "\n")
-        gold_fp.write(str(gold) + "\n")
+        output_filename = os.path.join("output", model_cls.__name__ + "." + langauge + ".trial.output.txt")
+        gold_filename = os.path.join("output", model_cls.__name__ + "." + langauge + ".trial.gold.txt")
+        output_fp = open(output_filename, 'w')
+        gold_fp = open(gold_filename, 'w')
 
-    output_fp.close()
-    gold_fp.close()
+        for tweet in tweets[-100:]:
+            output = model.predict(tweet.text)
+            gold = tweet.emoji
+            output_fp.write(str(output) + "\n")
+            gold_fp.write(str(gold) + "\n")
+
+        output_fp.close()
+        gold_fp.close()
+
+        print("------ {} Results ------".format(langauges[langauge]))
+        main(gold_filename, output_filename)
+        print()
+    print()

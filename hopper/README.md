@@ -13,3 +13,7 @@ Classes:
 ## model_rand.py
 
 This file contains the Random Model. This model returns a random emoji as its prediction.
+
+## model_unigram_baseline.py
+
+This model will use a language model per emoji and train each on the tweets given for that emoji. To predict the model will choose the emoji who's language model returns the highest probability.
