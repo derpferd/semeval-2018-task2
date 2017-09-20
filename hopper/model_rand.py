@@ -1,4 +1,4 @@
-from model import Model
+from hopper import Model
 from random import randint
 
 

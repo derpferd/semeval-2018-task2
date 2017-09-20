@@ -1,4 +1,3 @@
-from builtins import str as text
 
 
 class Tweet(object):
