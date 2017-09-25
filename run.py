@@ -5,10 +5,10 @@ from scorer_semeval18 import main
 from typing import List
 from hopper import Tweet
 from hopper.model_rand import RandModel
-from hopper.model_unigram_baseline import BaselineModel
+from hopper.model_naive_bayes_baselines import MultinomialNaiveBayesModel, BernoulliNaiveBayesModel
 
 # The models to test
-models = [RandModel, BaselineModel]
+models = [RandModel, MultinomialNaiveBayesModel, BernoulliNaiveBayesModel]
 
 if os.path.exists("output"):
     shutil.rmtree("output")
@@ -21,7 +21,7 @@ trial_root = os.path.join("data", "trial")
 
 for model_cls in models:
     print("============= {} =============".format(model_cls.__name__))
-    for langauge in langauges:
+    for langauge in sorted(langauges, reverse=True):
         # Read in input
         try:
             text_data_filename = os.path.join(trial_root, langauge + "_trial.text")

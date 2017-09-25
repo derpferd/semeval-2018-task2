@@ -14,6 +14,6 @@ Classes:
 
 This file contains the Random Model. This model returns a random emoji as its prediction.
 
-## model_unigram_baseline.py
+## model_naive_bayes_baselines.py
 
-This model will use a language model per emoji and train each on the tweets given for that emoji. To predict the model will choose the emoji who's language model returns the highest probability.
+There are two similar Naive Bayes models. Both use a bags of words filtering out infrequently used words. One model uses a [Multinomial Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes) algorithm and the other uses a [Bernoulli Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes) algorithm.
