@@ -16,4 +16,6 @@ This file contains the Random Model. This model returns a random emoji as its pr
 
 ## model_naive_bayes_baselines.py
 
-There are two similar Naive Bayes models. Both use a bags of words filtering out infrequently used words. One model uses a [Multinomial Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes) algorithm and the other uses a [Bernoulli Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes) algorithm.
+There are two similar Naive Bayes models. Both use a bags of words filtering out infrequently used words. 
+One model uses a [Multinomial Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes) 
+algorithm and the other uses a [Bernoulli Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes) algorithm.
