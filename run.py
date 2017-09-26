@@ -6,17 +6,24 @@ from typing import List
 from hopper import Tweet
 from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import MultinomialNaiveBayesModel, BernoulliNaiveBayesModel
+from hopper.confusion_matrix import ConfusionMatrix
 
 # The models to test
-models = [RandModel, MultinomialNaiveBayesModel, BernoulliNaiveBayesModel]
+models = [RandModel,
+          BernoulliNaiveBayesModel]
 
-if os.path.exists("output"):
-    shutil.rmtree("output")
-
-os.mkdir("output")
+if os.path.exists("raw_out"):
+    shutil.rmtree("raw_out")
+os.mkdir("raw_out")
 
 langauges = {"es": "Spanish", "us": "English"}
 trial_root = os.path.join("data", "trial")
+
+train_test_ratio = 0.1
+
+
+def count(data, label):
+    return sum([1 for t in data if t.emoji == label])
 
 
 for model_cls in models:
@@ -31,29 +38,51 @@ for model_cls in models:
         except IOError:
             print("Had error reading from: {}".format(text_data_filename))
         labels = open(os.path.join("data", "trial", langauge + "_trial.labels"), 'r').readlines()  # noqa
+        label_count = 20
 
         tweets = []  # type: List[Tweet]
         for text, label in zip(text, labels):
             tweets += [Tweet(text, int(label))]
 
-        model = model_cls()
-        model.train(tweets[:-100])
+        print("Doing {} cross folds".format(int(1 / train_test_ratio)), end="", flush=True)
+        for i in range(int(1 / train_test_ratio)):
 
-        output_filename = os.path.join("output", model_cls.__name__ + "." + langauge + ".trial.output.txt")
-        gold_filename = os.path.join("output", model_cls.__name__ + "." + langauge + ".trial.gold.txt")
-        output_fp = open(output_filename, 'w')
-        gold_fp = open(gold_filename, 'w')
+            output_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.output.txt")
+            gold_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.gold.txt")
+            output_fp = open(output_filename, 'w')
+            gold_fp = open(gold_filename, 'w')
 
-        for tweet in tweets[-100:]:
-            output = model.predict(tweet.text)
-            gold = tweet.emoji
-            output_fp.write(str(output) + "\n")
-            gold_fp.write(str(gold) + "\n")
+            model = model_cls()
+            test_amount = int(len(tweets) * train_test_ratio)
+            test_data = tweets[i * test_amount: (i + 1) * test_amount]
+            train_data = []
+            if i > 0:
+                train_data += tweets[0: i * test_amount]
+            if i + 1 < int(1 / train_test_ratio):
+                train_data += tweets[(i + 1) * test_amount:]
 
-        output_fp.close()
-        gold_fp.close()
+            model.train(train_data)
 
-        print("------ {} Results ------".format(langauges[langauge]))
-        main(gold_filename, output_filename)
-        print()
+            matrix = ConfusionMatrix(label_count)
+            for tweet in test_data:
+                output = model.predict(tweet.text)
+                gold = tweet.emoji
+                matrix.add(gold, output)
+                output_fp.write(str(output) + "\n")
+                gold_fp.write(str(gold) + "\n")
+
+            output_fp.close()
+            gold_fp.close()
+
+            print("------ {} Results ------".format(langauges[langauge]))
+            main(gold_filename, output_filename)
+            print()
+            print("----- Details -----")
+            print("Training data len: {} Testing data len: {}".format(len(train_data), len(test_data)))
+            print("Training data class counts: " + ", ".join([str(i) + ": " + str(count(train_data, i)) for i in range(label_count)]))
+            print("Testing  data class counts: " + ", ".join([str(i) + ": " + str(count(test_data, i)) for i in range(label_count)]))
+            print("--- Matrix ---\n" + str(matrix))
+            print()
+            # print(".", end="", flush=True)
+        # print()
     print()
