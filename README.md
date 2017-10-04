@@ -21,3 +21,4 @@ All the data can be found under the data directory.
 
 ## TODO
 - Check out Twitter embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016)
+- Try normalization.
