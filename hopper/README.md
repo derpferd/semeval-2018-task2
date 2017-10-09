@@ -24,11 +24,11 @@ For the sake of simplicity we will be using and explaining only the *Bernoulli N
 
 ### Training
 To train the Naive Bayes models we use in this project we follow a couple general steps. They are:
- * Tokenization
- * *Bagination*
- * Tf-idf transform
- * Select K best
- * finally the training the classifier, in our case the [Bernoulli Naive Bayes classifier](#).
+ * [Tokenization](#tokenization)
+ * [*Bagination*](#bagination)
+ * [Tf-idf transform](#tfidftransform)
+ * [Select K best](#selectkbest)
+ * finally the training the classifier, in our case the [Bernoulli Naive Bayes classifier](#train-bernoulli-naive-bayes-classifier).
 
 #### Tokenization
 The first step is to turn the
@@ -47,8 +47,8 @@ A tokenized tweet is in the form of a list of strings which means the training c
 ### Testing/Prediction
 To test or make a prediction the model needs to prepare the tweet into a similar form which the training data was in.
 We do the following steps:
- * Tokenization
- * *Bagination*
- * the classify using the trained [Bernoulli Naive Bayes classifier](#)
+ * [Tokenization](#tokenization)
+ * [*Bagination*](#bagination)
+ * the classify using the trained [Bernoulli Naive Bayes classifier](#use-bernoulli-naive-bayes-classifier)
 
 #### Use Bernoulli Naive Bayes classifier
