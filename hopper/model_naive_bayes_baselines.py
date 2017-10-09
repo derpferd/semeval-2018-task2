@@ -1,3 +1,6 @@
+""" Code Author: Jonathan Beaulieu
+    Documentation Author: Dennis Asamoah Owusu
+"""
 from __future__ import division
 from hopper import Model
 from nltk.tokenize import TweetTokenizer

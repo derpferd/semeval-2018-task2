@@ -1,11 +1,12 @@
+""" Code Author: Jonathan Beaulieu"""
+
 from __future__ import print_function
 import os
 import shutil
 from scorer_semeval18 import main
-from typing import List
 from hopper import Tweet
 from hopper.model_rand import RandModel
-from hopper.model_naive_bayes_baselines import MultinomialNaiveBayesModel, BernoulliNaiveBayesModel
+from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
 from hopper.confusion_matrix import ConfusionMatrix
 
 # The models to test

@@ -15,7 +15,7 @@ Classes:
 This file contains the Random Model. This model returns a random emoji as its prediction.
 
 ## model_naive_bayes_baselines.py
-
+Author: Jonathan Beaulieu  
 There are two similar Naive Bayes models. Both use a bags of words filtering out infrequently used words.
 One model uses a [Multinomial Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes)
 algorithm and the other uses a [Bernoulli Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes) algorithm.
@@ -31,7 +31,26 @@ To train the Naive Bayes models we use in this project we follow a couple genera
  * finally the training the classifier, in our case the [Bernoulli Naive Bayes classifier](#train-bernoulli-naive-bayes-classifier).
 
 #### Tokenization
-The first step is to turn the
+The first step is to turn the plain tweet text given from the training data into a list of tokens which the model can be trained on. We decided to use the [**TweetTokenizer**](http://www.nltk.org/api/nltk.tokenize.html#nltk.tokenize.casual.TweetTokenizer) from the *nltk*.
+We use the following settings:
+- preserve_case=False
+  - This means that all text is put into lowercase.
+- reduce_len=True
+  - This means that any string of repeating characters longer than 3 will be *cropped*. Ex. "!!!!" => ["!", "!", "!"], "yeeeeeeeessssss" => "yeeesss",
+- strip_handles=True
+  - This means that any tweeter handles will be removed completely. Ex. "I love @derpferd" => ["i", "love"]
+  - Note: this means anything that matches the format of "@" followed by alphanumeric characters will be removed even if it is not a currently used handle.
+
+The **TweetTokenizer** splits text into tokens based on whitespace and punctuation. Anything separated by whitespace is a token as well as any punctuation. One thing to note is that all punctuation characters are their own tokens except three dots (i.e. "..."). The tokenizer also provides the settings listed above.
+
+Some examples:
+
+| Input                      | Output                       |
+|:---------------------------|:-----------------------------|
+| `"I love u!"`              | `['i', 'love', 'u', '!']`    |
+| `"I love @derpferd!"`      | `['i', 'love', '!']`         |
+| `"Yeeeeeessssss!!!!!!!!!"` | `['yeeesss', '!', '!', '!']` |
+| `"I love you but you hate me"`   | `['i', 'love', 'you', 'but', 'you', 'hate', 'me']`  |
 
 #### Bagination
 This step is a step we created to transform the tokenized tweets in the form that the tf-idf transform needs.
