@@ -1,1 +1,11 @@
-Results
+Author: Dennis Asamoah Owusu
+
+We implemented two baselines. One was a Bag-of-words model using a Bernoulli Naive Bayes classifier. The other was a Most Frequent Class model. 
+The results of both models are discussed below.
+
+## Most Frequent Class Model
+
+### Results for English Tweets
+
+#### Macro F-score 
+Range: 1.763 - 1.8 
