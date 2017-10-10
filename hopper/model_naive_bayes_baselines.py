@@ -36,7 +36,6 @@ class NaiveBayesModel(Model):
         self.tokenizer = TweetTokenizer(preserve_case=False,
                                         reduce_len=True,
                                         strip_handles=True).tokenize
-        self.labels = list(range(20))
 
         """Creates a pipeline for use in classifying. Each argument will
         work on the data in sequence.
