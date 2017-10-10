@@ -14,6 +14,12 @@ Classes:
 
 This file contains the Random Model. This model returns a random emoji as its prediction.
 
+## model_most_frequent_class.py
+Author: Dennis Asamoah Owusu
+
+This class contains the MostFrequentClassModel which assigns each tweet to the MostFrequentClass.
+It simply extracts the emoji associated with each tweet in the training data, determines which one appears the most and uses that as the emoji for every tweet it predicts.
+
 ## model_naive_bayes_baselines.py
 Author: Jonathan Beaulieu  
 There are two similar Naive Bayes models. Both use a bags of words filtering out infrequently used words.
@@ -68,6 +74,8 @@ The SelectKBest step, as it's name implies, selects the *k* best features. This 
 
 Bernoulli Naive Bayes classifier is a type of Naive Bayes(NB) classifier. NB models all make the assumption that every feature is independent of every other feature. A main difference between Bernoulli NB model and other NB models is that Bernoulli works only with binary values for features (0 meaning the feature is not present and 1 meaning it is). We used the default settings which included Laplace smoothing and training class prior probabilities.
 
+The Bernoulli Naive Bayes Model uses an estimation of the probability of
+
 ### Testing/Prediction
 To test or make a prediction the model needs to prepare the tweet into a similar form which the training data was in.
 We do the following steps:
@@ -75,5 +83,6 @@ We do the following steps:
  * [*Bagination*](#bagination)
    - Note: We use the same *Bagination* technique however we don't have the label.
  * the classify using the trained [Bernoulli Naive Bayes classifier](#applying-bernoulli-naive-bayes-classifier)
+
 
 #### Applying Bernoulli Naive Bayes classifier

@@ -8,10 +8,10 @@ from hopper import Tweet
 from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
 from hopper.confusion_matrix import ConfusionMatrix
-
+from hopper.model_most_frequent_class import MostFrequentClassModel
 # The models to test
 models = [RandModel,
-          BernoulliNaiveBayesModel]
+          MostFrequentClassModel,BernoulliNaiveBayesModel]
 
 if os.path.exists("raw_out"):
     shutil.rmtree("raw_out")
