@@ -73,8 +73,8 @@ We do the following steps:
 #### Use Bernoulli Naive Bayes classifier
 
 
-##model_most_frequent_class.py
+## model_most_frequent_class.py
 Author: Dennis Asamoah Owusu
-
-This class contains the MostFrequentClassModel which assigns each tweet to the MostFrequentClass. It simply extracts the emoji associated with each tweet in the training data, determines which one appears the most and uses that as the emoji for every tweet it predicts.
+This class contains the MostFrequentClassModel which assigns each tweet to the MostFrequentClass. 
+It simply extracts the emoji associated with each tweet in the training data, determines which one appears the most and uses that as the emoji for every tweet it predicts.
 
