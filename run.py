@@ -7,11 +7,12 @@ from scorer_semeval18 import main
 from hopper import Tweet
 from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
-from hopper.confusion_matrix import ConfusionMatrix
 from hopper.model_most_frequent_class import MostFrequentClassModel
+from hopper.confusion_matrix import ConfusionMatrix
 # The models to test
 models = [RandModel,
-          MostFrequentClassModel,BernoulliNaiveBayesModel]
+          MostFrequentClassModel,
+          BernoulliNaiveBayesModel]
 
 if os.path.exists("raw_out"):
     shutil.rmtree("raw_out")
@@ -110,5 +111,5 @@ for model_cls in models:
             print("--- Matrix ---\n" + str(matrix))
             print()
             # print(".", end="", flush=True)
-        # print()
+        print()
     print()
