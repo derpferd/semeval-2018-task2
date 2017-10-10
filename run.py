@@ -11,7 +11,7 @@ from hopper.confusion_matrix import ConfusionMatrix
 from hopper.model_most_frequent_class import MostFrequentClassModel
 # The models to test
 models = [RandModel,
-          MostFrequentClassModel]
+          MostFrequentClassModel,BernoulliNaiveBayesModel]
 
 if os.path.exists("raw_out"):
     shutil.rmtree("raw_out")
