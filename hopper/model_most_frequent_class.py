@@ -16,16 +16,3 @@ class MostFrequentClassModel(Model):
 
 
 
-'''
-c = collections.Counter()
-
-with open('/home/dennis/coding/semeval-2018-task2/data/trial/us_trial.labels') as f:
-    content = f.readlines()
-
-content = [x.strip() for x in content]
-c.update(content)
-for letter, count in c.most_common(1):
-    key = letter
-
-print (key)
-'''
