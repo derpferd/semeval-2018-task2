@@ -53,21 +53,27 @@ Some examples:
 | `"I love you but you hate me"`   | `['i', 'love', 'you', 'but', 'you', 'hate', 'me']`  |
 
 #### Bagination
-This step is a step we created to transform the tokenized tweets in the form that the tf-idf transform needs.
-A tokenized tweet is in the form of a list of strings which means the training corpus is a list of lists of strings. (Ex. ["I love u", "I love you but you hate me"] => [["i", "love", "u"], ["i", "love", "you", "but", "you", "hate", "me"]])
-
+This step is a step we created to transform the tweets into the form that the tf-idf transform needs. We call this format a *bag*. A *bag* is a list of tuples where each tuple has a token as the first element and the count of occurrences as the second. Ex. `[("the", 3), ("dog", 2), ("cat", 1)]` would describe the string `"the dog the dog the cat"`. As you might have noticed bagination removes any positional data making a *bag* contains less information than a list of tokens.  
+In the bagination step we convert the list of tweets into a list of tuples where the first element is a *bag* of the tweet text and the second element is the label the tweet contains. Ex. `Tweet<text: "the dog the dog the cat" emoji:1>` => `([("the", 3), ("dog", 2), ("cat", 1)], 1)`  
+A list of these *bags* is what the next step takes.
 
 #### TfidfTransform
+Quote from Dennis's Documentation:
+>TfidfTransformer transforms a count matrix to a normalized tf-idf representation. tf-idf means term-frequency times inverse document-frequency. The goal of using tf-idf instead of the raw frequencies of occurrence of a token in a given document is to scale down the impact of tokens that occur very frequently in a given corpus and that are hence empirically less informative than features that occur in a small fraction of the training corpus.
 
 #### SelectKBest
+The SelectKBest step, as it's name implies, selects the *k* best features. This step takes two arguments: a scoring function and *k*. The scoring function we use is [**cha2**](http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2), really said chi-squared. Based on this SelectKBest selects the top *k* scoring tokens. We used a *k* value of 1000. We will need to do more research into if this value is optimal. The results from this selection feed into the next step, the classifier.
 
 #### Train Bernoulli Naive Bayes classifier
+
+Bernoulli Naive Bayes classifier is a type of Naive Bayes(NB) classifier. NB models all make the assumption that every feature is independent of every other feature. A main difference between Bernoulli NB model and other NB models is that Bernoulli works only with binary values for features (0 meaning the feature is not present and 1 meaning it is). We used the default settings which included Laplace smoothing and training class prior probabilities.
 
 ### Testing/Prediction
 To test or make a prediction the model needs to prepare the tweet into a similar form which the training data was in.
 We do the following steps:
  * [Tokenization](#tokenization)
  * [*Bagination*](#bagination)
- * the classify using the trained [Bernoulli Naive Bayes classifier](#use-bernoulli-naive-bayes-classifier)
+   - Note: We use the same *Bagination* technique however we don't have the label.
+ * the classify using the trained [Bernoulli Naive Bayes classifier](#applying-bernoulli-naive-bayes-classifier)
 
-#### Use Bernoulli Naive Bayes classifier
+#### Applying Bernoulli Naive Bayes classifier
