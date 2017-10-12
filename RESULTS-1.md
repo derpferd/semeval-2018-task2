@@ -10,7 +10,7 @@ We did a 10-fold cross-validation and, hence, we show a range of scores instead 
 
 ### Results for English Tweets
 Macro F-score Range: 1.763 - 1.8   
-Micro F-score Range: 21.408 - 21.954   
+Micro F-score Range: 21.408 - 21.954     
 Precision Range: 21.408 - 21.954    
 Recall: 21.408 - 21.954   
 
