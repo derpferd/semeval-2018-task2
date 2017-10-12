@@ -9,31 +9,31 @@ We did a 10-fold cross-validation and, hence, we show a range of scores instead 
 ## Most Frequent Class Model Results
 
 ### Results for English Tweets
-Macro F-score Range: 1.763 - 1.8    
-Micro F-score Range: 21.408 - 21.954  
-Precision Range: 21.408 - 21.954  
-Recall: 21.408 - 21.954 
+Macro F-score Range: 1.763 - 1.8      
+Micro F-score Range: 21.408 - 21.954    
+Precision Range: 21.408 - 21.954    
+Recall: 21.408 - 21.954   
 
 ### Results for Spanish Tweets
-Macro F-score Range: 3.327 - 3.375
-Micro F-score Range: 27.59 - 28.107
-Precision Range: 27.59 - 28.107
-Recall: 27.59 - 28.107
+Macro F-score Range: 3.327 - 3.375  
+Micro F-score Range: 27.59 - 28.107  
+Precision Range: 27.59 - 28.107  
+Recall: 27.59 - 28.107  
 
 
 ## Bag of Words Bernoulli Model Results
 
 ### Results for English Tweets
-Macro F-score Range: 28.788 - 29.501
-Micro F-score Range: 41.534 - 42.591
-Precision Range: 41.534 - 42.591
-Recall: 41.534 - 42.591
+Macro F-score Range: 28.788 - 29.501  
+Micro F-score Range: 41.534 - 42.591  
+Precision Range: 41.534 - 42.591  
+Recall: 41.534 - 42.591  
 
 ### Results for Spanish Tweets
-Macro F-score Range: 25.48 - 26.304
-Micro F-score Range: 45.543 - 46.683
-Precision Range: 45.543 - 46.683
-Recall: 45.543 - 46.683
+Macro F-score Range: 25.48 - 26.304  
+Micro F-score Range: 45.543 - 46.683  
+Precision Range: 45.543 - 46.683  
+Recall: 45.543 - 46.683  
 
 ## Analysis
 First, it is worth noting that our Micro F-score, Precision and Recall have the same values for each set of results. 
