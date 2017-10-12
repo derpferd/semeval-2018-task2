@@ -137,7 +137,12 @@ Another worth noting is label 18(📸  _camera_with_flash_) where we only correc
 We perform quite well for labels 0(❤ _red_heart_), 1(😍 _smiling_face_with_hearteyes_), 
 2(😂  _face_with_tears_of_joy_), 4( 🔥  _fire_), 17 (🎄  _Christmas_tree_).
  
-
+## Note About Spanish Data
+The majority, if not all, of tweets in the Spanish data are actually tweets in English. 
+The analysis performed above for the English data generally apply to the Spanish data as well. 
+The differences in the data and results, such as, the fact that the "Spanish data" 
+is missing certain classes in the training and testing data and has a relatively higher percentage of tweets
+belonging to the most frequent class have already been explained.
 
 
 
