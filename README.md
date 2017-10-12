@@ -39,6 +39,7 @@ Each file lists the author(s) at the top of the file. In the case of multiple au
 
 **Sai:**
 - Analyzed the Output and Results which can be found in Results1_1
+- Explained 3rd party code in ORIGINS
 
 ## Dependencies
 - python >= 3.5
