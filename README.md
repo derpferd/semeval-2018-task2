@@ -72,6 +72,7 @@ This is a todo list of everything we need for Stage 1 submission.
 - [x] Write readme section about most frequent class baseline model. (Dennis) Due: 10/10
 - [x] Clarify Authorship (All)
 - [x] Final review, review each others work. (All) Due: 10/12
+- [ ] Example of actual program input and output and description of problem. (Jon)
 
 ## Stage 2 TODO
 - [ ] Check out Twitter embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016)
