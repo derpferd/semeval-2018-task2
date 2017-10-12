@@ -1,0 +1,11 @@
+Author: Sai Cheedella.
+
+
+File: scorer_semeval18.py
+
+The scorer for our task(Multi Lingual Emoji Prediction) is a 3rd party code provided by the task organizers.
+
+This script is used to evalute our classification model. It takes system output files and gold files as input and prints out the result.
+The Result of scorer is Precision, Recall, Micro F-score and Macro F-score. Macro F score is used for official means of evaluation.
+ 
+
