@@ -74,7 +74,7 @@ Contents
      - Tested using 10 cross folds
 
 ## Stage 1 TODO (everything should be done by Wednesday night)
-This is a todo list of everything we need for Stage 1 submission.
+This is a todo list of everything we need for Stage 1 submission that hasn't been done already.
 - [x] Write `install.sh` (Jon)
 - [x] Analyze results. (Sai) Due: 10/6
 - [x] Create baseline based on most frequent class (Dennis) Due: 10/9
@@ -82,7 +82,7 @@ This is a todo list of everything we need for Stage 1 submission.
 - [x] Write readme section about most frequent class baseline model. (Dennis) Due: 10/10
 - [x] Clarify Authorship (All)
 - [x] Final review, review each others work. (All) Due: 10/12
-- [ ] Example of actual program input and output and description of problem. (Jon)
+- [x] Example of actual program input and output and description of problem. (Jon)
 
 ## Stage 2 TODO
 - [ ] Check out Twitter embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016)
