@@ -72,9 +72,10 @@ The SelectKBest step, as it's name implies, selects the *k* best features. This 
 
 #### Train Bernoulli Naive Bayes classifier
 
-Bernoulli Naive Bayes classifier is a type of Naive Bayes(NB) classifier. NB models all make the assumption that every feature is independent of every other feature. A main difference between Bernoulli NB model and other NB models is that Bernoulli works only with binary values for features (0 meaning the feature is not present and 1 meaning it is). We used the default settings which included Laplace smoothing and training class prior probabilities.
+Bernoulli Naive Bayes classifier is a type of Naive Bayes(NB) classifier. NB models all make the assumption that every feature is independent of every other feature. A main difference between Bernoulli NB model and other NB models is that Bernoulli works only with binary values for features (0 meaning the feature is not present and 1 meaning it is) and not only looks at the tokens in a given *document*(See [Definitions](#definitions) for details) but also the token that are not in the *document*. We used the default settings which included Laplace smoothing and training class prior probabilities.
 
-The Bernoulli Naive Bayes Model uses an estimation of the probability of
+Naive Bayes needs to train two parts: the priors, the probability of a class given a *document*, and the probabilities of each token given each class.
+The Bernoulli Naive Bayes Model estimates the probability of a token given a class as the percentage of *documents* in the class which contain the token. As you can see the frequency of a token in a *document* is not considered. Also note that during the training phase a *vocab* is created. To read about how a class prediction is made see the [Applying Bernoulli Naive Bayes classifier](#applying-bernoulli-naive-bayes-classifier) section below.
 
 ### Testing/Prediction
 To test or make a prediction the model needs to prepare the tweet into a similar form which the training data was in.
@@ -86,3 +87,30 @@ We do the following steps:
 
 
 #### Applying Bernoulli Naive Bayes classifier
+
+With the probabilities for each class, priors, and the probabilities of a token given a class (Note: for unknown tokens Laplace smoothing is applied) the classifier can now calculate a probability for each class given a *document*.
+For each class the classifier follows the following algorithm to calculate the probability of the class given the *document*, then picks the class with the greatest probability.
+
+##### Class Probability Algorithm
+ - Set the score to the log of the prior of the class being evaluated
+ - For each token in the *vocab*
+   - if the token is in the *document* add the log of the probability of a token given a class to the score
+   - else add the log of one minus the probability of a token given a class to the score
+
+After this the scores for each class can be compared to each other. The largest is returned as the predicted class.
+
+### Definitions
+
+**Document:** A single unit of text which represents a single class. Note a class have have many documents. In our case each tweet is a document.
+
+**Bag:** A set of words and their frequencies. Note there is no positional data.
+
+**Vocab:** A set of every token that is seen during the training phase. Note we say that the length of the *vocab* is one longer than the number of tokens it contains since we are using Laplace(add-1) smoothing.
+
+### References
+
+1. C.D. Manning, P. Raghavan and H. Schuetze (2008). Introduction to
+Information Retrieval. Cambridge University Press, pp. 234-265.
+http://nlp.stanford.edu/IR-book/html/htmledition/the-bernoulli-model-1.html or https://nlp.stanford.edu/IR-book/pdf/13bayes.pdf
+
+2. SciKit Learn - Documentation http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes
