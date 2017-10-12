@@ -8,4 +8,19 @@ The scorer for our task(Multi Lingual Emoji Prediction) is a 3rd party code prov
 This script is used to evalute our classification model. It takes system output files and gold files as input and prints out the result.
 The Result of scorer is Precision, Recall, Micro F-score and Macro F-score. Macro F score is used for official means of evaluation.
  
+Precision: Precision measures how precise the output is. It is the ratio of the correct emojis to the attempted emojis.
 
+ P = Correct predictions / attempted predictions
+
+
+Recall: Recall is the ratio to the correct preidctions to the gold 
+
+ R = Correct Predictions/ Gold values
+
+Micro F-score: Micro F score is the harmonic mean of the precision and recall.
+
+ Microf1 = (2 * (P*R))/P+R    ( Where P is precision and R is recall.)
+
+Macro F-score: It is the weighed average of the total f1 score to the number of emoji classes in the data. 
+
+ Macrof1 = f1total/No. of emoji classes  (Where f1total is the sum of all the individual f1 scores)
