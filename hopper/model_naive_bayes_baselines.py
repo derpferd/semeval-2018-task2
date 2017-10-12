@@ -1,5 +1,8 @@
 """ Code Author: Jonathan Beaulieu
     Documentation Author: Dennis Asamoah Owusu
+
+    Documentation References:
+    http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html
 """
 from __future__ import division
 from hopper import Model
@@ -40,13 +43,12 @@ class NaiveBayesModel(Model):
         """Creates a pipeline for use in classifying. Each argument will
         work on the data in sequence.
 
-        TfidfTransformer transforms a count matrix
-        to a normalized tf-idf representation. tf-idf means term-frequency
-        times inverse document-frequency. The goal of using tf-idf instead of
-        the raw frequencies of occurrence of a token in a given document is
-        to scale down the impact of tokens that occur very frequently in a
-        given corpus and that are hence empirically less informative than
-        features that occur in a small fraction of the training corpus.
+	The TfidTransformer normalizes the count matrix (in our case,
+	the frequency of a word in each emoji class). Using the frequencies
+	without normalization gives too much weight to words that occur
+	very frequently in the corpus even though they are less informative features.
+	The frequencies are normalized to a tf-idf represetnation. Tf-idf is
+	term-frequency times inverse document-frequency.
 
         SelectKBest selects the best k features for use in classifying.
         """
