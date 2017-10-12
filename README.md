@@ -14,7 +14,12 @@ The code for the **Hopper** system can be found under the `hopper` directory alo
 
 ## Contributions
 Each file lists the author(s) at the top of the file. In the case of multiple authors it is clearly listed the sections each author contributed (we tried keeping this to a minimum).
+
 **Jonathan:**
+- Wrote the framework code. The code for reading the data, running the model and analyzing the results(expect for the scoring which was provided by the task organizers).
+- Wrote the code for the Naive Bayes baselines.
+- Wrote the code for the Random Model.
+- Wrote this README and the README sections on Bernoulli Naive Bayes baselines.
 
 **Dennis:**
 - Most Frequent Class Model
@@ -23,6 +28,7 @@ Each file lists the author(s) at the top of the file. In the case of multiple au
 - RESULTS-1 and RESULTS-1.md
 
 **Sai:**
+- Analyzed the Output and Results which can be found in Results1_1
 
 ## Dependencies
 - python >= 3.5
@@ -64,8 +70,9 @@ This is a todo list of everything we need for Stage 1 submission.
 - [x] Create baseline based on most frequent class (Dennis) Due: 10/9
 - [x] Write readme section about BernoulliNB Model. (Jon) Due: 10/9
 - [x] Write readme section about most frequent class baseline model. (Dennis) Due: 10/10
-- [ ] Clarify Authorship (All)
-- [ ] Final review, review each others work. (All) Due: 10/11
+- [x] Clarify Authorship (All)
+- [x] Final review, review each others work. (All) Due: 10/12
+- [ ] Example of actual program input and output and description of problem. (Jon)
 
 ## Stage 2 TODO
 - [ ] Check out Twitter embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016)
