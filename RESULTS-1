@@ -1,4 +1,4 @@
-\Author: Dennis Asamoah Owusu
+Author: Dennis Asamoah Owusu
 
 We implemented two baselines. One was a Bag-of-words model using a Bernoulli Naive Bayes classifier. 
 The other was a Most Frequent Class model. 
@@ -115,12 +115,25 @@ labelled correctly for each class.
 Focusing on English, the worst performing areas are as follows:
 
 Label 5 (😊  _smiling_face_with_smiling_eyes_): 
-2313 tweets were assigned in the gold. We assigned only 251 correctly. 653 were incorrectly assigned
-label 1 (😍 _smiling_face_with_hearteyes_) and 437 were incorrectly assigned 
-label 2 (😂  _face_with_tears_of_joy_). Mislabelling 5 as 1 is quite understandable since they are both
+2313 tweets were assigned in the gold. We assigned only 251 correctly. 653 were 
+incorrectly assigned label 1 (😍 _smiling_face_with_hearteyes_) and 437 were 
+incorrectly assigned label 2 (😂  _face_with_tears_of_joy_). 
+Mislabelling 5 as 1 is quite understandable since they are both
 smiling faces. We have to dig deeper to determine why 5 will be mislabelled 2 since smiling face and
 face with tears of joy are quite different. 
 
+Label 6(😎  _smiling_face_with_sunglasses_):
+2092 in the gold standard. We assigned only 332 correctly. We mislabelled 558 as 1(😍 _smiling_face_with_hearteyes_)
+and mislabelled 385 as 2 (😂  _face_with_tears_of_joy_). This is almost the same situation with Label 5.
+
+Generally, a lot of tweets get mislabelled as 1(😍 _smiling_face_with_hearteyes_) or 2 (😂  _face_with_tears_of_joy_).
+
+Another poor performing area is label 13 ( 💜  _purple_heart_) where we only correctly identify 67 out of 1229 and mislabel most of them
+as either 1 (😍 _smiling_face_with_hearteyes_), 2 (😂  _face_with_tears_of_joy_) or 3 (💕  _two_hearts_). 
+
+### Areas Performing Well 
+We perform quite well for labels 0(❤ _red_heart_), 1(😍 _smiling_face_with_hearteyes_), 
+2(😂  _face_with_tears_of_joy_), 4( 🔥  _fire_), 17 (🎄  _Christmas_tree_).
  
 
 
