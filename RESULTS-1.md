@@ -43,11 +43,11 @@ This shows that all our models assigned classes (emojis) for all tweets that wer
 precision and recall are equal when attempted_total is equal to gold_occurrences_total. (See scorer_semeval18.py lines 52 and 53)
 
 For the English tweets, the difference in the Macro and micro F-scores for our Bernoulli model lies in the fact that 
-about 21% of tweets have label 0 (representing ❤ - the red heart).
+about 21% of tweets have label 0 (representing ❤ - the red heart) which is the most frequent class.
 This can be seen from the results of our Most Frequent Class model which has a precision and recall of about 21%.
 A similar thing happens with the Spanish tweets where about 28% of the tweets belong to the same red heart class. 
 Note the correlation between
-the relatively higher percentage of tweets in the most frequent class and the relatively hihger Micro F-score 
+the relatively higher percentage of tweets in the most frequent class and the relatively higher Micro F-score 
 for the Spanish tweets.
 However, once the effect of the most frequent class is offsetted as measured by the Macro F-score, 
 the prediction for the English tweets becomes better than that of the Spanish tweets.
