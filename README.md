@@ -70,8 +70,8 @@ This is a todo list of everything we need for Stage 1 submission.
 - [x] Create baseline based on most frequent class (Dennis) Due: 10/9
 - [x] Write readme section about BernoulliNB Model. (Jon) Due: 10/9
 - [x] Write readme section about most frequent class baseline model. (Dennis) Due: 10/10
-- [ ] Clarify Authorship (All)
-- [ ] Final review, review each others work. (All) Due: 10/11
+- [x] Clarify Authorship (All)
+- [x] Final review, review each others work. (All) Due: 10/12
 
 ## Stage 2 TODO
 - [ ] Check out Twitter embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016)
