@@ -131,6 +131,8 @@ Generally, a lot of tweets get mislabelled as 1(😍 _smiling_face_with_hearteye
 Another poor performing area is label 13 ( 💜  _purple_heart_) where we only correctly identify 67 out of 1229 and mislabel most of them
 as either 1 (😍 _smiling_face_with_hearteyes_), 2 (😂  _face_with_tears_of_joy_) or 3 (💕  _two_hearts_). 
 
+Another worth noting is label 18(📸  _camera_with_flash_) where we only correctly label 173 out of 1400. We mislabel 439 as 10(📷  _camera_).
+
 ### Areas Performing Well 
 We perform quite well for labels 0(❤ _red_heart_), 1(😍 _smiling_face_with_hearteyes_), 
 2(😂  _face_with_tears_of_joy_), 4( 🔥  _fire_), 17 (🎄  _Christmas_tree_).
