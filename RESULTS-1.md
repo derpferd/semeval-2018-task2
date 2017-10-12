@@ -9,10 +9,10 @@ We did a 10-fold cross-validation and, hence, we show a range of scores instead 
 ## Most Frequent Class Model Results
 
 ### Results for English Tweets
-Macro F-score Range: 1.763 - 1.8 
-Micro F-score Range: 21.408 - 21.954
-Precision Range: 21.408 - 21.954
-Recall: 21.408 - 21.954
+Macro F-score Range: 1.763 - 1.8    
+Micro F-score Range: 21.408 - 21.954  
+Precision Range: 21.408 - 21.954  
+Recall: 21.408 - 21.954 
 
 ### Results for Spanish Tweets
 Macro F-score Range: 3.327 - 3.375
@@ -56,6 +56,7 @@ Another important difference between the Spanish and English is that there are a
 tweets in the English training data. This, likely, contributes to English's better Macro F-scores.   
 
 Below is a confusion matrix for English:
+```
  0: 8637  618  215  234   61   88   61   50   35  106   21   79  420    7   15   15   13   62   12    3   ∑ = 10752
  1:   25 2358  832  380  197  168  229  152  102  152   90  188   23    7   52   22   62   68   35    3   ∑ =  5145
  2:   13 1022 2718  129  258  130  185   42   57   69   62  133    5    3   58   61   57   61   40   11   ∑ =  5114
@@ -76,8 +77,9 @@ Below is a confusion matrix for English:
 17:    1  119   56   26   32   20   26   37    8    8    8   23    0    1    7    2    5  887    1    1   ∑ =  1268
 18:    1  204  186   31   82   29   45   39   17   15  458   34    3    0   16   13    6   16  148    1   ∑ =  1344
 19:    5  286  374   81   64   57   88   25   27   30   23   38    2    2   32   14   38   17   15    6   ∑ =  1224
-
+```
 Below is a confusion matrix for Spanish:
+```
  0: 9111  695  242  246  103  102    0   18    0    0   82   50    8    2    0   80    0    0   17    0   ∑ = 10756
  1:   41 2725  818  380  216  148    0   65    0    0  302  121   15    2    0  235    0    0   80    0   ∑ =  5148
  2:   18 1145 3023  131  139   81    0   80    0    0  256   69    6   15    0   89    0    0   68    0   ∑ =  5120
@@ -99,7 +101,7 @@ Below is a confusion matrix for Spanish:
 17:    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   ∑ =     0
 18:    6  441  357   68  105   38    0   30    0    0   98   26    2    1    0   48    0    0   73    0   ∑ =  1293
 19:    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   ∑ =     0
-
+```
 
 ### Areas Particularly Performing Poorly
 First, some information about the matrix. The first column represents the emoji labels and the last column
