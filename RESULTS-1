@@ -1,7 +1,9 @@
-Author: Dennis Asamoah Owusu
+\Author: Dennis Asamoah Owusu
 
-We implemented two baselines. One was a Bag-of-words model using a Bernoulli Naive Bayes classifier. The other was a Most Frequent Class model. 
-The results of both models are shown below. Detailed analysis is, however, performed only on the Bernoulli model since that is what we have chosen for our baseline.
+We implemented two baselines. One was a Bag-of-words model using a Bernoulli Naive Bayes classifier. 
+The other was a Most Frequent Class model. 
+The results of both models are shown below. Detailed analysis is, however, performed only on the Bernoulli model 
+since that is what we have chosen for our baseline.
 We did a 10-fold cross-validation and, hence, we show a range of scores instead of a single score.
 
 ## Most Frequent Class Model Results
@@ -35,17 +37,22 @@ Recall: 45.543 - 46.683
 
 ## Analysis
 First, it is worth noting that our Micro F-score, Precision and Recall have the same values for each set of results. 
-For instance, under Results for English Tweets for Most Frequent Class Model, the values range from 21.408 - 21.954 for all the three scores.
+For instance, under Results for English Tweets for Most Frequent Class Model, 
+the values range from 21.408 - 21.954 for all the three scores.
 This shows that all our models assigned classes (emojis) for all tweets that were in the test set. From the scorer,
 precision and recall are equal when attempted_total is equal to gold_occurrences_total. (See scorer_semeval18.py lines 52 and 53)
 
 For the English tweets, the difference in the Macro and micro F-scores for our Bernoulli model lies in the fact that 
 about 21% of tweets have label 0 (representing ❤ - the red heart).
 This can be seen from the results of our Most Frequent Class model which has a precision and recall of about 21%.
-A similar thing happens with the Spanish tweets where about 28% of the tweets belong to the same red heart class. Note the correlation between
-the relatively higher percentage of tweets in the most frequent class and the relatively hihger Micro F-score for the Spanish tweets.
-However, once the effect of the most frequent class is offsetted as measured by the Macro F-score, the prediction for the English tweets becomes better than that of the Spanish tweets.
-7 classes are missing from both the training data and testing data for Spanish. Another important difference between the Spanish and English is that there are about 100,000 more
+A similar thing happens with the Spanish tweets where about 28% of the tweets belong to the same red heart class. 
+Note the correlation between
+the relatively higher percentage of tweets in the most frequent class and the relatively hihger Micro F-score 
+for the Spanish tweets.
+However, once the effect of the most frequent class is offsetted as measured by the Macro F-score, 
+the prediction for the English tweets becomes better than that of the Spanish tweets.
+7 classes are missing from both the training data and testing data for Spanish. 
+Another important difference between the Spanish and English is that there are about 100,000 more
 tweets in the English training data. This, likely, contributes to English's better Macro F-scores.   
 
 Below is a confusion matrix for English:
@@ -77,6 +84,7 @@ Below is a confusion matrix for Spanish:
  3:   39  888  269  846  116  209    0   34    0    0  129   99   12    1    0  135    0    0   11    0   ∑ =  2788
  4:   20  741  473  213  297  129    0   57    0    0  186   45    6    5    0   81    0    0   61    0   ∑ =  2314
  5:   25  496  235  274  113  303    0   26    0    0   78   42    4    3    0   58    0    0   12    0   ∑ =  1669
+
  6:    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   ∑ =     0
  7:    3  318  449   72   84   52    0   68    0    0  106   38    5    3    0   48    0    0   33    0   ∑ =  1279
  8:    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   ∑ =     0
@@ -92,6 +100,67 @@ Below is a confusion matrix for Spanish:
 18:    6  441  357   68  105   38    0   30    0    0   98   26    2    1    0   48    0    0   73    0   ∑ =  1293
 19:    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   ∑ =     0
 
+
 ### Areas Particularly Performing Poorly
+First, some information about the matrix. The first column represents the emoji labels and the last column
+(with the summation sign) shows the total number of tweets assigned to that label in the gold standard.
+The columns between the first and the last show how many we classified for each label. For instance, for Spanish,
+there were 10,756 tweets with label 0 in the gold standard. We labelled 9111 of these tweets correctly as label 0
+but labelled 695 of them incorrectly as label 1, 242 of them incorrectly as label 2 and so on. For label 1, 
+there were 5148 tweets in the gold standard, we labelled 41 of these incorrectly as label 0 and labeled 2725
+correctly as label 1. Thus, you can look diagonally from the top left to the bottom right to see the number
+labelled correctly for each class.
+
+
+Focusing on English, the worst performing areas are as follows:
+
+Label 5 (😊  _smiling_face_with_smiling_eyes_): 
+2313 tweets were assigned in the gold. We assigned only 251 correctly. 653 were incorrectly assigned
+label 1 (😍 _smiling_face_with_hearteyes_) and 437 were incorrectly assigned 
+label 2 (😂  _face_with_tears_of_joy_). Mislabelling 5 as 1 is quite understandable since they are both
+smiling faces. We have to dig deeper to determine why 5 will be mislabelled 2 since smiling face and
+face with tears of joy are quite different. 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
