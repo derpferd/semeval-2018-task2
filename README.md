@@ -13,12 +13,12 @@ Simply run `./runit.sh` to run and see the results of the program. `runit.sh` wi
 The code for the **Hopper** system can be found under the `hopper` directory along with all accompanying documentation. All the models are described in detail in the [readme](hopper/README.md) in that directory.
 
 ## Contributions
-Each file lists the author(s) at the top of the file. In the case of multiple authors it is clearly listed the sections each author contributed (we tried keeping this to a minimum).
+Each file lists the author(s) at the top of the file. In the case of multiple authors it is clearly listed the sections each author contributed (we tried keeping this to a minimum).  
 **Jonathan:**
- - Wrote the framework code. The code for reading the data, running the model and analyzing the results(expect for the scoring which was provided by the task organizers).
- - Wrote the code for the Naive Bayes baselines.
- - Wrote the code for the Random Model.
- - Wrote this README and the README sections on Bernoulli Naive Bayes baselines.
+- Wrote the framework code. The code for reading the data, running the model and analyzing the results(expect for the scoring which was provided by the task organizers).
+- Wrote the code for the Naive Bayes baselines.
+- Wrote the code for the Random Model.
+- Wrote this README and the README sections on Bernoulli Naive Bayes baselines.
 
 **Dennis:**
 - Most Frequent Class Model
@@ -26,7 +26,8 @@ Each file lists the author(s) at the top of the file. In the case of multiple au
 - Documentation for NaiveBayes Model in code
 - RESULTS-1 and RESULTS-1.md
 
-**Sai:**  Analyzed the Output and Results which can be found in Results1_1
+**Sai:**
+- Analyzed the Output and Results which can be found in Results1_1
 
 ## Dependencies
 - python >= 3.5
