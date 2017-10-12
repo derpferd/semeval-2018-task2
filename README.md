@@ -21,6 +21,10 @@ Each file lists the author(s) at the top of the file. In the case of multiple au
  - Wrote this README and the README sections on Bernoulli Naive Bayes baselines.
 
 **Dennis:**
+- Most Frequent Class Model
+- Documentation for Most Frequent Class Model in README and code
+- Documentation for NaiveBayes Model in code
+- RESULTS-1 and RESULTS-1.md
 
 **Sai:**
 
