@@ -15,6 +15,10 @@ The code for the **Hopper** system can be found under the `hopper` directory alo
 ## Contributions
 Each file lists the author(s) at the top of the file. In the case of multiple authors it is clearly listed the sections each author contributed (we tried keeping this to a minimum).
 **Jonathan:**
+ - Wrote the framework code. The code for reading the data, running the model and analyzing the results(expect for the scoring which was provided by the task organizers).
+ - Wrote the code for the Naive Bayes baselines.
+ - Wrote the code for the Random Model.
+ - Wrote this README and the README sections on Bernoulli Naive Bayes baselines.
 
 **Dennis:**
 
