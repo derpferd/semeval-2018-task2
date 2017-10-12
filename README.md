@@ -1,7 +1,17 @@
 # semeval-2018-task2
 Author: Jonathan Beaulieu
 
+## Task
 You can find the problem statement with details at [https://competitions.codalab.org/competitions/17344](https://competitions.codalab.org/competitions/17344).
+This SemEval task is focused on emoji use in tweets. The task is to create a program which given a set of tweet text (without emojis) and the emoji which was used inside the tweet text can predict which emoji will be used in any tweet given the text of the tweet. For this task we are not allowed to used outside tweet data, for example grabbing more tweets to use in the training data. The only outside data we are allowed to use are emoji embeddings. They are using the Macro-F scores instead Micro-F scores to discourage overfitting to the most frequent classes. Plus we train and are evaluated on the 20 most frequent emojis. This task has two subtasks: running against English tweets and running against Spanish tweets.
+
+### Example input and output
+
+| Input                                                            | Output |
+|:-----------------------------------------------------------------|:-------|
+| A little throwback with my favourite person @ Water Wall         | ❤      |
+| Birthday Kisses @ Madison, Wisconsin                             | 😘     |
+| Everything about this weekend #hogvibes @ Fayetteville, Arkansas | 💯     |
 
 ## Setup
 Simply run `./install.sh` to install all dependencies and do all required setup to get up and running on a clean install of **Ubuntu 16.04**. *Note: this script should work on other versions and linux systems but it has not been tested.*
