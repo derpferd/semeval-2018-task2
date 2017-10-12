@@ -1,4 +1,5 @@
 # Hopper Models
+Multiple Authors. The model creator is the author of the section about the model. They are list under each section.
 
 This directory contains all the code used in our system (aka: **Hopper**).
 
@@ -11,6 +12,7 @@ Classes:
 - Model, this class is a parent class for every model and defines the interface which a model needs to implement.
 
 ## model_rand.py
+Author: Jonathan Beaulieu
 
 This file contains the Random Model. This model returns a random emoji as its prediction.
 
@@ -21,7 +23,8 @@ This class contains the MostFrequentClassModel which assigns each tweet to the M
 It simply extracts the emoji associated with each tweet in the training data, determines which one appears the most and uses that as the emoji for every tweet it predicts.
 
 ## model_naive_bayes_baselines.py
-Author: Jonathan Beaulieu  
+Author: Jonathan Beaulieu
+
 There are two similar Naive Bayes models. Both use a bags of words filtering out infrequently used words.
 One model uses a [Multinomial Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes)
 algorithm and the other uses a [Bernoulli Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes) algorithm.

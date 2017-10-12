@@ -1,3 +1,4 @@
+# Author: Jonathan Beaulieu
 from __future__ import division
 from math import log10, ceil
 

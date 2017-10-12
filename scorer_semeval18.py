@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Authors: Task organizers
 from codecs import open
 import sys
 
@@ -69,13 +70,12 @@ if __name__ == '__main__':
         path_goldstandard = args[0]
         path_outputfile = args[1]
         main(path_goldstandard, path_outputfile)
-        
-        
-        
+
+
+
     else:
         sys.exit('''
             Requires:
             path_goldstandard -> Path of the gold standard
             path_outputfile -> Path of the system's outputfile
             ''')
-

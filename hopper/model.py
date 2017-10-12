@@ -1,4 +1,4 @@
-
+# Author: Jonathan Beaulieu
 
 class Tweet(object):
     def __init__(self, text, emoji):

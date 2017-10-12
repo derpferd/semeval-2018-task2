@@ -1,4 +1,5 @@
 # semeval-2018-task2
+Author: Jonathan Beaulieu
 
 You can find the problem statement with details at [https://competitions.codalab.org/competitions/17344](https://competitions.codalab.org/competitions/17344).
 
@@ -10,6 +11,14 @@ Simply run `./runit.sh` to run and see the results of the program. `runit.sh` wi
 
 ## System code
 The code for the **Hopper** system can be found under the `hopper` directory along with all accompanying documentation. All the models are described in detail in the [readme](hopper/README.md) in that directory.
+
+## Contributions
+Each file lists the author(s) at the top of the file. In the case of multiple authors it is clearly listed the sections each author contributed (we tried keeping this to a minimum).
+**Jonathan:**
+
+**Dennis:**
+
+**Sai:**
 
 ## Dependencies
 - python >= 3.5
@@ -47,9 +56,9 @@ Contents
 ## Stage 1 TODO (everything should be done by Wednesday night)
 This is a todo list of everything we need for Stage 1 submission.
 - [x] Write `install.sh` (Jon)
-- [ ] Analyze results. (Sai) Due: 10/6
+- [x] Analyze results. (Sai) Due: 10/6
 - [x] Create baseline based on most frequent class (Dennis) Due: 10/9
-- [ ] Write readme section about BernoulliNB Model. (Jon) Due: 10/9
+- [x] Write readme section about BernoulliNB Model. (Jon) Due: 10/9
 - [x] Write readme section about most frequent class baseline model. (Dennis) Due: 10/10
 - [ ] Clarify Authorship (All)
 - [ ] Final review, review each others work. (All) Due: 10/11

@@ -1,3 +1,4 @@
+# Author: Dennis Asamoah Owusu
 import collections
 from hopper import Model
 from random import randint
@@ -13,6 +14,3 @@ class MostFrequentClassModel(Model):
 
     def predict(self, text):
         return self.most_frequent_class
-
-
-

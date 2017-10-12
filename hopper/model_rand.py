@@ -1,3 +1,4 @@
+# Author: Jonathan Beaulieu
 from hopper import Model
 from random import randint
 
