@@ -46,11 +46,11 @@ Contents
 
 ## Stage 1 TODO (everything should be done by Wednesday night)
 This is a todo list of everything we need for Stage 1 submission.
-- [ ] Write `install.sh` (Jon)
+- [x] Write `install.sh` (Jon)
 - [ ] Analyze results. (Sai) Due: 10/6
-- [ ] Create baseline based on most frequent class (Dennis) Due: 10/9
+- [x] Create baseline based on most frequent class (Dennis) Due: 10/9
 - [ ] Write readme section about BernoulliNB Model. (Jon) Due: 10/9
-- [ ] Write readme section about most frequent class baseline model. (Dennis) Due: 10/10
+- [x] Write readme section about most frequent class baseline model. (Dennis) Due: 10/10
 - [ ] Clarify Authorship (All)
 - [ ] Final review, review each others work. (All) Due: 10/11
 
