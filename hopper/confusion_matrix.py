@@ -4,10 +4,8 @@ from math import log10, ceil
 
 
 def get_digits(num):
-    if num == 0:
-        num = 1
-    if (num / 10.0) == (num // 10):
-        num += 1
+    if (num / 10.0) == (num // 10) or num == 1:
+        num += 2
     return int(ceil(log10(num)))
 
 
