@@ -87,7 +87,7 @@ This is a todo list of everything we need for Stage 1 submission that hasn't bee
 
 ## Stage 1 resubmitted TODO
 This is a todo list of the tasks needing to be done for the resubmittion.
-- [ ] Cleanup run.py and confusion_matrix.py codewise (Jon) Due: 10/18
+- [x] Cleanup run.py and confusion_matrix.py codewise (Jon) Due: 10/18
 - [ ] Merging Result Files and make macro/micro f-score clear (Sai and Dennis)
 - [ ] Fix up Naive Bayes explaination in README (Jon)
 - [ ] Document run.py and confusion_matrix.py (Sai)
