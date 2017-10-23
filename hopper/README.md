@@ -25,22 +25,24 @@ It simply extracts the emoji associated with each tweet in the training data, de
 ## model_naive_bayes_baselines.py
 Author: Jonathan Beaulieu
 
+Note before you read: Words in *italics* mean that the word is defined in the [Definitions](#definitions) section.
+
 There are two similar Naive Bayes models. Both use a bags of words filtering out infrequently used words.
 One model uses a [Multinomial Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#multinomial-naive-bayes)
 algorithm and the other uses a [Bernoulli Naive Bayes](http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes) algorithm.
 
-For the sake of simplicity we will be using and explaining only the *Bernoulli Naive Bayes* Model. The reason for this decision is based on the fact that they very similar in design and much experimental research has found that the Bernoulli model gives better results for short text (in this case Tweets).
+For the sake of simplicity we will be using and explaining only the **Bernoulli Naive Bayes** Model. The reason for this decision is based on the fact that they very similar in design and much experimental research has found that the Bernoulli model gives better results for short text (in this case Tweets) ([2](#references)).
 
 ### Training
 To train the Naive Bayes models we use in this project we follow a couple general steps. They are:
  * [Tokenization](#tokenization)
- * [*Bagination*](#bagination)
+ * [**Bagination**](#bagination)
  * [Tf-idf transform](#tfidftransform)
  * [Select K best](#selectkbest)
  * finally the training the classifier, in our case the [Bernoulli Naive Bayes classifier](#train-bernoulli-naive-bayes-classifier).
 
 #### Tokenization
-The first step is to turn the plain tweet text given from the training data into a list of tokens which the model can be trained on. We decided to use the [**TweetTokenizer**](http://www.nltk.org/api/nltk.tokenize.html#nltk.tokenize.casual.TweetTokenizer) from the *nltk*.
+The first step is to turn the plain tweet text given from the training data into a list of tokens which the model can be trained on. We decided to use the [**TweetTokenizer**](http://www.nltk.org/api/nltk.tokenize.html#nltk.tokenize.casual.TweetTokenizer) from the **nltk**.
 We use the following settings:
 - preserve_case=False
   - This means that all text is put into lowercase.
@@ -71,36 +73,59 @@ Quote from Dennis's Documentation:
 > The TfidTransformer normalizes the count matrix (in our case, the frequency of a word in each emoji class). Using the frequencies without normalization gives too much weight to words that occur very frequently in the corpus even though they are less informative features. The frequencies are normalized to a tf-idf represetnation. Tf-idf is term-frequency times inverse document-frequency.
 
 #### SelectKBest
-The SelectKBest step, as it's name implies, selects the *k* best features. This step takes two arguments: a scoring function and *k*. The scoring function we use is [**chi2**](http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2), really said chi-squared. Based on this SelectKBest selects the top *k* scoring tokens. We used a *k* value of 1000. We will need to do more research into if this value is optimal. The results from this selection feed into the next step, the classifier.
+The SelectKBest step, as it's name implies, selects the *k* best features (features is another word for token). This step takes two arguments: a scoring function and *k*. The scoring function is a function which assigns a score to each feature based on some of its properties. We use is [**chi2**](http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2) (said chi-squared). This function assigns scores using the chi-squared test between feature frequencies and the classes. The chi-squared test measures the dependence between random variables, resulting in features that are independent of class receiving a lower score. An example of this is the frequency of the token `the` which probability exhibits a random distribution between classes, giving it a very low chi2 score.
+Based on the scores, SelectKBest selects the top *k* scoring tokens. We used a *k* value of 1000 since that is the default value used in SKLearn's example ([2](#references)). In the future the *k* value will be set based on a development set. The results from this selection feed into the next step, the classifier.
 
 #### Train Bernoulli Naive Bayes classifier
 
-Bernoulli Naive Bayes classifier is a type of Naive Bayes(NB) classifier. NB models all make the assumption that every feature is independent of every other feature. A main difference between Bernoulli NB model and other NB models is that Bernoulli works only with binary values for features (0 meaning the feature is not present and 1 meaning it is) and not only looks at the tokens in a given *document*(See [Definitions](#definitions) for details) but also the token that are not in the *document*. We used the default settings which included Laplace smoothing and training class prior probabilities.
+Bernoulli Naive Bayes classifier is a type of Naive Bayes(NB) classifier. NB models all make the assumption that every feature is independent of every other feature. A main difference between Bernoulli NB model and other NB models is that Bernoulli works only with binary values for features (0 meaning the feature is not present and 1 meaning it is) and not only looks at the tokens in a given *document* but also the token that are not in the *document*. We used the default settings which included Laplace smoothing and training class *priors*.
 
-Naive Bayes needs to train two parts: the priors, the probability of a class given a *document*, and the probabilities of each token given each class.
-The Bernoulli Naive Bayes Model estimates the probability of a token given a class as the percentage of *documents* in the class which contain the token. As you can see the frequency of a token in a *document* is not considered. Also note that during the training phase a *vocab* is created. To read about how a class prediction is made see the [Applying Bernoulli Naive Bayes classifier](#applying-bernoulli-naive-bayes-classifier) section below.
+Naive Bayes needs to train two parts: the *priors* and *conditional probability*(condprob).
+The Bernoulli Naive Bayes Model estimates the *condprob* as the percentage of *documents* in the class which contain the token. As you can see the frequency of a token in a *document* is not considered. Also note that during the training phase a *vocab* is created. To read about how a class prediction is made see the [Applying Bernoulli Naive Bayes classifier](#applying-bernoulli-naive-bayes-classifier) section below.
+
+**Equations**  
+The following equations describe the above description of how to train a Bernoulli Naive Bayes classifier.  
+let `V` be the *vocab*.  
+let `N` be the total number of *documents*.  
+let `N_c` be the number of *documents* in class `c`.  
+let `N_tc` be the number of *documents* in class `c` containing the token `t`.  
+`prior[c] = N_c/N`  
+`condprob[t][c] = (N_tc + 1)/(N_c + 2)`
 
 ### Testing/Prediction
 To test or make a prediction the model needs to prepare the tweet into a similar form which the training data was in.
 We do the following steps:
  * [Tokenization](#tokenization)
- * [*Bagination*](#bagination)
-   - Note: We use the same *Bagination* technique however we don't have the label.
+ * [**Bagination**](#bagination)
+   - Note: We use the same **Bagination** technique however we don't have the label.
  * the classify using the trained [Bernoulli Naive Bayes classifier](#applying-bernoulli-naive-bayes-classifier)
 
 
 #### Applying Bernoulli Naive Bayes classifier
 
-With the probabilities for each class, priors, and the probabilities of a token given a class (Note: for unknown tokens Laplace smoothing is applied) the classifier can now calculate a probability for each class given a *document*.
+With the *priors* and the probabilities of a token given a class (Note: for unknown tokens Laplace smoothing is applied) the classifier can now calculate a probability for each class given a *document*.
 For each class the classifier follows the following algorithm to calculate the probability of the class given the *document*, then picks the class with the greatest probability.
 
-##### Class Probability Algorithm
- - Set the score to the log of the prior of the class being evaluated
+**Class Probability Algorithm**
+ - Set the score to the log of the *prior* of the class being evaluated
  - For each token in the *vocab*
    - if the token is in the *document* add the log of the probability of a token given a class to the score
    - else add the log of one minus the probability of a token given a class to the score
 
 After this the scores for each class can be compared to each other. The largest is returned as the predicted class.
+
+**Equations**  
+The following equations describe the above description of how to apply a Bernoulli Naive Bayes classifier.  
+given `d` a *document*  
+let `prior[c]` be the function as describe in the training section  
+let `condprob[t][c]` be the function as describe in the training section  
+start with `score[c] = log(prior[c])`  
+for each `t` in `V` {  
+if `t` is in `d`: `score[c] += log(condprob[t][c])`  
+else: `score[c] += log(1 - condprob[t][c])`  
+}  
+return `argmax score[c]`
+
 
 ### Definitions
 
@@ -109,6 +134,12 @@ After this the scores for each class can be compared to each other. The largest 
 **Bag:** A set of words and their frequencies. Note there is no positional data.
 
 **Vocab:** A set of every token that is seen during the training phase. Note we say that the length of the *vocab* is one longer than the number of tokens it contains since we are using Laplace(add-1) smoothing.
+
+**Prior:** The probability of a class given a *document*.
+
+**Conditional probability (CondProb):** the probabilities of a token given a class.
+
+**Crop:** means to remove.
 
 ### References
 
