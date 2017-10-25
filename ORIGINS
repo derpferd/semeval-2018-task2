@@ -1,5 +1,6 @@
 Author: Sai Cheedella.
 
+This file contains info and references about all the 3rd party tools and scripts used for the project by Team Hopper.
 
 File: scorer_semeval18.py
 
@@ -8,19 +9,28 @@ The scorer for our task(Multi Lingual Emoji Prediction) is a 3rd party code prov
 This script is used to evalute our classification model. It takes system output files and gold files as input and prints out the result.
 The Result of scorer is Precision, Recall, Micro F-score and Macro F-score. Macro F score is used for official means of evaluation.
  
-Precision: Precision measures how precise the output is. It is the ratio of the correct emojis to the attempted emojis.
 
- P = Correct predictions / attempted predictions
+******** Tools installed from Requirements.txt**********
 
+Four additonal tools are required to run the project script on your system. The tools are listed in the file named requirements.txt.
 
-Recall: Recall is the ratio to the correct preidctions to the gold 
+These description and source of the tools is as follows:
 
- R = Correct Predictions/ Gold values
+Natural Language ToolKit(NLTK): NLTK is an open source tool developed by University of Pennsylvania used for writing NLP programs in python. 
 
-Micro F-score: Micro F score is the harmonic mean of the precision and recall.
+For our project, NLTK packages are used in Naive Bayes Model(check model_naive_bayes_baselines.py). 
+We import packages like TweetTokenizer, FreqDist and SklearnClassifier.(Check README in hopper folder for tokenization and  TFID transform).
 
- Microf1 = (2 * (P*R))/P+R    ( Where P is precision and R is recall.)
+Scikit Learn: It is a module for implementing machine learning algorithms in Python. It can be used for both supervised and unsupervised learning.
 
-Macro F-score: It is the weighed average of the total f1 score to the number of emoji classes in the data. 
+Scikit learn is used in Naive bayes model to import and implement Bernoulli Naive Bayes algorithm. (Check readme for more details of bernoulli classifier) 
 
- Macrof1 = f1total/No. of emoji classes  (Where f1total is the sum of all the individual f1 scores)
+SciPy: Scipy is a open source software used for implementing mathematical algorithms and functions in Python.
+
+References: 
+
+http://www.nltk.org/index.html 
+
+https://docs.scipy.org/doc/scipy/reference/tutorial/general.html
+
+https://pypi.python.org/pypi/scikit-learn/0.19.0

@@ -1,5 +1,7 @@
 """ Code Author: Jonathan Beaulieu"""
+#Filename: run.py
 
+#Purpose: Trains and Tests the data on the Models developed and prints out the result file for the respective input.
 from __future__ import print_function
 import os
 import shutil
@@ -15,27 +17,29 @@ models = [RandModel,
           MostFrequentClassModel,
           BernoulliNaiveBayesModel]
 
-train_test_ratio = 0.1  # This is the the number of folds over 1. Ex. if you want 10 folds then this should be 1/10.
+train_test_ratio = 0.1  # Setting up Cross Validation value. This is the the number of folds over 1. Ex. if you want 10 folds then this should be 1/10.
 langauges = {"es": "Spanish", "us": "English"}
 
 if os.path.exists("raw_out"):
     shutil.rmtree("raw_out")
 os.mkdir("raw_out")
 
-trial_root = os.path.join("data", "train")
+trial_root = os.path.join("data", "train")  
 
 
-def count(data, label):
+def count(data, label):  #Function to count the data available for the respective test/train class. Gives out the number of tweets available for each gold emoji in testing and training data
     return sum([1 for t in data if t.emoji == label])
 
-
-def load_tweets(basepath):
+#There are 2 parts of data that are being handled, .text file with the tweets listed out and .labels file which has a corresponding label(emoji) assigned to each and every tweet in the text file.
+#The function returns the tweets as the output which a list of text and their corresponding emoji label.
+	
+def load_tweets(basepath): #Loads the twitter data file and respective labels file .
     text_path = basepath + ".text"
     labels_path = basepath + ".labels"
 
     # Read in input
     try:
-        text_fp = open(text_path, 'r')
+        text_fp = open(text_path, 'r')  
         text = text_fp.readlines()
         text_fp.close()
     except IOError:
@@ -52,22 +56,26 @@ def load_tweets(basepath):
     return tweets
 
 
-for model_cls in models:
-    print("============= {} =============".format(model_cls.__name__))
+for model_cls in models: # Repeats the loop for all the models present in models: BernoulliNaiveBayesModel,MostFrequentClassModel and RandModel
+    print("============= {} =============".format(model_cls.__name__))  # Printing out the Model name that is being used
     for langauge in sorted(langauges, reverse=True):
         label_count = 20
         # Load tweets
         tweets = load_tweets(os.path.join(trial_root, langauge + "_train"))
 
         print("Doing {} cross folds".format(int(1 / train_test_ratio)), end="", flush=True)
-        for i in range(int(1 / train_test_ratio)):
+        # Cross validation: In cross validation the data is divided into 10 parts , where 9 parts are used for training the model and one part is used for testing. 
+		#This process is repeated so all the divided parts are used once as testing data.
+		#For our project we are doing 10 fold cross validation.
+		
+		for i in range(int(1 / train_test_ratio)): 
             output_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.output.txt")
             gold_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.gold.txt")
-            output_fp = open(output_filename, 'w')
+            output_fp = open(output_filename, 'w') # Writing results to the output file
             gold_fp = open(gold_filename, 'w')
 
             model = model_cls()
-            test_amount = int(len(tweets) * train_test_ratio)
+            test_amount = int(len(tweets) * train_test_ratio) 
             test_data = tweets[i * test_amount: (i + 1) * test_amount]
             train_data = []
             if i > 0:
@@ -77,7 +85,7 @@ for model_cls in models:
 
             model.train(train_data)
 
-            matrix = ConfusionMatrix(label_count)
+            matrix = ConfusionMatrix(label_count) # Generating the confusion matrix for the classifier, the value of label count is hardcoded to 20. Check confusion_matrix.py
             for tweet in test_data:
                 output = model.predict(tweet.text)
                 gold = tweet.emoji
@@ -89,7 +97,8 @@ for model_cls in models:
             gold_fp.close()
 
             print("------ {} Results ------".format(langauges[langauge]))
-            main(gold_filename, output_filename)
+            main(gold_filename, output_filename)  
+			#Prints out the results 
             print()
             print("----- Details -----")
             print("Training data len: {} Testing data len: {}".format(len(train_data), len(test_data)))
