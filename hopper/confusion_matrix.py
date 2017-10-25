@@ -7,13 +7,12 @@ from __future__ import division
 from math import log10, ceil
 
 
-def get_digits(num): 
-    if (num / 10.0) == (num // 10) or num == 1:  # makes sure the value of num !=1, so that the value of log(num) is not zero
-        num += 2
-    return int(ceil(log10(num)))  
+def get_digits(num):
+    # Gets the number of digits in a number
+    return len(str(num))
 
 
-class ConfusionMatrix(object): 
+class ConfusionMatrix(object):
     def __init__(self, dim):
         self.matrix = []
         for i in range(dim):
@@ -23,7 +22,7 @@ class ConfusionMatrix(object):
         self.matrix[gold][out] += 1
 
     def __str__(self):
-        max_num = abs(max(map(max, self.matrix))) 
+        max_num = abs(max(map(max, self.matrix)))
         max_sum = max(map(sum, self.matrix))
         max_digits = get_digits(max_num)
         max_sum_digits = get_digits(max_sum)

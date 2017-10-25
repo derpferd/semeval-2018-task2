@@ -24,7 +24,7 @@ if os.path.exists("raw_out"):
     shutil.rmtree("raw_out")
 os.mkdir("raw_out")
 
-trial_root = os.path.join("data", "train")  
+trial_root = os.path.join("data", "train")
 
 
 def count(data, label):  #Function to count the data available for the respective test/train class. Gives out the number of tweets available for each gold emoji in testing and training data
@@ -39,7 +39,7 @@ def load_tweets(basepath): #Loads the twitter data file and respective labels fi
 
     # Read in input
     try:
-        text_fp = open(text_path, 'r')  
+        text_fp = open(text_path, 'r')
         text = text_fp.readlines()
         text_fp.close()
     except IOError:
@@ -65,10 +65,10 @@ for model_cls in models: # Repeats the loop for all the models present in models
 
         print("Doing {} cross folds".format(int(1 / train_test_ratio)), end="", flush=True)
         # Cross validation: In cross validation the data is divided into 10 parts , where 9 parts are used for training the model and one part is used for testing. 
-		#This process is repeated so all the divided parts are used once as testing data.
-		#For our project we are doing 10 fold cross validation.
-		
-		for i in range(int(1 / train_test_ratio)): 
+        #This process is repeated so all the divided parts are used once as testing data.
+        #For our project we are doing 10 fold cross validation.
+
+        for i in range(int(1 / train_test_ratio)):
             output_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.output.txt")
             gold_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.gold.txt")
             output_fp = open(output_filename, 'w') # Writing results to the output file
@@ -98,7 +98,8 @@ for model_cls in models: # Repeats the loop for all the models present in models
 
             print("------ {} Results ------".format(langauges[langauge]))
             main(gold_filename, output_filename)  
-			#Prints out the results 
+
+            #Prints out the results
             print()
             print("----- Details -----")
             print("Training data len: {} Testing data len: {}".format(len(train_data), len(test_data)))

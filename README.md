@@ -88,10 +88,10 @@ This is a todo list of everything we need for Stage 1 submission that hasn't bee
 ## Stage 1 resubmitted TODO
 This is a todo list of the tasks needing to be done for the resubmittion.
 - [x] Cleanup run.py and confusion_matrix.py codewise (Jon) Due: 10/18
-- [ ] Merging Result Files and make macro/micro f-score clear (Sai and Dennis)
-- [ ] Fix up Naive Bayes explaination in README (Jon)
-- [ ] Document run.py and confusion_matrix.py (Sai)
-- [ ] Meet up with Ted to double check this todo list. (All) Due 10/23 @ 10am
+- [x] Merging Result Files and make macro/micro f-score clear (Sai and Dennis)
+- [x] Fix up Naive Bayes explaination in README (Jon)
+- [x] Document run.py and confusion_matrix.py (Sai)
+- [x] Meet up with Ted to double check this todo list. (All) Due 10/23 @ 10am
 
 ## Stage 2 TODO
 - [ ] Check out Twitter embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016)
