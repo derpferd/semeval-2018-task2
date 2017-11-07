@@ -10,13 +10,16 @@ from hopper import Tweet
 from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
 from hopper.model_most_frequent_class import MostFrequentClassModel
+from hopper.model_svm import LinearSVCModel
 from hopper.confusion_matrix import ConfusionMatrix
 from hopper.scorer import Scorer
 
 # The models to test
 models = [RandModel,
           MostFrequentClassModel,
-          BernoulliNaiveBayesModel]
+          #BernoulliNaiveBayesModel,
+          #LinearSVCModel,
+          ]
 
 train_test_ratio = 0.1  # Setting up Cross Validation value. This is the the number of folds over 1. Ex. if you want 10 folds then this should be 1/10.
 langauges = {#"es": "Spanish", 

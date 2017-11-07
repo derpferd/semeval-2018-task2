@@ -22,7 +22,7 @@ class NaiveBayesModel(Model):
     a different emoticon (e.g. love, crying). Putting a tweet in a class
     means that that tweet goes with the associated emoticon.
     """
-    def __init__(self, classif_alg):
+    def __init__(self, classif_alg, k=1000):
         """Constructor
 
         Args:
@@ -53,7 +53,7 @@ class NaiveBayesModel(Model):
         SelectKBest selects the best k features for use in classifying.
         """
         pipeline = Pipeline([('tfidf', TfidfTransformer()),
-                             ('chi2', SelectKBest(chi2, k=1000)),
+                             ('chi2', SelectKBest(chi2, k=k)),
                              ('nb', classif_alg())])
         self.classif = SklearnClassifier(pipeline)
 
@@ -96,10 +96,10 @@ class NaiveBayesModel(Model):
 
 
 class MultinomialNaiveBayesModel(NaiveBayesModel):
-    def __init__(self):
-        super().__init__(MultinomialNB)
+    def __init__(self, k=1000):
+        super().__init__(MultinomialNB, k)
 
 
 class BernoulliNaiveBayesModel(NaiveBayesModel):
-    def __init__(self):
-        super().__init__(BernoulliNB)
+    def __init__(self, k=1000):
+        super().__init__(BernoulliNB, k)
