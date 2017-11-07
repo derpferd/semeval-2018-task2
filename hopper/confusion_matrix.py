@@ -5,6 +5,7 @@
 #Matrix is generated as a part of the classification output of predicted emojis against the gold emojis. 
 from __future__ import division
 from math import log10, ceil
+from .scorer import Scorer
 
 
 def get_digits(num):
@@ -12,13 +13,15 @@ def get_digits(num):
     return len(str(num))
 
 
-class ConfusionMatrix(object):
+class ConfusionMatrix(Scorer):
     def __init__(self, dim):
+        super().__init__()
         self.matrix = []
         for i in range(dim):
             self.matrix += [[0] * dim]
 
     def add(self, gold, out):
+        super().add(gold, out)
         self.matrix[gold][out] += 1
 
     def __str__(self):

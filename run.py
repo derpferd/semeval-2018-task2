@@ -11,6 +11,7 @@ from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
 from hopper.model_most_frequent_class import MostFrequentClassModel
 from hopper.confusion_matrix import ConfusionMatrix
+from hopper.scorer import Scorer
 
 # The models to test
 models = [RandModel,
@@ -18,13 +19,16 @@ models = [RandModel,
           BernoulliNaiveBayesModel]
 
 train_test_ratio = 0.1  # Setting up Cross Validation value. This is the the number of folds over 1. Ex. if you want 10 folds then this should be 1/10.
-langauges = {"es": "Spanish", "us": "English"}
+langauges = {#"es": "Spanish", 
+        "us": "English"}
 
 if os.path.exists("raw_out"):
     shutil.rmtree("raw_out")
 os.mkdir("raw_out")
 
-trial_root = os.path.join("data", "train")
+data = "trial"  # This can be "train" or "trial"
+
+data_root = os.path.join("data", data)
 
 
 def count(data, label):  #Function to count the data available for the respective test/train class. Gives out the number of tweets available for each gold emoji in testing and training data
@@ -61,16 +65,18 @@ for model_cls in models: # Repeats the loop for all the models present in models
     for langauge in sorted(langauges, reverse=True):
         label_count = 20
         # Load tweets
-        tweets = load_tweets(os.path.join(trial_root, langauge + "_train"))
+        tweets = load_tweets(os.path.join(data_root, langauge + "_"+data))
 
         print("Doing {} cross folds".format(int(1 / train_test_ratio)), end="", flush=True)
         # Cross validation: In cross validation the data is divided into 10 parts , where 9 parts are used for training the model and one part is used for testing. 
         #This process is repeated so all the divided parts are used once as testing data.
         #For our project we are doing 10 fold cross validation.
+        total_scorer = Scorer()
 
         for i in range(int(1 / train_test_ratio)):
-            output_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.output.txt")
-            gold_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + ".trial.gold.txt")
+            fold_scorer = Scorer()
+            output_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + "." + data + ".output.txt")
+            gold_filename = os.path.join("raw_out", model_cls.__name__ + "." + str(i) + "." + langauge + "." + data + ".gold.txt")
             output_fp = open(output_filename, 'w') # Writing results to the output file
             gold_fp = open(gold_filename, 'w')
 
@@ -90,6 +96,8 @@ for model_cls in models: # Repeats the loop for all the models present in models
                 output = model.predict(tweet.text)
                 gold = tweet.emoji
                 matrix.add(gold, output)
+                fold_scorer.add(gold, output)
+                total_scorer.add(gold, output)
                 output_fp.write(str(output) + "\n")
                 gold_fp.write(str(gold) + "\n")
 
@@ -97,7 +105,8 @@ for model_cls in models: # Repeats the loop for all the models present in models
             gold_fp.close()
 
             print("------ {} Results ------".format(langauges[langauge]))
-            main(gold_filename, output_filename)  
+            #main(gold_filename, output_filename)
+            print("{}".format(fold_scorer.get_score()))
 
             #Prints out the results
             print()
@@ -107,5 +116,6 @@ for model_cls in models: # Repeats the loop for all the models present in models
             print("Testing  data class counts: " + ", ".join([str(i) + ": " + str(count(test_data, i)) for i in range(label_count)]))
             print("--- Matrix ---\n" + str(matrix))
             print()
+        print("Total score for all folds\n{}".format(total_scorer.get_score()))
         print()
     print()
