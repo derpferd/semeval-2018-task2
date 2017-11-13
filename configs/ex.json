@@ -1,0 +1,7 @@
+{
+  "id": "test",
+  "model": "RandModel",
+  "language": "us",
+  "data_type": "trial",
+  "folds": 10
+}

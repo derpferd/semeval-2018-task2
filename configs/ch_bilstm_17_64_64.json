@@ -1,0 +1,10 @@
+{
+  "id": "char_bi_lstm_us_train_17_64_64",
+  "model": "CharBiLSTMModel",
+  "language": "us",
+  "data_type": "train",
+  "folds": 10,
+  "epochs": 17,
+  "embedding_size": 64,
+  "lstm_size": 64
+}

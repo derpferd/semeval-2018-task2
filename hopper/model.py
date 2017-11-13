@@ -1,5 +1,6 @@
 # Author: Jonathan Beaulieu
 
+
 class Tweet(object):
     def __init__(self, text, emoji):
         """
@@ -12,6 +13,18 @@ class Tweet(object):
 
 
 class Model(object):
+    @property
+    def name(self):
+        return self.__class__.__name__
+
+    @staticmethod
+    def get_extra_configs():
+        """
+        Extra configs should in the form:
+            {"name": "config_name", "default": 1.0}
+        """
+        return []
+
     def train(self, tweets):
         """
         Args:
@@ -27,3 +40,6 @@ class Model(object):
             int: The id of the emoji for the text.
         """
         raise NotImplementedError("This is an abstract method")
+
+    def batch_predict(self, texts):
+        return map(self.predict, texts)

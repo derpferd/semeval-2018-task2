@@ -1,0 +1,8 @@
+{
+  "id": "char_lstm_us_train_17",
+  "model": "CharLSTMModel",
+  "language": "us",
+  "data_type": "train",
+  "folds": 10,
+  "epochs": 17
+}

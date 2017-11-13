@@ -1,11 +1,11 @@
 # Author: Jonathan Beaulieu
 from hopper import Model
-from random import randint
+from random import choice
 
 
 class RandModel(Model):
     def train(self, tweets):
-        pass
+        self.classes = list(set([t.emoji for t in tweets]))
 
     def predict(self, text):
-        return randint(0, 19)
+        return choice(self.classes)

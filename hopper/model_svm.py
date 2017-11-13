@@ -14,7 +14,7 @@ class LinearSVCModel(Model):
     """This model classifies tweets into any one of twenty classes
     using SVM classification.
     """
-    def __init__(self, classif_alg):
+    def __init__(self):
         self.tokenizer = TweetTokenizer(preserve_case=False,
                                         reduce_len=True,
                                         strip_handles=True).tokenize
