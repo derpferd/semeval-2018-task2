@@ -58,6 +58,8 @@ class CharNNModel(Model):
 
         split = int(test_dev_split * len(tweets))
 
+        self.dev_set = tweets[split:]
+
         return (tokenized[:split], labels[:split]), (tokenized[split:], labels[split:])
 
     def process_test_data(self, texts):
@@ -82,8 +84,6 @@ class CharNNModel(Model):
 
         if not continue_training:
             self.model = self.create_model(self.maxlen, self.max_chars, self.class_count)
-        else:
-            epochs = 1
 
         self.model.fit(x_train, y_train,
                        batch_size=batch_size,
