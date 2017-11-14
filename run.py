@@ -230,8 +230,8 @@ def run_nn_model(config, recover=False):
             start_iteration = checkpoint["iteration"] + 1
             print("Recovering from fold {}, iteration {}".format(start_fold, start_iteration), file=log, flush=True)
 
-    from hopper.model_char_lstm import CharLSTMModel, CharBiLSTMModel, CharLSTMCNNModel
-    model_clss = [CharLSTMModel, CharBiLSTMModel, CharLSTMCNNModel]
+    from hopper.model_char_lstm import CharLSTMModel, CharBiLSTMModel, CharLSTMCNNModel, CharBiLSTMCNNModel
+    model_clss = [CharLSTMModel, CharBiLSTMModel, CharLSTMCNNModel, CharBiLSTMCNNModel]
     name_to_model_cls = dict(zip(map(lambda x: x.__name__, model_clss), model_clss))
 
     # Get model
