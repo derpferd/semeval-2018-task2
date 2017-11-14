@@ -220,3 +220,43 @@ class CharLSTMCNNModel(CharNNModel):
                       metrics=['accuracy'])
 
         return model
+
+
+class CharBiLSTMCNNModel(CharNNModel):
+    def __init__(self, maxlen, embedding_size=128, lstm_size=64, kernel_size=5, filters=64, pool_size=4, **kargs):
+        super().__init__(maxlen)
+        self.embedding_size = embedding_size
+        self.lstm_size = lstm_size
+        self.kernel_size = kernel_size
+        self.filters = filters
+        self.pool_size = pool_size
+
+    @staticmethod
+    def get_extra_configs():
+        # TODO: add batch_size
+        configs = [{"name": "embedding_size", "default": 128},
+                   {"name": "lstm_size", "default": 64},
+                   {"name": "kernel_size", "default": 5},
+                   {"name": "filters", "default": 64},
+                   {"name": "pool_size", "default": 4}]
+        return super(CharBiLSTMModel, CharBiLSTMModel).get_extra_configs() + configs
+
+    def create_model(self, maxlen, char_count, class_count):
+        model = Sequential()
+        model.add(Embedding(char_count, self.embedding_size, input_length=maxlen))
+        model.add(Dropout(0.25))
+        model.add(Conv1D(self.filters,
+                         self.kernel_size,
+                         padding='valid',
+                         activation='relu',
+                         strides=1))
+        model.add(MaxPooling1D(pool_size=self.pool_size))
+        model.add(Bidirectional(LSTM(self.lstm_size)))
+        model.add(Dense(class_count))
+        model.add(Activation('sigmoid'))
+
+        model.compile(loss='categorical_crossentropy',
+                      optimizer='adam',
+                      metrics=['accuracy'])
+
+        return model

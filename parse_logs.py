@@ -8,7 +8,8 @@ flatten = lambda l: [item for sublist in l for item in sublist]
 
 
 def get_row_str(l):
-    return "{}: ".format(str(max(l)).ljust(7)) + " ".join(map(lambda x: str(x).ljust(7), l))
+    return "{}: ".format(str(max(l)).ljust(6)) + " ".join(map(lambda x: str(x).ljust(7), l))
+    # return "{},".format(str(max(l))) + ",".join(map(lambda x: str(x), l))
 
 
 def main():
@@ -56,7 +57,8 @@ def main():
         results_array[name] = res_array
 
     # print(results_array)
-    for name, v in results_array.items():
+    print("Key\nname_of_configuration\nMax Macro-F1: Macro-F1 for each epoch starting with the first and going to the last.")
+    for name, v in sorted(results_array.items()):
         print(name, "\n" + "\n".join(map(get_row_str, v)))
 
 
