@@ -257,6 +257,12 @@ def run_nn_model(config, recover=False):
     else:
         total_scorer = Scorer()
 
+    # If the epochs is -1 then that means we need to run till the model stops improving.
+    if config.epochs == -1:
+        # TODO: add support for saving and loading
+        config.iteration_scoring = True
+        config.epochs = 99999
+
     # Do fold number of cross folds
     if VERBOSE:
         print("Doing {} cross folds...".format(config.folds), file=log, flush=True)
@@ -269,7 +275,11 @@ def run_nn_model(config, recover=False):
         # Train the model
         if VERBOSE:
             print("Training Model...", file=log, flush=True)
+
         if config.iteration_scoring or config.checkpoint_saving:
+            stop = False
+            max_iteration_score = 0
+            iterations_since_max = 0
             for iteration in range(start_iteration, config.epochs):
                 model.train(train_data, continue_training=iteration!=0, epochs=1)
                 if config.iteration_scoring:
@@ -281,9 +291,20 @@ def run_nn_model(config, recover=False):
                     for prediction, gold in zip(predictions, [tweet.emoji for tweet in test_data]):
                         iteration_scorer.add(gold, prediction)
 
+                    iteration_score = iteration_scorer.get_score()
+                    iteration_macro_score = iteration_score.macro_f1
+                    if config.epochs == 99999:
+                        if iteration_macro_score > max_iteration_score:
+                            max_iteration_score = iteration_macro_score
+                            iterations_since_max = 0
+                        else:
+                            iterations_since_max += 1
+                        if iterations_since_max >= config.max_non_improving_iterations:
+                            stop = True
+
                     print("\n----- Iteration {} results for fold {} -----\n{}\n".format(iteration,
                                                                                         fold,
-                                                                                        iteration_scorer.get_score()),
+                                                                                        iteration_score),
                           file=log,
                           flush=True)
                     if config.confusion_matrix:
@@ -295,6 +316,9 @@ def run_nn_model(config, recover=False):
                         print("Saving model to '{}'...".format(model_path), file=log, flush=True)
                     model.save_model(model_path)
                     log_checkpoint(config.id, fold, iteration, model_path)
+                if stop:
+                    print("Stopping Training...", file=log, flush=True)
+                    break
         else:
             model.train(train_data, epochs=config.epochs)
 

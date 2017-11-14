@@ -1,0 +1,9 @@
+{
+  "id": "char_cnn_lstm_us_train",
+  "model": "CharLSTMCNNModel",
+  "language": "us",
+  "data_type": "train",
+  "folds": 10,
+  "epochs": -1,
+  "max_non_improving_iterations": 5
+}

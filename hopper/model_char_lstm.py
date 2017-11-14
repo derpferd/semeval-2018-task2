@@ -28,7 +28,8 @@ class CharNNModel(Model):
         configs = [{"name": "maxlen", "default": 80},
                    {"name": "epochs", "default": 20},
                    {"name": "iteration_scoring", "default": True},
-                   {"name": "checkpoint_saving", "default": True}]
+                   {"name": "checkpoint_saving", "default": True},
+                   {"name": "max_non_improving_iterations", "default": 5}]
         return super(CharNNModel, CharNNModel).get_extra_configs() + configs
 
     def create_model(self, maxlen, char_count, class_count):
@@ -219,4 +220,3 @@ class CharLSTMCNNModel(CharNNModel):
                       metrics=['accuracy'])
 
         return model
-
