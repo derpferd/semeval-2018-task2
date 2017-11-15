@@ -10,6 +10,9 @@ from socket import gethostname
 import os
 import time
 import argparse
+
+from types import FunctionType
+
 from hopper import Tweet
 from hopper.confusion_matrix import ConfusionMatrix
 from hopper.scorer import Scorer
@@ -131,6 +134,8 @@ def get_checkpoint(config_id):
 
 
 def get_test_train_sets(tweets, cur_fold, folds):
+    if folds == 1:
+        return tweets, tweets
     # Calculate the number of tweets that will be in the test set
     test_size = int(len(tweets) / folds)
     # Get the section of tweets into the test set
@@ -148,6 +153,20 @@ def get_test_train_sets(tweets, cur_fold, folds):
 
 def get_class_count(tweets):
     return len(set([t.emoji for t in tweets]))
+
+
+def score(model, scorer, data_set):
+    # If the scorer is a function it must generate a scorer.
+    if isinstance(scorer, FunctionType):
+        scorer = scorer()
+    if not isinstance(scorer, Scorer):
+        raise ValueError("Scorer must be a Scorer!")
+
+    predictions = model.batch_predict([tweet.text for tweet in data_set])
+    for prediction, gold in zip(predictions, [tweet.emoji for tweet in data_set]):
+        scorer.add(gold, prediction)
+
+    return scorer
 
 
 def run_non_nn_model(config):
@@ -257,11 +276,15 @@ def run_nn_model(config, recover=False):
     else:
         total_scorer = Scorer()
 
+    inf_epochs = False
     # If the epochs is -1 then that means we need to run till the model stops improving.
     if config.epochs == -1:
         # TODO: add support for saving and loading
+        #       need to save max_iteration_score, iterations_since_max, best_model_index, etc...
         config.iteration_scoring = True
         config.epochs = 99999
+        config.checkpoint_saving = True
+        inf_epochs = True
 
     # Do fold number of cross folds
     if VERBOSE:
@@ -280,6 +303,7 @@ def run_nn_model(config, recover=False):
             stop = False
             max_iteration_score = 0
             iterations_since_max = 0
+            best_model_index = -1
             for iteration in range(start_iteration, config.epochs):
                 model.train(train_data, continue_training=iteration!=0, epochs=1)
                 if config.iteration_scoring:
@@ -287,16 +311,20 @@ def run_nn_model(config, recover=False):
                         iteration_scorer = ConfusionMatrix(class_count)
                     else:
                         iteration_scorer = Scorer()
+
+                    dev_set = model.dev_set
+
                     predictions = model.batch_predict([tweet.text for tweet in test_data])
                     for prediction, gold in zip(predictions, [tweet.emoji for tweet in test_data]):
                         iteration_scorer.add(gold, prediction)
 
                     iteration_score = iteration_scorer.get_score()
                     iteration_macro_score = iteration_score.macro_f1
-                    if config.epochs == 99999:
+                    if inf_epochs:
                         if iteration_macro_score > max_iteration_score:
                             max_iteration_score = iteration_macro_score
                             iterations_since_max = 0
+                            best_model_index = iteration
                         else:
                             iterations_since_max += 1
                         if iterations_since_max >= config.max_non_improving_iterations:
@@ -316,11 +344,19 @@ def run_nn_model(config, recover=False):
                         print("Saving model to '{}'...".format(model_path), file=log, flush=True)
                     model.save_model(model_path)
                     log_checkpoint(config.id, fold, iteration, model_path)
+
                 if stop:
                     print("Stopping Training...", file=log, flush=True)
+                    if inf_epochs:
+                        if VERBOSE:
+                            print("Selecting best model which is {}...".format(best_model_index), file=log, flush=True)
+                        model_path = os.path.join("models", MACHINE_NAME,
+                                                  "{}_{}_{}".format(config.id, fold, best_model_index))
+                        model.load_model(model_path)
                     break
         else:
             model.train(train_data, epochs=config.epochs)
+            # TODO: save the last model.
 
         # Score this fold.
         # Get a fold scorer/confusion matrix.
