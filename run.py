@@ -134,6 +134,8 @@ def get_checkpoint(config_id):
 
 
 def get_test_train_sets(tweets, cur_fold, folds):
+    if folds == 1:
+        return tweets, tweets
     # Calculate the number of tweets that will be in the test set
     test_size = int(len(tweets) / folds)
     # Get the section of tweets into the test set
@@ -342,6 +344,7 @@ def run_nn_model(config, recover=False):
                         print("Saving model to '{}'...".format(model_path), file=log, flush=True)
                     model.save_model(model_path)
                     log_checkpoint(config.id, fold, iteration, model_path)
+
                 if stop:
                     print("Stopping Training...", file=log, flush=True)
                     if inf_epochs:
@@ -353,6 +356,7 @@ def run_nn_model(config, recover=False):
                     break
         else:
             model.train(train_data, epochs=config.epochs)
+            # TODO: save the last model.
 
         # Score this fold.
         # Get a fold scorer/confusion matrix.
