@@ -1,5 +1,5 @@
 
-fname = "data/slim-train/us_train.labels";
+fname = "data/slim_train/us_train.labels";
 
 with open(fname) as f:
   content = f.readlines()
@@ -20,6 +20,16 @@ for index,y in enumerate(content):
     content[index] = '5\n'
   if y == '18\n':
     content[index] = '10\n'
+  if y == '14\n':
+    content[index] = '1\n'
+  if y == '15\n':
+    content[index] = '3\n'
+  if y == '16\n':
+    content[index] = '8\n'
+  if y == '17\n':
+    content[index] = '9\n'
+  if y == '19\n':
+    content[index] = '6\n'
 
 print('##############################################')
 
@@ -31,7 +41,7 @@ for z in content:
     break'''
 
 
-newfname = "data/slim-train/us_train.2.labels";
+newfname = "data/slim_train/us_slim_train.labels";
 thefile = open(newfname,'w')
 for item in content:
   thefile.write(item)

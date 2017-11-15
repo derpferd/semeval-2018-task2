@@ -1,6 +1,6 @@
 {
   "id": "staged_bow",
-  "model": "RandModel",
+  "model": "BernoulliNaiveBayesModel",
   "language": "us",
   "data_type": "slim_train",
   "folds": 10
