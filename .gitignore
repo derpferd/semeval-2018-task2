@@ -1,5 +1,6 @@
 # Repo specific ignores
 raw_out
+models
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
