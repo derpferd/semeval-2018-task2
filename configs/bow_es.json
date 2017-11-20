@@ -1,0 +1,7 @@
+{
+  "id": "bow_es",
+  "model": "BernoulliNaiveBayesModel",
+  "language": "es",
+  "data_type": "train",
+  "folds": 10
+}

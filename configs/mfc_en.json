@@ -1,0 +1,7 @@
+{
+  "id": "mfc_en",
+  "model": "MostFrequentClassModel",
+  "language": "us",
+  "data_type": "train",
+  "folds": 10
+}

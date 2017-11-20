@@ -1,0 +1,7 @@
+{
+  "id": "rand_en",
+  "model": "RandModel",
+  "language": "us",
+  "data_type": "train",
+  "folds": 10
+}

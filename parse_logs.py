@@ -9,11 +9,21 @@ flatten = lambda l: [item for sublist in l for item in sublist]
 
 def get_row_str(l):
     return "{}: ".format(str(max(l)).ljust(6)) + " ".join(map(lambda x: str(x).ljust(7), l))
-    # return "{},".format(str(max(l))) + ",".join(map(lambda x: str(x), l))
+
+
+def get_score(l):
+    return str(max(l))
 
 
 def main():
-    sys_dirs = glob.glob("output/char_*")
+
+    sys_dirs = []
+    for x in os.listdir("output"):
+        p = os.path.join("output", x)
+        if os.path.isdir(p):
+            sys_dirs += [p]
+    # os.path.abspath("output") + "/"+x for x in  if ]
+    # sys_dirs = glob.glob("output/char_*")
     # print(g)
     # return
     # sys_dirs = os.listdir("logs")
@@ -35,6 +45,14 @@ def main():
                 obj[fold] = {}
             obj[fold][iteration] = score
         sys_results[os.path.split(os.path.split(log)[0])[1]] = obj
+
+        if len(res) == 0:
+            # The log isn't a nn log.
+            res = re.findall(r"----- Results -----\nMacro F1: ([0-9\.]{3,7})", txt, re.MULTILINE)
+            obj = {}
+            for i, score in enumerate(res):
+                obj[i] = {0: float(score)}
+            sys_results[os.path.split(os.path.split(log)[0])[1]] = obj
 
     # Turn the dictionary into arrays
     max_fold = max(flatten([r.keys() for r in sys_results.values()])) + 1
@@ -60,6 +78,12 @@ def main():
     print("Key\nname_of_configuration\nMax Macro-F1: Macro-F1 for each epoch starting with the first and going to the last.")
     for name, v in sorted(results_array.items()):
         print(name, "\n" + "\n".join(map(get_row_str, v)))
+
+    with open("results.csv", "w") as fp:
+        print("Model Id," + ",".join("Fold {}".format(i+1) for i in range(max_fold)), file=fp)
+        for name, v in sorted(results_array.items()):
+            print(name + ",", end="", file=fp)
+            print(",".join(map(get_score, v)), file=fp)
 
 
 if __name__ == "__main__":

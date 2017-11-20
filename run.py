@@ -10,6 +10,7 @@ from socket import gethostname
 import os
 import time
 import argparse
+import random
 
 from types import FunctionType
 
@@ -97,6 +98,7 @@ class Config(object):
         config.data_type = obj.get("data_type", "trial")
         config.folds = obj.get("folds", 1)
         config.confusion_matrix = obj.get("confusion_matrix", True)
+        config.use_fair_training_set = obj.get("use_fair_training_set", False)
         return config
 
 
@@ -133,7 +135,16 @@ def get_checkpoint(config_id):
         return None
 
 
-def get_test_train_sets(tweets, cur_fold, folds):
+def get_random_sample(items, count):
+    random.shuffle(items)
+    return items[:count]
+
+
+def filter_tweets_by_class(tweets, emoji):
+    return [t for t in tweets if t.emoji == emoji]
+
+
+def get_test_train_sets(tweets, cur_fold, folds, take_fair_training_sample=False):
     if folds == 1:
         return tweets, tweets
     # Calculate the number of tweets that will be in the test set
@@ -147,6 +158,25 @@ def get_test_train_sets(tweets, cur_fold, folds):
         train_data += tweets[0: cur_fold * test_size]
     if cur_fold + 1 < folds:
         train_data += tweets[(cur_fold + 1) * test_size:]
+
+    # take a "fair" sample of classes for the training set.
+    if take_fair_training_sample:
+        # Get the number of classes
+        num_classes = get_class_count(tweets)
+        # Create a dictionary of each class to the tweets in that class.
+        classes = dict([(c, filter_tweets_by_class(train_data, c)) for c in range(num_classes)])
+        # set min_count to the number of tweets in the class with the fewest tweets.
+        min_count = min(map(len, classes.values()))
+
+        new_train_data = []
+        for c in range(num_classes):
+            # Take the same number of tweets for each class.
+            new_train_data += get_random_sample(classes[c], min_count)
+
+        # Shuffle it up :)
+        random.shuffle(new_train_data)
+        # Replace the original training set with a fair but smaller one.
+        train_data = new_train_data
 
     return train_data, test_data
 
@@ -250,7 +280,12 @@ def run_nn_model(config, recover=False):
             print("Recovering from fold {}, iteration {}".format(start_fold, start_iteration), file=log, flush=True)
 
     from hopper.model_char_lstm import CharLSTMModel, CharBiLSTMModel, CharLSTMCNNModel, CharBiLSTMCNNModel
-    model_clss = [CharLSTMModel, CharBiLSTMModel, CharLSTMCNNModel, CharBiLSTMCNNModel]
+    from hopper.model_word_nn import WordEmbeddingCNNModel
+    model_clss = [CharLSTMModel,
+                  CharBiLSTMModel,
+                  CharLSTMCNNModel,
+                  CharBiLSTMCNNModel,
+                  WordEmbeddingCNNModel]
     name_to_model_cls = dict(zip(map(lambda x: x.__name__, model_clss), model_clss))
 
     # Get model
