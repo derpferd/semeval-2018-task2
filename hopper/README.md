@@ -70,7 +70,7 @@ A list of these *bags* is what the next step takes.
 
 #### TfidfTransform
 Quote from Dennis's Documentation:
-> The TfidTransformer normalizes the count matrix (in our case, the frequency of a word in each emoji class). Using the frequencies without normalization gives too much weight to words that occur very frequently in the corpus even though they are less informative features. The frequencies are normalized to a tf-idf represetnation. Tf-idf is term-frequency times inverse document-frequency.
+> The TfidTransformer normalizes the count matrix (in our case, the frequency of a word in each emoji class). Using the frequencies without normalization gives too much weight to words that occur very frequently in the corpus even though they are less informative features. The frequencies are normalized to a tf-idf representation. Tf-idf is term-frequency times inverse document-frequency.
 
 #### SelectKBest
 The SelectKBest step, as it's name implies, selects the *k* best features (features is another word for token). This step takes two arguments: a scoring function and *k*. The scoring function is a function which assigns a score to each feature based on some of its properties. We use is [**chi2**](http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2) (said chi-squared). This function assigns scores using the chi-squared test between feature frequencies and the classes. The chi-squared test measures the dependence between random variables, resulting in features that are independent of class receiving a lower score. An example of this is the frequency of the token `the` which probability exhibits a random distribution between classes, giving it a very low chi2 score.
