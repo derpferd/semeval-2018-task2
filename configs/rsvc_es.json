@@ -1,6 +1,6 @@
 {
-  "id": "lsvc_es",
-  "model": "LinearSVCModel",
+  "id": "rsvc_es",
+  "model": "RBFSVCModel",
   "language": "es",
   "data_type": "train",
   "folds": 10
