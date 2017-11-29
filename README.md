@@ -96,5 +96,5 @@ This is a todo list of the tasks needing to be done for the resubmittion.
 ## Stage 2 TODO
 - [ ] Check out Twitter/Word embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016) (Jon)
 - [ ] Try normalization. (Sai) Note: Sai will not start working till Monday after his presentation
-- [ ] Try NML techneques (Dennis)
-- [ ] Do analysis of tweet, create report of issues current model is facing. (Jon)
+- [x] Try NML techneques (Dennis)
+- [x] Do analysis of tweet, create report of issues current model is facing. (Jon)
