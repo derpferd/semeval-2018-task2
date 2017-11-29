@@ -17,7 +17,6 @@ def get_score(l):
 
 
 def main():
-
     sys_dirs = []
     for x in os.listdir("output"):
         p = os.path.join("output", x)

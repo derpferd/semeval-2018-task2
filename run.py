@@ -20,9 +20,8 @@ from hopper.scorer import Scorer
 from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
 from hopper.model_most_frequent_class import MostFrequentClassModel
-from hopper.model_svm import LinearSVCModel
+from hopper.model_svm import LinearSVCModel, RBFSVCModel
 
-# DEBUG_NN_MODELS = True
 MACHINE_NAME = gethostname()
 VERBOSE = True
 
@@ -30,6 +29,7 @@ NON_NN_MODEL_CLS = [RandModel(),
                     MostFrequentClassModel(),
                     BernoulliNaiveBayesModel(),
                     LinearSVCModel(),
+                    RBFSVCModel(),
                     ]
 NON_NN_MODELS = dict(zip(map(lambda x: x.__class__.__name__, NON_NN_MODEL_CLS), NON_NN_MODEL_CLS))
 
@@ -102,16 +102,20 @@ class Config(object):
         return config
 
 
-def get_log_file(config_id, recover=False):
+def get_log_file(config_id, fold=-1, recover=False):
     if not os.path.exists("output"):
         os.mkdir("output")
     if not os.path.exists(os.path.join("output", config_id)):
         os.mkdir(os.path.join("output", config_id))
 
+    fn = "{}.log".format(MACHINE_NAME)
+    if fold != -1:
+        fn = "{}_{}.log".format(MACHINE_NAME, fold)
+
     if recover:
-        return open(os.path.join("output", config_id, "{}.log".format(MACHINE_NAME)), "a")
+        return open(os.path.join("output", config_id, fn), "a")
     else:
-        return open(os.path.join("output", config_id, "{}.log".format(MACHINE_NAME)), "w")
+        return open(os.path.join("output", config_id, fn), "w")
 
 
 def log_checkpoint(config_id, fold, iteration, model_path):
@@ -199,11 +203,11 @@ def score(model, scorer, data_set):
     return scorer
 
 
-def run_non_nn_model(config):
+def run_non_nn_model(config, fold=-1):
     # Get the model object from the config string.
     model = NON_NN_MODELS[config.model]
     # Get the log file so we can use it.
-    log = get_log_file(config.id)
+    log = get_log_file(config.id, fold)
 
     # Load tweets
     if VERBOSE:
@@ -222,7 +226,12 @@ def run_non_nn_model(config):
     # Do fold number of cross folds
     if VERBOSE:
         print("Doing {} cross folds...".format(config.folds), file=log, flush=True)
-    for i in range(config.folds):
+
+    folds_to_run = [fold]
+    if fold == -1:
+        folds_to_run = range(config.folds)
+    for i in folds_to_run:
+        start_time = time.time()
         # Get the data sets
         if VERBOSE:
             print("Loading Data...", file=log, flush=True)
@@ -246,7 +255,7 @@ def run_non_nn_model(config):
             total_scorer.add(gold, prediction)
 
         # Print out the results
-        print("\n----- Results -----\n{}\n".format(fold_scorer.get_score()), file=log, flush=True)
+        print("\n----- Results for fold {} -----\n{}\n".format(i, fold_scorer.get_score()), file=log, flush=True)
 
         if VERBOSE:
             # Print out the result details
@@ -259,6 +268,9 @@ def run_non_nn_model(config):
         if config.confusion_matrix:
             print("\n--- Matrix ---\n{}\n".format(fold_scorer), file=log, flush=True)
 
+        if VERBOSE:
+            print("Took {} seconds to run fold.".format(time.time() - start_time))
+
     print("\n----- Results for all folds -----\n{}\n".format(total_scorer.get_score()), file=log, flush=True)
     if config.confusion_matrix:
         print("--- Matrix ---\n{}\n".format(total_scorer), file=log, flush=True)
@@ -268,7 +280,7 @@ def run_non_nn_model(config):
 
 def run_nn_model(config, recover=False):
     # Get the log file so we can use it.
-    log = get_log_file(config.id, recover)
+    log = get_log_file(config.id, recover=recover)
     start_fold = 0
     start_iteration = 0
     checkpoint = None
@@ -426,12 +438,12 @@ def run_nn_model(config, recover=False):
     log.close()
 
 
-def main(config_fn, recover=False):
+def main(config_fn, recover=False, fold=-1):
     config = Config.from_json_obj(json.load(open(config_fn, "r")))
     print("Running with following config...\n{}".format(config))
 
     if config.model in NON_NN_MODELS:
-        run_non_nn_model(config)
+        run_non_nn_model(config, fold=fold)
     else:
         run_nn_model(config, recover)
 
@@ -439,8 +451,9 @@ def main(config_fn, recover=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("config", nargs=1)
+    parser.add_argument("-f", "--fold", type=int, default=-1)
     parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("-r", "--recover", action="store_true")
     args = parser.parse_args()
     VERBOSE = args.verbose
-    main(args.config[0], args.recover)
+    main(args.config[0], args.recover, fold=args.fold)

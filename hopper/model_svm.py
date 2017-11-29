@@ -10,18 +10,24 @@ from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 
 
-class LinearSVCModel(Model):
+class SVCModel(Model):
     """This model classifies tweets into any one of twenty classes
     using SVM classification.
     """
     def __init__(self):
+        kernel = self.__class__.KERNEL
         self.tokenizer = TweetTokenizer(preserve_case=False,
                                         reduce_len=True,
                                         strip_handles=True).tokenize
 
         pipeline = Pipeline([('tfidf', TfidfTransformer()),
-                             ('linearsvc', SVC(kernel="linear"))])
+                             ('{}svc'.format(kernel), SVC(kernel=kernel))])
         self.classif = SklearnClassifier(pipeline)
+
+    @staticmethod
+    def get_extra_configs():
+        configs = [{"name": "strip_handles", "default": True}]
+        return super(SVCModel, SVCModel).get_extra_configs() + configs
 
     def train(self, tweets):
         def tweet_to_tuple(x):
@@ -34,3 +40,11 @@ class LinearSVCModel(Model):
 
     def predict(self, text):
         return self.classif.classify(FreqDist(self.tokenizer(text)))
+
+
+class LinearSVCModel(SVCModel):
+    KERNEL = "linear"
+
+
+class RBFSVCModel(SVCModel):
+    KERNEL = "rbf"

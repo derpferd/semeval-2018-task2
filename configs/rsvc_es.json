@@ -1,0 +1,7 @@
+{
+  "id": "lsvc_es",
+  "model": "LinearSVCModel",
+  "language": "es",
+  "data_type": "train",
+  "folds": 10
+}
