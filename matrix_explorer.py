@@ -73,9 +73,9 @@ def get_text(lang, model, gold, out):
     except:
         return "<html><head></head><body>Unfortunately the server couldn't load this dataset<br>Checkout other configs at <a href='/'>at the index</a>.</body></html>"
     dim = len(matrix)
-    s = "<html><head></head><body>"
+    s = '<html><head><link rel="stylesheet" href="/style"></head><body>'
     s += "<h1>Tweets that contained {} and labeled as {}</h1>".format(mapping[gold][0], mapping[out][0])
-    s += "<table>"
+    s += '<div class="responsive"><table>'
     for data in matrix[gold][out]:
         if len(data) == 2:
             text, tokens = data
@@ -83,8 +83,31 @@ def get_text(lang, model, gold, out):
         else:
             text = data
             s += "<tr><td>{}</td><td>{}</td></tr>".format(text, "N/A")
-    s += "</table></body></html>"
+    s += "</div></table></body></html>"
     return s  # "Gold: {} Out: {}\n".format(gold, out)+json.dumps(matrix[gold][out])
+
+
+@app.route('/reload')
+def reload():
+    global matrixs, mappings
+    matrixs = {}
+    mappings = {}
+    return "<html><head></head><body>Finished reload</body></html>"
+
+
+@app.route('/style')
+def style():
+    return '''.responsive{display:block;overflow-x:auto}
+table {
+    border-collapse:collapse;border-spacing:0;width:100%;display:table;border:1px solid #ccc;
+    table-layout:fixed;
+}
+table tr{border-bottom:1px solid #ddd}
+table tr:nth-child(odd){background-color:#fff}
+table tr:nth-child(even){background-color:#f1f1f1}
+table td, table th {padding:8px 8px;display:table-cell;text-align:left;vertical-align:top;overflow-wrap: break-word;}
+table th:first-child, table td:first-child{padding-left:16px}
+'''
 
 
 if __name__ == '__main__':
