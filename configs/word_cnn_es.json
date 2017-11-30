@@ -1,0 +1,7 @@
+{
+  "id": "word_cnn_es",
+  "model": "WordEmbeddingCNNModel",
+  "language": "es",
+  "data_type": "train",
+  "folds": 10
+}

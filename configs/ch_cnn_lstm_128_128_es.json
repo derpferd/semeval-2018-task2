@@ -1,0 +1,11 @@
+{
+  "id": "char_cnn_lstm_es_train_128_128",
+  "model": "CharLSTMCNNModel",
+  "language": "es",
+  "data_type": "train",
+  "folds": 10,
+  "epochs": -1,
+  "max_non_improving_iterations": 5,
+  "embedding_size": 128,
+  "lstm_size": 128
+}
