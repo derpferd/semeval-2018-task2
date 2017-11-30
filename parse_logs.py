@@ -30,8 +30,11 @@ def main():
     logs = []
     for d in sys_dirs:
         g = glob.glob(os.path.join(d, "*.log"))
-        assert len(g) == 1
-        logs += [g[0]]
+        if len(g) > 1 and os.path.join(d, "log.log") in g:
+            logs += [os.path.join(d, "log.log")]
+        else:
+            assert len(g) == 1, "Too many log files for '{}': {}".format(d, g)
+            logs += [g[0]]
 
     sys_results_macro = {}
     sys_results_micro = {}
