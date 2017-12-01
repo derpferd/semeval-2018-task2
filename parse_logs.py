@@ -57,6 +57,8 @@ def main():
         if len(res) == 0:
             # The log isn't a nn log.
             res = re.findall(r"----- Results -----\nMacro F1: ([0-9\.]{3,7})\n-----\nMicro F1: ([0-9\.]{3,7})", txt, re.MULTILINE)
+            if len(res) == 0:
+                res = re.findall(r"----- Results for fold [0-9]{1,3} -----\nMacro F1: ([0-9\.]{3,7})\n-----\nMicro F1: ([0-9\.]{3,7})", txt, re.MULTILINE)
             obj_mac = {}
             obj_mic = {}
             for i, (mac_score, mic_score) in enumerate(res):

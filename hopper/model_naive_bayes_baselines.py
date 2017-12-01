@@ -22,6 +22,7 @@ class NaiveBayesModel(Model):
     a different emoticon (e.g. love, crying). Putting a tweet in a class
     means that that tweet goes with the associated emoticon.
     """
+
     def __init__(self, classif_alg, k=1000):
         """Constructor
 
@@ -43,17 +44,17 @@ class NaiveBayesModel(Model):
         """Creates a pipeline for use in classifying. Each argument will
         work on the data in sequence.
 
-	The TfidTransformer normalizes the count matrix (in our case,
-	the frequency of a word in each emoji class). Using the frequencies
-	without normalization gives too much weight to words that occur
-	very frequently in the corpus even though they are less informative features.
-	The frequencies are normalized to a tf-idf represetnation. Tf-idf is
-	term-frequency times inverse document-frequency.
+        The TfidTransformer normalizes the count matrix (in our case,
+        the frequency of a word in each emoji class). Using the frequencies
+        without normalization gives too much weight to words that occur
+        very frequently in the corpus even though they are less informative features.
+        The frequencies are normalized to a tf-idf represetnation. Tf-idf is
+        term-frequency times inverse document-frequency.
 
         SelectKBest selects the best k features for use in classifying.
         """
         pipeline = Pipeline([('tfidf', TfidfTransformer()),
-                             ('chi2', SelectKBest(chi2, k=k)),
+                             # ('chi2', SelectKBest(chi2, k=k)),
                              ('nb', classif_alg())])
         self.classif = SklearnClassifier(pipeline)
 

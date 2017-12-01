@@ -20,7 +20,7 @@ from hopper.scorer import Scorer
 from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
 from hopper.model_most_frequent_class import MostFrequentClassModel
-from hopper.model_svm import LinearSVCModel, RBFSVCModel
+from hopper.model_svm import LinearSVCModel, RBFSVCModel, LinearSVC2Model
 
 MACHINE_NAME = gethostname()
 VERBOSE = True
@@ -30,6 +30,7 @@ NON_NN_MODEL_CLS = [RandModel(),
                     BernoulliNaiveBayesModel(),
                     LinearSVCModel(),
                     RBFSVCModel(),
+                    LinearSVC2Model(),
                     ]
 NON_NN_MODELS = dict(zip(map(lambda x: x.__class__.__name__, NON_NN_MODEL_CLS), NON_NN_MODEL_CLS))
 
