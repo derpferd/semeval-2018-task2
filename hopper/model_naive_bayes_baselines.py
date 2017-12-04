@@ -5,18 +5,19 @@
     http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html
 """
 from __future__ import division
-from hopper import Model
-from nltk.tokenize import TweetTokenizer
-from nltk.probability import FreqDist
+
 from nltk.classify import SklearnClassifier
+from nltk.probability import FreqDist
+from nltk.tokenize import TweetTokenizer
 from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.feature_selection import SelectKBest, chi2
-from sklearn.naive_bayes import MultinomialNB
 from sklearn.naive_bayes import BernoulliNB
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 
+from hopper.model_sklearn import SKLearnModel
 
-class NaiveBayesModel(Model):
+
+class NaiveBayesModel(SKLearnModel):
     """This model classifies tweets into any one of twenty classes
     using NaiveBayes classification. The twenty classes each represents
     a different emoticon (e.g. love, crying). Putting a tweet in a class

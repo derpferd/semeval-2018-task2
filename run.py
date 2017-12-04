@@ -255,6 +255,11 @@ def run_non_nn_model(config, fold=-1):
             fold_scorer.add(gold, prediction)
             total_scorer.add(gold, prediction)
 
+        model_path = os.path.join("models", MACHINE_NAME, "{}_{}".format(config.id, fold))
+        if VERBOSE:
+            print("Saving model to '{}'...".format(model_path), file=log, flush=True)
+        model.save_model(model_path)
+
         # Print out the results
         print("\n----- Results for fold {} -----\n{}\n".format(i, fold_scorer.get_score()), file=log, flush=True)
 

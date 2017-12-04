@@ -53,6 +53,20 @@ class Model(object):
         """
         raise NotImplementedError("This is an abstract method")
 
+    def save_model(self, path):
+        """
+        Args:
+            path(text): The path of where to save the model
+        """
+        raise NotImplementedError("This is an abstract method")
+
+    def load_model(self, path):
+        """
+        Args:
+            path(text): The path of where the model is saved
+        """
+        raise NotImplementedError("This is an abstract method")
+
     def batch_predict(self, texts: Iterator[str]) -> Iterator[int]:
         """
         Args:

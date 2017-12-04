@@ -11,10 +11,11 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC, LinearSVC
 
-from hopper import Model, Tweet
+from hopper import Tweet
+from hopper.model_sklearn import SKLearnModel
 
 
-class SVCModel(Model):
+class SVCModel(SKLearnModel):
     """This model classifies tweets into any one of twenty classes
     using SVM classification.
     """
@@ -60,7 +61,7 @@ class RBFSVCModel(SVCModel):
         super().__init__("rbf")
 
 
-class LinearSVC2Model(Model):
+class LinearSVC2Model(SKLearnModel):
     """This model classifies tweets into any one of twenty classes
     using SVM classification.
     """

@@ -1,6 +1,10 @@
 # Author: Jonathan Beaulieu
-from hopper import Model
+
+import json
+
 from random import choice
+
+from hopper import Model
 
 
 class RandModel(Model):
@@ -9,3 +13,9 @@ class RandModel(Model):
 
     def predict(self, text):
         return choice(self.classes)
+
+    def save_model(self, path):
+        json.dump(self.classes, open(path, "w"))
+
+    def load_model(self, path):
+        self.classes = json.load(open(path, "r"))
