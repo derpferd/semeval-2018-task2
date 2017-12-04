@@ -50,6 +50,9 @@ class SVCModel(SKLearnModel):
     def predict(self, text):
         return self.classif.classify(FreqDist(self.tokenizer(text)))
 
+    def tokenize(self, text):
+        return self.tokenizer(text)
+
 
 class LinearSVCModel(SVCModel):
     def __init__(self):

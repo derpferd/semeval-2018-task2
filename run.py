@@ -15,7 +15,7 @@ import random
 from types import FunctionType
 
 from hopper import Tweet
-from hopper.confusion_matrix import ConfusionMatrix
+from hopper.confusion_matrix import ConfusionMatrix, ConfusionMatrixWithExamples
 from hopper.scorer import Scorer
 from hopper.model_rand import RandModel
 from hopper.model_naive_bayes_baselines import BernoulliNaiveBayesModel
@@ -119,6 +119,19 @@ def get_log_file(config_id, fold=-1, recover=False):
         return open(os.path.join("output", config_id, fn), "w")
 
 
+def get_example_loc(config_id, fold=-1):
+    if not os.path.exists("output"):
+        os.mkdir("output")
+    if not os.path.exists(os.path.join("output", config_id)):
+        os.mkdir(os.path.join("output", config_id))
+
+    fn = "{}.matrix.json".format(MACHINE_NAME)
+    if fold != -1:
+        fn = "{}_{}.matrix.json".format(MACHINE_NAME, fold)
+
+    return os.path.join("output", config_id, fn)
+
+
 def log_checkpoint(config_id, fold, iteration, model_path):
     if not os.path.exists("output"):
         os.mkdir("output")
@@ -204,11 +217,14 @@ def score(model, scorer, data_set):
     return scorer
 
 
-def run_non_nn_model(config, fold=-1):
+def run_non_nn_model(config, fold=-1, save_examples=False):
     # Get the model object from the config string.
     model = NON_NN_MODELS[config.model]
     # Get the log file so we can use it.
     log = get_log_file(config.id, fold)
+
+    if VERBOSE:
+        print("Starting @ {}".format(time.ctime()))
 
     # Load tweets
     if VERBOSE:
@@ -220,7 +236,10 @@ def run_non_nn_model(config, fold=-1):
 
     # Set up a scorer/confusion matrix.
     if config.confusion_matrix:
-        total_scorer = ConfusionMatrix(class_count)
+        if save_examples:
+            total_scorer = ConfusionMatrixWithExamples(class_count)
+        else:
+            total_scorer = ConfusionMatrix(class_count)
     else:
         total_scorer = Scorer()
 
@@ -251,9 +270,12 @@ def run_non_nn_model(config, fold=-1):
             fold_scorer = Scorer()
 
         predictions = model.batch_predict([tweet.text for tweet in test_data])
-        for prediction, gold in zip(predictions, [tweet.emoji for tweet in test_data]):
+        for prediction, gold, text in zip(predictions, [tweet.emoji for tweet in test_data], [tweet.text for tweet in test_data]):
             fold_scorer.add(gold, prediction)
-            total_scorer.add(gold, prediction)
+            if save_examples:
+                total_scorer.add(gold, prediction, text, model.tokenize(text))
+            else:
+                total_scorer.add(gold, prediction)
 
         model_path = os.path.join("models", MACHINE_NAME, "{}_{}".format(config.id, fold))
         if VERBOSE:
@@ -280,13 +302,20 @@ def run_non_nn_model(config, fold=-1):
     print("\n----- Results for all folds -----\n{}\n".format(total_scorer.get_score()), file=log, flush=True)
     if config.confusion_matrix:
         print("--- Matrix ---\n{}\n".format(total_scorer), file=log, flush=True)
+        if save_examples:
+            if VERBOSE:
+                print("Saving examples for fold {}...".format(fold))
+            total_scorer.dump_json(get_example_loc(config.id, fold))
 
     log.close()
 
 
-def run_nn_model(config, recover=False):
+def run_nn_model(config, recover=False, fold=-1, save_examples=False):
     # Get the log file so we can use it.
-    log = get_log_file(config.id, recover=recover)
+    log = get_log_file(config.id, fold=fold, recover=recover)
+    if VERBOSE:
+        print("Starting @ {}".format(time.ctime()))
+
     start_fold = 0
     start_iteration = 0
     checkpoint = None
@@ -444,12 +473,12 @@ def run_nn_model(config, recover=False):
     log.close()
 
 
-def main(config_fn, recover=False, fold=-1):
+def main(config_fn, recover=False, fold=-1, save_examples=False):
     config = Config.from_json_obj(json.load(open(config_fn, "r")))
     print("Running with following config...\n{}".format(config))
 
     if config.model in NON_NN_MODELS:
-        run_non_nn_model(config, fold=fold)
+        run_non_nn_model(config, fold=fold, save_examples=save_examples)
     else:
         run_nn_model(config, recover)
 
@@ -458,8 +487,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("config", nargs=1)
     parser.add_argument("-f", "--fold", type=int, default=-1)
+    parser.add_argument("-e", "--examples", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("-r", "--recover", action="store_true")
     args = parser.parse_args()
     VERBOSE = args.verbose
-    main(args.config[0], args.recover, fold=args.fold)
+    main(args.config[0], args.recover, fold=args.fold, save_examples=args.examples)

@@ -152,6 +152,9 @@ class WordNNModel(Model):
         # self.max_chars = obj["max_chars"]
         # self.class_count = obj["class_count"]
 
+    def tokenize(self, text):
+        return self.tokenizer.texts_to_sequences(texts)
+
 
 class WordEmbeddingCNNModel(WordNNModel):
     def __init__(self, maxlen, maxwords, embedding_size, lstm_size, kernel_size, filters, pool_size, activation, optimizer, **kargs):

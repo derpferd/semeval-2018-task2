@@ -59,6 +59,11 @@ class NaiveBayesModel(SKLearnModel):
                              ('nb', classif_alg())])
         self.classif = SklearnClassifier(pipeline)
 
+    @staticmethod
+    def get_extra_configs():
+        configs = [{"name": "k", "default": 1000}]
+        return configs + super(NaiveBayesModel, NaiveBayesModel).get_extra_configs()
+
     def train(self, tweets):
         """Trains the classifier.
 
@@ -95,6 +100,9 @@ class NaiveBayesModel(SKLearnModel):
         works
         """
         return self.classif.classify(FreqDist(self.tokenizer(text)))
+
+    def tokenize(self, text):
+        return self.tokenizer(text)
 
 
 class MultinomialNaiveBayesModel(NaiveBayesModel):

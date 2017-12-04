@@ -17,6 +17,9 @@ class MostFrequentClassModel(Model):
     def predict(self, text):
         return self.most_frequent_class
 
+    def tokenize(self, text):
+        return []
+
     def save_model(self, path):
         with open(path, "w") as fp:
             fp.write(str(self.most_frequent_class))

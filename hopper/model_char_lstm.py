@@ -32,6 +32,9 @@ class CharNNModel(Model):
                    {"name": "max_non_improving_iterations", "default": 5}]
         return super(CharNNModel, CharNNModel).get_extra_configs() + configs
 
+    def tokenize(self, text):
+        return list(text)
+
     def create_model(self, maxlen, char_count, class_count):
         raise NotImplemented("Needs to be implemented.")
 

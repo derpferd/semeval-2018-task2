@@ -14,6 +14,9 @@ class RandModel(Model):
     def predict(self, text):
         return choice(self.classes)
 
+    def tokenize(self, text):
+        return []
+
     def save_model(self, path):
         json.dump(self.classes, open(path, "w"))
 
