@@ -20,8 +20,8 @@ class CharNNModel(Model):
     using Neural Network classification.
     """
     def __init__(self, maxlen, **kargs):
+        # Set the max number of characters to use from a tweet.
         self.maxlen = maxlen
-        #self.max_chars = max_chars
 
     @staticmethod
     def get_extra_configs():

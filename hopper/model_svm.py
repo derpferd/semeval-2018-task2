@@ -1,4 +1,4 @@
-""" Code Author: Jonathan Beaulieu
+""" Author: Jonathan Beaulieu
 """
 from __future__ import division
 
@@ -65,7 +65,7 @@ class LinearSVC2Model(Model):
     using SVM classification.
     """
 
-    def __init__(self, balanced=False) -> None:
+    def __init__(self, balanced=False, C=1.0, dual=True, tol=1e-4, max_iter=1000, loss="squared_hinge") -> None:
         # Setup tweet tokenizer note this is the same as in our baseline. For a full description checkout the
         # model_naive_bayes_baselines source file.
         self.tokenizer = TweetTokenizer(preserve_case=False,
@@ -83,12 +83,19 @@ class LinearSVC2Model(Model):
         # The LinearSVC sets up a Linear Support Vector Machine classifier. This is different because than using SCV
         # with a Linear kernel because it uses liblinear as a backend instead of libsvm. This makes it run a lot faster.
         pipeline = Pipeline([('tfidf', TfidfTransformer()),
-                             ('linearsvc', LinearSVC(class_weight=class_weight))])
+                             ('linearsvc', LinearSVC(class_weight=class_weight, C=C,
+                                                     dual=dual, tol=tol, max_iter=max_iter,
+                                                     loss=loss))])
         self.classif = SklearnClassifier(pipeline)
 
     @staticmethod
     def get_extra_configs():
-        configs = [{"name": "balanced", "default": False}]  # add config for balanced.
+        configs = [{"name": "balanced", "default": False},
+                   {"name": "C", "default": 1.0},
+                   {"name": "dual", "default": True},
+                   {"name": "tol", "default": 1e-4},
+                   {"name": "max_iter", "default": 1000},
+                   {"name": "loss", "default": "squared_hinge"}]  # add config for balanced.
         return super(LinearSVC2Model, LinearSVC2Model).get_extra_configs() + configs
 
     def train(self, tweets: List[Tweet]) -> None:
