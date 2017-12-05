@@ -1,3 +1,9 @@
+'''Author: Dennis Asamoah Owusu
+This code is for collapsing semantically similar classes into one class.
+Specifically labels 3, 8, 13, 1, 9 and 0 are all change into 0;
+labels 5 and 6 are labelled as 5;
+labels 18 and 10 are labelled as 10;
+'''
 
 fname = "data/slim_train/us_train.labels";
 
@@ -20,7 +26,7 @@ for index,y in enumerate(content):
     content[index] = '5\n'
   if y == '18\n':
     content[index] = '10\n'
-  if y == '14\n':
+  if y == '14\n': # since there are only 13 classes labels > 13 are changed
     content[index] = '1\n'
   if y == '15\n':
     content[index] = '3\n'
