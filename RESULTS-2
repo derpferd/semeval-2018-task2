@@ -1,0 +1,16 @@
+Author: Dennis Asamoah Owusu
+This file contains our analysis of our Stage 2 Results.
+
+Team: Hopper (Jon, Dennis, Sai)
+Task: Multilingual Emoji Prediction (English and Spanish)
+
+For stage 2, we tried a number of strategies to try to improve upon our baseline results. The first approach was to use a character based bidirectional LSTM classifier as was done by Barber et al.[1] 
+
+
+
+
+
+
+
+REFERENCES
+[1] Francesco Barbieri, Miguel Ballesteros, and Hora- cio Saggion. 2017. Are emojis predictable? In Proceedings of the 15th Conference of the Eu- ropean Chapter of the Association for Computa- tional Linguistics: Volume 2, Short Papers. Associa- tion for Computational Linguistics, pages 105–111. http://www.aclweb.org/anthology/E17-2017.
