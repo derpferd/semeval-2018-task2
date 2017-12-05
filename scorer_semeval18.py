@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Authors: Task organizers
+# Note: We nolonger use the code in the file to do the scoring since it is s***.
 from codecs import open
 import sys
 

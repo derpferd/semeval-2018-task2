@@ -1,3 +1,8 @@
+""" Code Author: Jonathan Beaulieu
+This file creates the results_macro.csv and results_micro.csv files.
+It takes the output files from the output directory which contains all the output from training and testing the models
+and parses out the micro and macro scores for each fold."""
+
 import os
 import re
 import glob
@@ -18,18 +23,17 @@ def get_score(l):
 
 def main():
     sys_dirs = []
+    # Get all the directories in output. (each one contains output for a given model.)
     for x in os.listdir("output"):
         p = os.path.join("output", x)
         if os.path.isdir(p):
             sys_dirs += [p]
-    # os.path.abspath("output") + "/"+x for x in  if ]
-    # sys_dirs = glob.glob("output/char_*")
-    # print(g)
-    # return
-    # sys_dirs = os.listdir("logs")
+
     logs = []
+    # Get the logs from each directory.
     for d in sys_dirs:
         g = glob.glob(os.path.join(d, "*.log"))
+        # if there are multiple log files get the one named log.log
         if len(g) > 1 and os.path.join(d, "log.log") in g:
             logs += [os.path.join(d, "log.log")]
         else:
@@ -101,12 +105,14 @@ def main():
     for name, v in sorted(results_array_macro.items()):
         print(name, "\n" + "\n".join(map(get_row_str, v)))
 
+    # dump macro scores.
     with open("results_macro.csv", "w") as fp:
         print("Model Id," + ",".join("Fold {}".format(i+1) for i in range(max_fold)), file=fp)
         for name, v in sorted(results_array_macro.items()):
             print(name + ",", end="", file=fp)
             print(",".join(map(get_score, v)), file=fp)
 
+    # dump micro scores.
     with open("results_micro.csv", "w") as fp:
         print("Model Id," + ",".join("Fold {}".format(i+1) for i in range(max_fold)), file=fp)
         for name, v in sorted(results_array_micro.items()):
