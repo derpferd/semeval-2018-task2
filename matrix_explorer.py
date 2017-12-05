@@ -1,9 +1,13 @@
 #!/usr/bin/python3
+""" Code Author: Jonathan Beaulieu
+    This file hosts a website which allows the user to explore the confusion matrix of each model.
+
+    This program requires flask to be installed
+"""
 
 import json
 from flask import Flask
 app = Flask(__name__)
-"""This program requires flask to be installed"""
 
 langs = ["us", "es"]
 models = {"bow": "bow_0",

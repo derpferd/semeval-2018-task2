@@ -34,10 +34,10 @@ NON_NN_MODEL_CLS = [RandModel(),
                     ]
 NON_NN_MODELS = dict(zip(map(lambda x: x.__class__.__name__, NON_NN_MODEL_CLS), NON_NN_MODEL_CLS))
 
-# if not os.path.exists("models"):
-#     os.mkdir("models")
-# if not os.path.exists(os.path.join("models", MACHINE_NAME)):
-#     os.mkdir(os.path.join("models", MACHINE_NAME))
+if not os.path.exists("models"):
+    os.mkdir("models")
+if not os.path.exists(os.path.join("models", MACHINE_NAME)):
+    os.mkdir(os.path.join("models", MACHINE_NAME))
 
 
 def count(data, label):  # Function to count the data available for the respective test/train class. Gives out the number of tweets available for each gold emoji in testing and training data
@@ -70,6 +70,7 @@ def load_tweets(basepath):  # Loads the twitter data file and respective labels 
 
 
 class Config(object):
+    """This class parses and holds all the configuration variables."""
     def __init__(self, id, model, json_obj=None):
         self.id = id.replace(" ", "_")
         self.model = model
@@ -326,6 +327,8 @@ def run_nn_model(config, recover=False, fold=-1, save_examples=False):
             start_iteration = checkpoint["iteration"] + 1
             print("Recovering from fold {}, iteration {}".format(start_fold, start_iteration), file=log, flush=True)
 
+    # Import nn models here since if we aren't going to use them, we don't need to waste time importing time.
+    # They use tensorflow and it takes a long time to import it.
     from hopper.model_char_lstm import CharLSTMModel, CharBiLSTMModel, CharLSTMCNNModel, CharBiLSTMCNNModel
     from hopper.model_word_nn import WordEmbeddingCNNModel
     model_clss = [CharLSTMModel,

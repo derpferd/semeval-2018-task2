@@ -2,7 +2,7 @@
 
 # FileName: install.sh
 # Author: Jonathan Beaulieu
-#Purpose: To update the system and to install missing/additional tools for the project.
+# Purpose: To update the system and to install missing/additional tools for the project.
 
 
 sudo apt-get update
