@@ -36,6 +36,9 @@ Each file lists the author(s) at the top of the file. In the case of multiple au
 - Documentation for Most Frequent Class Model in README and code
 - Documentation for NaiveBayes Model in code
 - RESULTS-1 and RESULTS-1.md
+- Resampling (collapsed classes to understand effect of semantically similar emojis)
+- Configs for running some models
+- RESULTS-2
 
 **Sai:**
 - Analyzed the Output and Results which can be found in Results1_1
