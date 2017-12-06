@@ -28,10 +28,11 @@ Another experiment we performed that is worth noting was done to understand how 
 To measure the impact of these semantically similar classes on our model, we collapsed classes that were semantically similar and rerun the BOW model. The macro F1 score improved by 6 points suggesting that the semantic similarity between classes such as Camera and Camera with Flash does have an effect although the effect was not nearly as significant as we had expected. It is worth noting that after collapsing the semantically similar classes, a lot of tweets were misclassified as the most frequent class. Thus, it may be that the semantic similarity of the classes does really matter but the gain in performance from collapsing the classes was offset by the fact that we now had a class that was really huge and ate up too many classifications.
 
 ANALYSIS OF LSVM RESULTS
+
 Since the LSVM classifier provided the best results, we present an analysis of its performance. LSVM is what?
 
 
-Below is a confusion matrix for the English results (first fold).
+Below is a confusion matrix for the English results (first fold):
 
 ```
  0: 8848  610  248  245   42  100   42   59   27   62   36   34  173    7    5   13    2   57    6    6   ∑ = 10622
@@ -57,7 +58,7 @@ Below is a confusion matrix for the English results (first fold).
 ```
 
 
-Below is a confusion matrix for the Spanish results (first fold).
+Below is a confusion matrix for the Spanish results (first fold):
 
 ```
  0: 1362  288   62   63   22   19   17    4    7   20    4    2    1    1    0    2    8    0    0   ∑ = 1882
