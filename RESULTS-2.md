@@ -1,5 +1,6 @@
-Author: Dennis Asamoah Owusu
 This file contains our analysis of our Stage 2 Results.
+
+Author: Dennis Asamoah Owusu
 
 Team: Hopper (Jon, Dennis, Sai)
 Task: Multilingual Emoji Prediction (English and Spanish)
