@@ -57,6 +57,34 @@ Below is a confusion matrix for the English results (first fold):
 19:    9  291  460   85   58   75   69   22   15   15   18   17    0    2   19   12    4   16   17    5   ∑ =  1209
 ```
 
+The first column has the emoji labels (classes). Label numbers and their corresponding emojis are shown below. The last column shows the total number of tweets in the dataset that correctly belong to each class. Thus, 10,622 of the tweets correctly belong to label 0 and 5,077 tweets correctly belong to label 1. The columns in between the first and the last show how our model classified the tweets. For instance, for label 0, out of the 10,622 tweets belonging to that class, we labelled 8848 as belonging to label 0, 610 as belonging to label 1, 248 as belonging to label 2 and so on.
+
+```
+0	❤	_red_heart_	
+1	😍	_smiling_face_with_hearteyes_	
+2	😂	_face_with_tears_of_joy_	
+3	💕	_two_hearts_	
+4	🔥	_fire_	
+5	😊	_smiling_face_with_smiling_eyes_	
+6	😎	_smiling_face_with_sunglasses_	
+7	✨	_sparkles_	
+8	💙	_blue_heart_	
+9	😘	_face_blowing_a_kiss_	
+10	📷	_camera_	
+11	🇺🇸	_United_States_	
+12	☀	_sun_	
+13	💜	_purple_heart_	
+14	😉	_winking_face_	
+15	💯	_hundred_points_	
+16	😁	_beaming_face_with_smiling_eyes_	
+17	🎄	_Christmas_tree_	
+18	📸	_camera_with_flash_	
+19	😜	_winking_face_with_tongue_	
+```
+
+Let’s analyze.
+
+
 
 Below is a confusion matrix for the Spanish results (first fold):
 
@@ -81,6 +109,33 @@ Below is a confusion matrix for the Spanish results (first fold):
 17:  154   59    6   17    3    5    2    0    5    5    1    1    0    0    0    2    2    0    0   ∑ =  262
 18:   49  101   53    2   23    9    5    3    1    9    2    0    0    1    0    0    3    0    0   ∑ =  261
 ```
+
+Similar to the confusion matrix for English, the first column has the emoji labels. Label numbers and their corresponding emojis are shown below. Note that label 19 is missing from the confusion matrix. This is because there was not a single tweet in the training data that had that emoji. The data in the other columns is exactly as described for the English.
+
+```
+0	❤	_red_heart_	
+1	😍	_smiling_face_with_hearteyes_	
+2	😂	_face_with_tears_of_joy_	
+3	💕	_two_hearts_	
+4	😊	_smiling_face_with_smiling_eyes_	
+5	😘	_face_blowing_a_kiss_	
+6	💪	_flexed_biceps_	
+7	😉	_winking_face_	
+8	👌	_OK_hand_	
+9	🇪🇸	_Spain_	
+10	😎	_smiling_face_with_sunglasses_	
+11	💙	_blue_heart_	
+12	💜	_purple_heart_	
+13	😜	_winking_face_with_tongue_	
+14	💞	_revolving_hearts_	
+15	✨	_sparkles_	
+16	🎶	_musical_notes_	
+17	💘	_heart_with_arrow_	
+18	😁	_beaming_face_with_smiling_eyes_	
+19	🔝	_TOP_arrow_	
+```
+
+Let’s analyze. 
 
 
 REFERENCES
