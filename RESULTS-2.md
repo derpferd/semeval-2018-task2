@@ -82,7 +82,7 @@ The first column has the emoji labels (classes). Label numbers and their corresp
 19	😜	_winking_face_with_tongue_	
 ```
 
-Let’s analyze.
+The first most important trend we observe is that labels 0, 1 and 2 perform pretty well in terms of true positives - ~83% for label 0 (8848/10622), ~57% for label 1 (2903/5077) and ~63% for label 2 (3171/5067). At the same time, they also
 
 
 
