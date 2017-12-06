@@ -24,7 +24,7 @@ GLOVE_DIR = os.path.join(os.environ["HOME"], 'nlp_data', 'glove.twitter')
 
 class WordNNModel(Model):
     """This model classifies tweets into any one of twenty classes
-    using Neural Network classification.
+    using Neural Network classification on word units.
     """
     def __init__(self, maxlen, maxwords, embedding_size, **kargs):
         self.maxlen = maxlen
@@ -119,38 +119,15 @@ class WordNNModel(Model):
     def batch_predict(self, texts):
         tests = self.process_test_data(texts)
         preds = self.model.predict(tests, verbose=0)
-        return [pred.argmax() for pred in preds]
-
-    def save_meta_data(self, path):
-        # obj = {"maxlen": self.maxlen,
-        #        "max_chars": self.max_chars,
-        #        "class_count": self.class_count}
-        # json.dump(obj, open(os.path.join(path, "data.json"), "w"))
-        pass
-
-    def load_meta_data(self, path):
-        # obj = json.load(open(os.path.join(path, "data.json"), "r"))
-        # self.maxlen = obj["maxlen"]
-        # self.max_chars = obj["max_chars"]
-        # self.class_count = obj["class_count"]
-        pass
 
     def save_model(self, path):
         if os.path.exists(path):
             shutil.rmtree(path)
         os.makedirs(path, exist_ok=True)
         self.model.save(os.path.join(path, "model.h5"))
-        # obj = {"maxlen": self.maxlen,
-        #        "max_chars": self.max_chars,
-        #        "class_count": self.class_count}
-        # json.dump(obj, open(os.path.join(path, "data.json"), "w"))
 
     def load_model(self, path):
         self.model = load_model(os.path.join(path, "model.h5"))
-        # obj = json.load(open(os.path.join(path, "data.json"), "r"))
-        # self.maxlen = obj["maxlen"]
-        # self.max_chars = obj["max_chars"]
-        # self.class_count = obj["class_count"]
 
     def tokenize(self, text):
         return self.tokenizer.texts_to_sequences(texts)
@@ -179,27 +156,6 @@ class WordEmbeddingCNNModel(WordNNModel):
         return super(WordEmbeddingCNNModel, WordEmbeddingCNNModel).get_extra_configs() + configs
 
     def create_model(self, maxlen, num_words, class_count):
-        # embedding_layer = Embedding(num_words,
-        #                             self.embedding_size,
-        #                             weights=[self.embedding_matrix],
-        #                             input_length=self.maxlen,
-        #                             trainable=False)
-
-        # sequence_input = Input(shape=(self.maxlen,), dtype='int32')
-        # embedded_sequences = embedding_layer(sequence_input)
-        # x = Conv1D(128, 5, activation='relu')(embedded_sequences)
-        # # x = MaxPooling1D(5)(x)
-        # # x = Conv1D(128, 5, activation='relu')(x)
-        # # x = MaxPooling1D(5)(x)
-        # # x = Conv1D(128, 5, activation='relu')(x)
-        # x = GlobalMaxPooling1D()(x)
-        # x = Dense(128, activation='relu')(x)
-        # preds = Dense(class_count, activation='softmax')(x)
-        #
-        # model = training.Model(sequence_input, preds)
-        # model.compile(loss='categorical_crossentropy',
-        #               optimizer='rmsprop',
-        #               metrics=['acc'])
         model = Sequential()
         model.add(Embedding(num_words,
                             self.embedding_size,

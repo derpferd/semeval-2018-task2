@@ -43,6 +43,7 @@ def main():
     sys_results_macro = {}
     sys_results_micro = {}
     for log in logs:
+        # regex out the scores.
         txt = open(log, "r").read()
         res = re.findall(r"----- Iteration ([0-9]{1,3}) results for fold ([0-9]{1,3}) -----\nMacro F1: ([0-9\.]{3,7})\n-----\nMicro F1: ([0-9\.]{3,7})", txt, re.MULTILINE)
         obj_mac = {}
@@ -59,7 +60,7 @@ def main():
         sys_results_micro[os.path.split(os.path.split(log)[0])[1]] = obj_mic
 
         if len(res) == 0:
-            # The log isn't a nn log.
+            # The log isn't a nn log so try the other format.
             res = re.findall(r"----- Results -----\nMacro F1: ([0-9\.]{3,7})\n-----\nMicro F1: ([0-9\.]{3,7})", txt, re.MULTILINE)
             if len(res) == 0:
                 res = re.findall(r"----- Results for fold [0-9]{1,3} -----\nMacro F1: ([0-9\.]{3,7})\n-----\nMicro F1: ([0-9\.]{3,7})", txt, re.MULTILINE)

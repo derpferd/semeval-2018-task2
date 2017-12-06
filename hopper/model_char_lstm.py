@@ -1,4 +1,5 @@
 """ Code Author: Jonathan Beaulieu
+    This file contains all the char-based Neural Network models, which are mostly lstm based models.
 """
 from __future__ import division
 
@@ -39,15 +40,17 @@ class CharNNModel(Model):
         raise NotImplemented("Needs to be implemented.")
 
     def preprocess_data(self, tweets, test_dev_split):
+        """This method creates a training and dev set based on `test_dev_split`."""
         tokenized = []
         labels = []
-        self.vocab = {"<unk>": 0}
+        self.vocab = {"<unk>": 0}  # Start with the a unknown char in the vocad.
 
         for tweet in tweets:
             part = []
             labels += [tweet.emoji]
             for c in tweet.text[:self.maxlen]:
                 if c not in self.vocab:
+                    # add the unseen char to the vocab with a unique id.
                     self.vocab[c] = len(self.vocab)
                 part += [self.vocab[c]]
             tokenized += [part]
@@ -55,12 +58,16 @@ class CharNNModel(Model):
         self.max_chars = len(self.vocab)
         self.class_count = len(set(labels))
 
+        # Padding :)
         tokenized = sequence.pad_sequences(tokenized, maxlen=self.maxlen)
 
+        # One hot encode the labels!
         labels = to_categorical(labels)
 
+        # Let's find how many tweets in the training split.
         split = int(test_dev_split * len(tweets))
 
+        # Don't forget to save the dev_set for later.
         self.dev_set = tweets[split:]
 
         return (tokenized[:split], labels[:split]), (tokenized[split:], labels[split:])
@@ -86,6 +93,7 @@ class CharNNModel(Model):
         (x_train, y_train), (x_dev, y_dev) = self.preprocess_data(tweets, test_dev_split)
 
         if not continue_training:
+            # This means we need a new model because it is the first time running.
             self.model = self.create_model(self.maxlen, self.max_chars, self.class_count)
 
         self.model.fit(x_train, y_train,
@@ -144,17 +152,6 @@ class CharLSTMModel(CharNNModel):
 
         model.compile('adam', 'categorical_crossentropy', metrics=["accuracy"])
         return model
-
-    # def create_model(self, maxlen, char_count, class_count):
-    #     model = Sequential()
-    #     model.add(LSTM(128, input_shape=(maxlen, char_count)))
-    #     model.add(Dense(char_count))
-    #     model.add(Activation('softmax'))
-    #
-    #     optimizer = RMSprop(lr=0.01)
-    #     model.compile(loss='categorical_crossentropy', optimizer=optimizer)
-    #
-    #     return model
 
 
 class CharBiLSTMModel(CharNNModel):
