@@ -8,7 +8,7 @@ Task: Multilingual Emoji Prediction (English and Spanish)
 
 For stage 2, we tried a number of strategies to improve upon our baseline results. The first approach was to use a character based bidirectional LSTM classifier as was done by Barber et al. [1]. Due to the slowness of testing the models, we were able to try two sets of parameters for the neural network and embedding size. A neural network size and embedding size of 128 seemed to work better than 64 so we used the former in experimenting. We wondered how a uni-directional character based LSTM will fare and so tried that too. We also tried a character based LSTM combined with a deep convolutional neural network (CNN) inspired by dos Santos and Maira Gatti’s work on using CNN for sentiment analysis of short texts [2]. 
 
-For the combined LSTM and CNN, we performed an additional experiment where, for training, we chose an equal number of tweets from each class. As we had a very dominant class (accounting for roughly 20% of tweets), we wondered whether this could be affecting the classifier performance since the performance of naive-Bayes classifiers, for instance, degrade when there is such a dominant class [3]. The change in using the combined CNN and LSTM on a dataset with equally represented classes compared to using it on the entire training set was negligible. We also combined the CNN with a bidirectional LSTM. Not too excited by the results of our neural network models, we tried a Bag of Words model with a Linear SVM classifier. This turned out to provide the best results. The table below shows the Macro F1 scores of the various classifiers. Since we performed 10-fold cross-validation, we show the mean and standard deviation for each classifier’s results set. We add the results from our Bag of Words with Bernoulli naive-Bayes classifier for comparison.
+For the combined LSTM and CNN, we performed an additional experiment where, for training, we chose an equal number of tweets from each class. As we had a very dominant class (accounting for roughly 20% of tweets), we wondered whether this could be affecting the classifier performance since the performance of naive-Bayes classifiers, for instance, degrade when there is such a dominant class [3]. The change in using the combined CNN and LSTM on a dataset with equally represented classes compared to using it on the entire training set was negligible. We also combined the CNN with a bidirectional LSTM. Not too excited by the results of our neural network models, we tried a Bag of Words model with a Linear SVM classifier. This turned out to provide the best results. The table below shows the Macro F1 scores of the various classifiers. Since we performed 10-fold cross-validation, we show the mean and standard deviation for each classifier’s results set. We add the results from our baseline - Bag of Words with Bernoulli naive-Bayes classifier - for comparison. En and Es stand for English and Spanish respectively.
 
 ```
 			MEAN (En)	SDEV (En)	MEAN (Es)	SDEV (Es)
@@ -19,6 +19,8 @@ CNN + LSTM (Fair)*	29.35		0.44		N/A		N/A
 CNN + Bi-LSTM		29.29		0.36		16.15		0.49
 LSVM			32.73		0.24		17.98		0.31
 Bernoulli		29.10		0.20		16.49		0.42
+
+* Fair means each class was equally represented in the training data.
 ```
 
 
