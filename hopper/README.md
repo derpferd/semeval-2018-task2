@@ -4,12 +4,18 @@ Multiple Authors. The model creator is the author of the section about the model
 This directory contains all the code used in our system (aka: **Hopper**).
 
 ## model.py
+Author: Jonathan Beaulieu
 
 This file contains the classes and templates for the other models.
 
 Classes:
 - Tweet, this class contains the data for a given tweet. That is the text for the tweet and the id of the emoji linked to it.
 - Model, this class is a parent class for every model and defines the interface which a model needs to implement.
+
+## model_sklearn.py
+Author: Jonathan Beaulieu
+
+This file contains an abstract class which implements the `save_model` and `load_model` methods for any sklearn model.
 
 ## model_rand.py
 Author: Jonathan Beaulieu
@@ -148,3 +154,45 @@ Information Retrieval. Cambridge University Press, pp. 234-265.
 http://nlp.stanford.edu/IR-book/html/htmledition/the-bernoulli-model-1.html or https://nlp.stanford.edu/IR-book/pdf/13bayes.pdf
 
 2. SciKit Learn - Documentation http://scikit-learn.org/stable/modules/naive_bayes.html#bernoulli-naive-bayes
+
+## model_char_lstm.py
+Author: Jonathan Beaulieu
+
+This model file contains many different character based neural network classifier models. All of the models use Keras as a backend.
+It contains the following classes (which contain a different model except the first one.):  
+ - CharNNModel
+   - This is the base class for all of the other models in this file.
+   - It contains the following notable methods:
+     - `preprocess_data`
+       - This function tokenizes the tweets into an array of numbers using a mapping stored in a vocab. It also turns the labels into one hot encoded vectors. Lastly, it splits the data into a train set and a dev set. Basically this method makes sure that the data is already to be used in the training step.
+     - `train`
+       - This function handles the training so all the other models can use this code instead of rewriting it.
+     - `predict`
+       - This function uses the model created by `train` to predict the class based on the tweet text.
+ - CharLSTMModel
+ - CharBiLSTMModel
+ - CharLSTMCNNModel
+ - CharBiLSTMCNNModel
+
+### CharLSTMModel
+This model is a "plain" lstm model.
+
+### CharBiLSTMModel
+
+
+### CharLSTMCNNModel
+
+
+### CharBiLSTMCNNModel
+
+### References
+
+3. Francesco Barbieri, Miguel Ballesteros, and Horacio Saggion. 2017. Are emojis predictable? In Proceedings of the 15th Conference of the European Chapter of the Association for Computational Linguistics: Volume 2, Short Papers. Association for Computational Linguistics, pages 105–111. http://www.aclweb.org/anthology/E17-2017.
+4. Cicero dos Santos and Maira Gatti. 2014. Deep convolutional neural networks for sentiment analysis of short texts. In Proceedings of COLING 2014, the 25th International Conference on Computational Linguistics: Technical Papers. Dublin City University and Association for Computational Linguistics, Dublin, Ireland, pages 69–78. http://www.aclweb.org/anthology/C14-1008.
+5.
+
+## model_word_nn.py
+Author: Jonathan Beaulieu
+
+## model_svm.py
+Author: Jonathan Beaulieu
