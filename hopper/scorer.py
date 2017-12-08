@@ -1,3 +1,8 @@
+""" Author: Jonathan Beaulieu
+    This file contains our implementation of the scorer provided.
+
+"""
+
 from __future__ import division
 from collections import defaultdict
 
@@ -7,6 +12,7 @@ def f1(precision,recall):
 
 
 class Score(object):
+    """This is a data class which stores all the score info you might want."""
     def __init__(self, macro_f1, micro_f1, p, r):
         self.macro_f1 = macro_f1
         self.micro_f1 = micro_f1
@@ -19,19 +25,23 @@ class Score(object):
 
 
 class Scorer(object):
+    """ This class is used for scoring.
+        It calculates macro f1, micro f1 scores
+    """
     def __init__(self):
         self.truth_dict=defaultdict(int)
         self.output_dict_correct=defaultdict(int)
         self.output_dict_attempted=defaultdict(int)
 
     def add(self, gold, out):
+        """Each time you score a test you should call this function."""
         self.truth_dict[gold] += 1
         if out == gold:
             self.output_dict_correct[out] += 1
         self.output_dict_attempted[out] += 1
 
     def get_score(self):
-        """Returns the score so far."""
+        """Returns the score so far based on the results given to the `add` method."""
         precision_total = 0
         recall_total = 0
         num_emojis = len(self.truth_dict)

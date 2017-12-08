@@ -12,6 +12,7 @@ class RandModel(Model):
         self.classes = list(set([t.emoji for t in tweets]))
 
     def predict(self, text):
+        """Pick a random class."""
         return choice(self.classes)
 
     def tokenize(self, text):
