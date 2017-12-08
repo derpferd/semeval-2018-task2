@@ -100,7 +100,7 @@ The first column has the emoji labels (classes). Label numbers and their corresp
 19	😜	_winking_face_with_tongue_
 ```
 
-The first most important trend we observe is that labels 0, 1 and 2 perform pretty well in terms of true positives - ~83% for label 0 (8848/10622), ~57% for label 1 (2903/5077) and ~63% for label 2 (3171/5067) while at the same time being false positives for many classes. Take label 5 for instance. 327 tweets are correctly classified as belonging to label 5. However, 732 tweets that should have been classified as label 5 are misclassified as label 1. The trend of misclassifying more tweets as label 1 than are correctly classified can be seen in the rows showing labels 6, 7, 8, 13, 14, 15, 16 and 19. Similarly, label 2 is incorrectly assigned to many tweets and the number of misclassified tweets often exceeds the number of tweets correctly classified. See the row for label 6 as an example. We suppose that the size of these three classes contribute to this phenomenon. Labels 1 and 2 are almost twice the size of the fourth most populous class while label 0 is about four times larger.
+The first most important trend we observe is that labels 0, 1 and 2 perform pretty well in terms of true positives - ~83% for label 0 (8848/10622), ~57% for label 1 (2903/5077) and ~63% for label 2 (3171/5067) while at the same time being false positives for many classes. Take label 5 for instance. 327 tweets are correctly classified as belonging to label 5. However, 732 tweets that should have been classified as label 5 are misclassified as label 1. The trend of misclassifying more tweets as label 1 can be seen in the rows showing labels 6, 7, 8, 13, 14, 15, 16 and 19. Similarly, label 2 is incorrectly assigned to many tweets and the number of misclassified tweets often exceeds the number of tweets correctly classified. See the row for label 6 as an example. We suppose that the size of these three classes contribute to this phenomenon. Labels 1 and 2 are almost twice the size of the fourth most populous class while label 0 is about four times larger.
 
 Below are some of the tweets that were classified as 1 when they should have been classified as 5.
 
@@ -151,7 +151,7 @@ Finally, we performed a comparison between the results of our Bag Of Words model
 18	6	5
 ```
 
-With the exception of label 14 where performance is nearly equal and label 16 where the LSVM performs less, the LSVM performs better for each label. We conclude that for this task and data then, the LSVM is a better classifier than the Bernoulli naive Bayes classifier. Below are some tweets for label 18 that the LSVM succeed in classifying that the Bernoulli naive Bayes could not find. We choose label 18 because the percentage difference in performance in favor of the LSVM is greatest here.
+With the exception of label 14 where performance is nearly equal and label 16 where the LSVM performs less, the LSVM performs better for each label. We conclude that for this task and data then, the LSVM is a better classifier than the Bernoulli naive Bayes classifier. Below are some tweets for label 18 that the LSVM succeed in classifying that the Bernoulli naive Bayes could not find. We choose label 18 because the percentage difference in performance (in favor of the LSVM) is greatest here.
 
 ```
 Social Damage's final west coast tour. :vvntal #Hardcore @ Bridgetown DIY
@@ -236,7 +236,7 @@ Park chillings in Retiro Park #parquedelretiro #spain #madrid #citytrip # city .
 ```
 
 
-SO, it will seem that the flag emoji - whether American or Spanish - is predictable but for the other emojis we are not so sure at this point! :-)
+SO, in the end, it will seem that the flag emoji - whether American or Spanish - is predictable but for the other emojis we are not so sure at this point! :-)
 
 
 CITED
