@@ -19,7 +19,7 @@ import numpy as np
 from hopper import Model
 
 
-GLOVE_DIR = os.path.join(os.environ["HOME"], 'nlp_data', 'glove.twitter')
+GLOVE_DIR = os.path.join('data', 'glove.twitter')
 
 
 class WordNNModel(Model):

@@ -1,6 +1,7 @@
 # Repo specific ignores
 raw_out
 models
+data/glove.twitter
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -187,14 +187,12 @@ All our NN Models have a common structure. Each one is a sequential model made u
 Another technique we use to prevent over-fitting our models is a Dropout layer. In this layer some of the learned data is "thrown away". This is done by randomly removing the values(aka. weights) form nodes in the model which also removes the connections to that node at the same time. This is the most popular form of regularization (preventing over-fitting and making the model more general) in NN Models.
 
 #### Dense Layer
-This layer is a densely-connected NN. We use this layer to "transform" the high dimensional vectors coming out of the LSTM to the dimensions that match our output (the one-hot encoded labels). 
+This layer is a densely-connected NN. We use this layer to "transform" the high dimensional vectors coming out of the LSTM to the dimensions that match our output (the one-hot encoded labels).
 
 #### Embedding Layer
 For all of out char-based NN models the first layer is a trainable character embedding layer. This layer creates a unique vector to represent each token (note this adds a dimension, so now the data is an array of vectors where the vectors are embeddings, which are vectors themselves). Each vector is randomly assigned at first however during the training phase it is modified based the output of the system compared to the correct values. The size of these embeddings are set based on the `embedding_size` configuration, which defaults to 128 (experimentally found to be the based for our use case).
 
-
-
-Note: Below we will talk about of the layers in the models.
+Note: Below we will talk about the layers in the models.
 
 ### CharLSTMModel
 This model is a "plain" lstm model.
@@ -202,17 +200,31 @@ This model has four layers:
  - Embedding (This is discussed in the section above.)
  - LSTM
    - This is a type of RNN, which means it's input and output layer are connected by multiple hidden layers.
-   -
+   - The hidden layer values are updated after each based on the difference between the models output and the expected output.
  - Dropout (This is discussed in the section above.)
- - Dense
-   -
+ - Dense (This is discussed in the section above.)
 
 
 ### CharBiLSTMModel
 This model was inspired by the work by in *Are emojis predictable?* [1]. Their best model was a Character-based Bidirectional (Long Short Term Memory) LSTM Model.
 
-### CharBiLSTMCNNModel
+ - Embedding (This is discussed in the section above.)
+ - Bidirectional LSTM
+   - This just like the LSTM except it trains itself on each input twice once normally and once with the input reversed.
+ - Dropout (This is discussed in the section above.)
+ - Dense (This is discussed in the section above.)
 
+Note: This system shows slight improvement over our LSTM system.
+
+### CharBiLSTMCNNModel
+We created this model based on the above CharBiLSTMModel and the concepts we learned from Cicero dos Santos and Maira Gatti's paper [2].
+
+ - Embedding (This is discussed in the section above.)
+ - Convolutional Layer (CNN)
+   - This layer uses a Rectifier activation function to "merge" a window of inputs into a single input. The window size is configurable through the `kernel_size` variable. This is helps the model since each single input(a char) also includes some contextual information through this process.
+ - Bidirectional LSTM (This is discussed in the section above.)
+ - Dropout (This is discussed in the section above.)
+ - Dense (This is discussed in the section above.)
 
 ### References
 
@@ -221,6 +233,9 @@ This model was inspired by the work by in *Are emojis predictable?* [1]. Their b
 
 ## model_word_nn.py
 Author: Jonathan Beaulieu
+
+### WordEmbeddingCNNModel
+This model is the same as CharBiLSTMCNNModel exact instead of char-based embedding we use pretrained word based embeddings. We got these from the [Glove](https://nlp.stanford.edu/projects/glove/). We use the 100d twitter vectors. The results were very poor from this method so we decided to focus on other methods instead.
 
 ## model_svm.py
 Author: Jonathan Beaulieu
