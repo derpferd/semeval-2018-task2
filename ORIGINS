@@ -16,7 +16,7 @@ Four additonal tools are required to run the project script on your system. The 
 
 These description and source of the tools is as follows:
 
-Natural Language ToolKit(NLTK): NLTK is an open source tool developed by University of Pennsylvania used for writing NLP programs in python. 
+Natural Language ToolKit (NLTK): NLTK is an open source tool developed by University of Pennsylvania used for writing NLP programs in python.
 
 For our project, NLTK packages are used in Naive Bayes Model(check model_naive_bayes_baselines.py). 
 We import packages like TweetTokenizer, FreqDist and SklearnClassifier.(Check README in hopper folder for tokenization and  TFID transform).
@@ -27,10 +27,25 @@ Scikit learn is used in Naive bayes model to import and implement Bernoulli Naiv
 
 SciPy: Scipy is a open source software used for implementing mathematical algorithms and functions in Python.
 
-References: 
+Keras: Keras is a Python library used to implement deep learning algorithms. It can be implemented on a backend software like "tensorflow" and is very easy to use with python.
+
+Tensorflow: Tensor flow is a python API used for numerical computation using data flow graphs. Originally developed by google brain team, tensorflow makes it easier to deploy
+the self learning features for NLP into applications.
+
+Normalise: It is a Python module developed by University of cambridge , which is used to normalise text data.
+Non Standard Words(Out of Vocabulary words) are detected, classified and expanded. (Check readme in Normalization folder for more details)
+
+
+References:
 
 http://www.nltk.org/index.html 
 
 https://docs.scipy.org/doc/scipy/reference/tutorial/general.html
 
 https://pypi.python.org/pypi/scikit-learn/0.19.0
+
+https://keras.io/
+
+https://www.tensorflow.org/
+
+A Text Normalisation System for Non-Standard English Words

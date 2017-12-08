@@ -28,6 +28,19 @@ make small changes to the code.
 
 
 To install normalise package run: ./install.sh
+
+After installing the normalise package, cd into the directory using terminal and run the command python3 setup.py develop. This will
+install the package and the additional requirements for it.
+
+Note: The module needs brown and names corpora from nltk to work.
+
+To download these corpora,run python3 in terminal to open the python interpreter, and run the following commands
+
+$ import nltk
+$nltk.download('brown')
+$nltk.download('names')
+
+After installing normalise module and downloading the data from nltk ,
 To normalise the data run: ./normalize.sh
 
 
