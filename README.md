@@ -30,6 +30,9 @@ Each file lists the author(s) at the top of the file. In the case of multiple au
 - Wrote the code for the Naive Bayes baselines.
 - Wrote the code for the Random Model.
 - Wrote this README and the README sections on Bernoulli Naive Bayes baselines.
+- Wrote README sections on Character and Word Based NN Models.
+- Wrote code for Char-based and Word-based NN Models, scorer, confusion matrix explorer, new run script and the SVM Model.
+- Preform many of the experiments.
 
 **Dennis:**
 - Most Frequent Class Model
@@ -97,7 +100,7 @@ This is a todo list of the tasks needing to be done for the resubmittion.
 - [x] Meet up with Ted to double check this todo list. (All) Due 10/23 @ 10am
 
 ## Stage 2 TODO
-- [ ] Check out Twitter/Word embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016) (Jon)
+- [x] Check out Twitter/Word embeddings at [https://github.com/fvancesco/acmmm2016](https://github.com/fvancesco/acmmm2016) (Jon)
 - [ ] Try normalization. (Sai) Note: Sai will not start working till Monday after his presentation
 - [x] Try NML techneques (Dennis)
 - [x] Do analysis of tweet, create report of issues current model is facing. (Jon)
