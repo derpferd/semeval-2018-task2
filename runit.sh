@@ -19,3 +19,5 @@
 
 # This command gets the results from the trained models. (Don't comment out even if you uncomment the above command to train a model, otherwise the results will not update.)
 python3 parse_output.py
+
+# ***The above command will dump the results into output/results.txt***
