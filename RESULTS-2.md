@@ -25,13 +25,23 @@ Baseline		29.10		0.20		16.49		0.42
 LSTMs and CNNs were character based except for Word-LSTM.
 ```
 
-Another experiment we performed that is worth noting was done to understand how much semantically similar classes such as camera and camera with flash impact misclassification. From our stage 1 results, we noticed that our model confused label 5 (smiling face with sunglasses) with label 1 (smiling face with heart eyes) significantly. We inferred that the model might have trouble discriminating between classes with similar semantics. That inference is supported by the fact that the model also struggles to discriminate between labels 10 (Camera) and 18 (Camera with flash). 
+Another experiment we performed, worth noting, was done to understand how much semantically similar classes such as camera and camera with flash impact misclassification. From our stage 1 results, we noticed that our model confused label 5 (smiling face with sunglasses) with label 1 (smiling face with heart eyes) significantly. We inferred that the model might have trouble discriminating between classes with similar semantics. That inference is supported by the fact that the model also struggles to discriminate between labels 10 (Camera) and 18 (Camera with flash). 
 
 To measure the impact of these semantically similar classes on our model, we collapsed classes that were semantically similar and rerun the BOW model. The macro F1 score improved by 6 points suggesting that the semantic similarity between classes such as Camera and Camera with Flash does have an effect although the effect was not nearly as significant as we had expected. It is worth noting that after collapsing the semantically similar classes, a lot of tweets were misclassified as the most frequent class. Thus, it may be that the semantic similarity of the classes does really matter but the gain in performance from collapsing the classes was offset by the fact that we now had a class that was really huge and ate up too many classifications.
 
 ANALYSIS OF LSVM RESULTS
 
-Since the LSVM classifier provided the best results, we present an analysis of its performance. LSVM is what?
+Since the Bag of words model with LSVM classifier provided the best results, we present an analysis of its performance. The general idea of a Bag of words model for classification is determining how closely each word in the training data correlates with each class and then use that knowledge in determining what class to assign to any document based on the words in that document. Thus, if a document contains words that are more closely related to class A than any other class, then the document is classified as class A. Take the following tweets from our training data. 
+
+“I voted! @ Upper Tampa Bay Regional Public Library” 
+“We Voted. #thebraunfamily #thisonesforyougrandpa…”
+“We are out here trying to get out vote on! #keepamericagreat #election2016 #motivation…”
+“I voted! God bless America ! @ Quail Hollow Golf & Country Club”
+“Doing my part today #ivoted #electionday # @ Richmond's First Baptist Church”
+
+In our training data, all the above tweets (documents) were classified as having the American flag emoji. All these tweets (and many other tweets in this class) contain the word “voted” and, thus, “voted” shares a close relation with this class. While the word “voted” may appear in other classes, it likely doesn’t appear in those classes as frequently as it appears in this class. “Voted” in a tweet, therefore, is a strong suggestion that the tweet may belong to this class. By looking at all the words in each tweet, and which class each word strongly suggests, a sense of what class the tweet belongs to can be derived.
+
+The job of the classifier then is to look at the training data and derive these associations between the words and classes and then use that knowledge to predict the class for new sentences. Of the classifiers we tried using the bag of words model, the classifier that performed best was the Linear Support Vector Machine classifier. 
 
 
 Below is a confusion matrix for the English results (first fold):
