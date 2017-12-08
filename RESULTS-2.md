@@ -96,7 +96,9 @@ The first column has the emoji labels (classes). Label numbers and their corresp
 19	😜	_winking_face_with_tongue_	
 ```
 
-The first most important trend we observe is that labels 0, 1 and 2 perform pretty well in terms of true positives - ~83% for label 0 (8848/10622), ~57% for label 1 (2903/5077) and ~63% for label 2 (3171/5067). At the same time, they are also false positives for many classes. Take label 5 for instance. 327 tweets are correctly classified as belonging to label 5. However, 732 tweets that should have been classified as label 5 are misclassified as label 1. The trend of misclassifying more tweets as label 1 than are correctly classified can be seen in labels 6,7,8, 13, 14, 15, 16 and 19. Similarly, label 2 is incorrectly assigned to many tweets and the number of misclassified tweets often exceeds the number of tweets correctly classified. See the row for label 6 as an example.
+The first most important trend we observe is that labels 0, 1 and 2 perform pretty well in terms of true positives - ~83% for label 0 (8848/10622), ~57% for label 1 (2903/5077) and ~63% for label 2 (3171/5067) while at the same time being false positives for many classes. Take label 5 for instance. 327 tweets are correctly classified as belonging to label 5. However, 732 tweets that should have been classified as label 5 are misclassified as label 1. The trend of misclassifying more tweets as label 1 than are correctly classified can be seen in labels 6, 7, 8, 13, 14, 15, 16 and 19. Similarly, label 2 is incorrectly assigned to many tweets and the number of misclassified tweets often exceeds the number of tweets correctly classified. See the row for label 6 as an example. We suppose that the size of these three classes contribute to this phenomenon. Labels 1 and 2 are almost twice the size of the fourth most populous class while label 0 is about four times larger.
+
+
 
 
 
