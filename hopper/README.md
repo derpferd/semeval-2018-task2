@@ -180,11 +180,14 @@ When it comes to NN Models over-fitting is a very real issue. This is mostly due
 
 In our case we have a configuration value, `max_non_improving_iterations`, which controls how many iterations to train without them improving the score against the validation set. The default value is 5. This allows the model's score to go down some for an iteration when it might go much higher in the next.
 
-#### Dropout Layer
-Another technique we use to prevent over-fitting our models is a Dropout layer. In this layer some of the learned data is "thrown away". This is done by randomly removing the values
-
 #### Layers
 All our NN Models have a common structure. Each one is a sequential model made up of **layers**. Each layer's output is the next ones input. The first layer takes two values. First is an array of vectors, where each vector is a list of integers which represent the tokens in the tweet text (ex. char-based "speech" -> [1,2,3,3,4,5]). Note this vector is padded such that all the vectors have the same length. This length is configured in the `maxlen` variable. The other parameter is the "answers" in our case this is an array of one-hot encoded vectors, where each vector represents the class/label (e.g. emoji) which belongs to the matching text.
+
+#### Dropout Layer
+Another technique we use to prevent over-fitting our models is a Dropout layer. In this layer some of the learned data is "thrown away". This is done by randomly removing the values(aka. weights) form nodes in the model which also removes the connections to that node at the same time. This is the most popular form of regularization (preventing over-fitting and making the model more general) in NN Models.
+
+#### Dense Layer
+This layer is a densely-connected NN. We use this layer to "transform" the high dimensional vectors coming out of the LSTM to the dimensions that match our output (the one-hot encoded labels). 
 
 #### Embedding Layer
 For all of out char-based NN models the first layer is a trainable character embedding layer. This layer creates a unique vector to represent each token (note this adds a dimension, so now the data is an array of vectors where the vectors are embeddings, which are vectors themselves). Each vector is randomly assigned at first however during the training phase it is modified based the output of the system compared to the correct values. The size of these embeddings are set based on the `embedding_size` configuration, which defaults to 128 (experimentally found to be the based for our use case).
@@ -202,17 +205,11 @@ This model has four layers:
    -
  - Dropout (This is discussed in the section above.)
  - Dense
-     model.add(Embedding(char_count, self.embedding_size, input_length=maxlen))
-     model.add(LSTM(self.lstm_size))
-     model.add(Dropout(0.5))
-     model.add(Dense(class_count, activation="sigmoid"))
+   -
 
 
 ### CharBiLSTMModel
-This model was inspired by the work by in *Are emojis predictable?* [1]. Their best model was a Character-based Bidirectional (Long Short Term Memory)LSTM Model.
-
-
-
+This model was inspired by the work by in *Are emojis predictable?* [1]. Their best model was a Character-based Bidirectional (Long Short Term Memory) LSTM Model.
 
 ### CharBiLSTMCNNModel
 

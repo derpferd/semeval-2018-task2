@@ -1,13 +1,13 @@
 """ Code Author: Jonathan Beaulieu
 This file creates the results_macro.csv and results_micro.csv files.
 It takes the output files from the output directory which contains all the output from training and testing the models
-and parses out the micro and macro scores for each fold."""
+and parses out the micro and macro scores for each fold.
+It save all the results in "output/results.txt".
+"""
 
 import os
 import re
 import glob
-
-import shutil
 
 
 flatten = lambda l: [item for sublist in l for item in sublist]
@@ -22,6 +22,7 @@ def get_score(l):
 
 
 def main():
+    results_fp = open("output/results.txt", "w")
     sys_dirs = []
     # Get all the directories in output. (each one contains output for a given model.)
     for x in os.listdir("output"):
@@ -102,9 +103,9 @@ def main():
         results_array_micro[name] = res_array
 
     # print(results_array)
-    print("Key\nname_of_configuration\nMax Macro-F1: Macro-F1 for each epoch starting with the first and going to the last.")
+    print("Key\nname_of_configuration\nMax Macro-F1: Macro-F1 for each epoch starting with the first and going to the last.", file=results_fp)
     for name, v in sorted(results_array_macro.items()):
-        print(name, "\n" + "\n".join(map(get_row_str, v)))
+        print(name, "\n" + "\n".join(map(get_row_str, v)), file=results_fp)
 
     # dump macro scores.
     with open("results_macro.csv", "w") as fp:
