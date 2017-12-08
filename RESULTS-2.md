@@ -33,11 +33,13 @@ ANALYSIS OF LSVM RESULTS
 
 Since the Bag of words model with LSVM classifier provided the best results, we present an analysis of its performance. The general idea of a Bag of words model for classification is determining how closely each word in the training data correlates with each class and then use that knowledge in determining what class to assign to any document based on the words in that document. Thus, if a document contains words that are more closely related to class A than any other class, then the document is classified as class A. Take the following tweets from our training data. 
 
+```
 “I voted! @ Upper Tampa Bay Regional Public Library” 
 “We Voted. #thebraunfamily #thisonesforyougrandpa…”
 “We are out here trying to get out vote on! #keepamericagreat #election2016 #motivation…”
 “I voted! God bless America ! @ Quail Hollow Golf & Country Club”
 “Doing my part today #ivoted #electionday # @ Richmond's First Baptist Church”
+```
 
 In our training data, all the above tweets (documents) were classified as having the American flag emoji. All these tweets (and many other tweets in this class) contain the word “voted” and, thus, “voted” shares a close relation with this class. While the word “voted” may appear in other classes, it likely doesn’t appear in those classes as frequently as it appears in this class. “Voted” in a tweet, therefore, is a strong suggestion that the tweet may belong to this class. By looking at all the words in each tweet, and which class each word strongly suggests, a sense of what class the tweet belongs to can be derived.
 
