@@ -120,8 +120,42 @@ Fun weekend with great people @ Glass Bowl
 Good morning Church Flow @ New Mercies
 ```
 
+Classification for label 10 fared pretty well - 50%(769/1530). Confusion with either label 0 or label 1 or label 2 was also not as significant - 4, 167, 157 respectively. It is interesting to note, though, that 198 of label 10 tweets were misclassified as 18. Thus, the confusion between camera and _camera_with_flash_ persists. Classifications for label 11, label 12 and label 17 also fared very well.
+
+Finally, we performed a comparison between the results of our Bag Of Words model with LSVM and our Bag Of Words model with Bernoulli naive Bayes classifier to see if we could understand why the LSVM performed a few percentage points better. We show the true positives for each label for both models below.
 
 
+```
+	BOW	LSVM
+0	8534	8848	
+1	2331	2903
+2	2696	3171
+3	789	933
+4	1043	1168
+5	243	327
+6	334	385
+7	339	422
+8	219	236
+9	286	234
+10	667	769
+11	919	909
+12	697	622
+13	68	82
+14	46	45
+15	173	244
+16	55	28
+17	882	937
+18	153	305
+18	6	5
+```
+
+With the exception of label 14 where performance is nearly equal and label 16 where the LSVM performs less, the LSVM performs better for each label. We conclude that for this task and data then, the LSVM is a better classifier than the Bernoulli naive Bayes classifier. Below are some tweets for label 18 that the LSVM succeed in classifying that the Bernoulli naive Bayes could not find. We choose label 18 because the percentage difference in performance in favor of the LSVM is greatest here.
+
+```
+Social Damage's final west coast tour. :vvntal #Hardcore @ Bridgetown DIY
+Different angles to the same goal. by @user @ New…
+When iris.apfel speaks...knowledge and wisdom is all you hear so listen up... :@drummondphotog…
+```
 
 
 Below is a confusion matrix for the Spanish results (first fold):
