@@ -241,11 +241,11 @@ SO, it will seem that the flag emoji - whether American or Spanish - is predicta
 
 CITED
 
-[1] Francesco Barbieri, Miguel Ballesteros, and Hora- cio Saggion. 2017. Are emojis predictable? In Proceedings of the 15th Conference of the Eu- ropean Chapter of the Association for Computa- tional Linguistics: Volume 2, Short Papers. Associa- tion for Computational Linguistics, pages 105–111. http://www.aclweb.org/anthology/E17-2017.
+[1] Francesco Barbieri, Miguel Ballesteros, and Horacio Saggion. 2017. Are emojis predictable? In Proceedings of the 15th Conference of the European Chapter of the Association for Computational Linguistics: Volume 2, Short Papers. Association for Computational Linguistics, pages 105–111. http://www.aclweb.org/anthology/E17-2017.
 
-[2]Cicero dos Santos and Maira Gatti. 2014. Deep convolutional neural networks for sentiment anal- ysis of short texts. In Proceedings of COLING 2014, the 25th International Conference on Com- putational Linguistics: Technical Papers. Dublin
+[2]Cicero dos Santos and Maira Gatti. 2014. Deep convolutional neural networks for sentiment analysis of short texts. In Proceedings of COLING 2014, the 25th International Conference on Computational Linguistics: Technical Papers. Dublin
 
-[3]Jason D. M. Rennie, Lawrence Shih, Jaime Teevan, and David R. Karger. 2003. Tackling the poor assump- tions of naive bayes text classifiers. In In Proceed- ings of the Twentieth International Conference on Machine Learning. pages 616–623.
+[3]Jason D. M. Rennie, Lawrence Shih, Jaime Teevan, and David R. Karger. 2003. Tackling the poor assumptions of naive bayes text classifiers. In In Proceedings of the Twentieth International Conference on Machine Learning. pages 616–623.
 
 
 OTHER HELPFUL REFERENCES
