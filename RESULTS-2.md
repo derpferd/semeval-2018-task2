@@ -43,7 +43,9 @@ Since the Bag of words model with LSVM classifier provided the best results, we 
 
 In our training data, all the above tweets (documents) were classified as having the American flag emoji. All these tweets (and many other tweets in this class) contain the word “voted” and, thus, “voted” shares a close relation with this class. While the word “voted” may appear in other classes, it likely doesn’t appear in those classes as frequently as it appears in this class. “Voted” in a tweet, therefore, is a strong suggestion that the tweet may belong to this class. By looking at all the words in each tweet, and which class each word strongly suggests, a sense of what class the tweet belongs to can be derived.
 
-The job of the classifier then is to look at the training data and derive these associations between the words and classes and then use that knowledge to predict the class for new tweets. Of the classifiers we tried using the bag of words model, the classifier that performed best was the Linear Support Vector Machine (LSVM) classifier. LSVMs are by default binary classifiers. Each document to be classified is represented as a vector based on the features of the document. In our case, the features was the words making up the document (Bag of words). The document turned feature vector is then represented in some n-dimensional vector space where n is the dimensions of the feature vectors. Having represented these vectors, the Support Vector machine learns a hyperplane that separates the vectors based on the class. Ideally, you want all the vectors belonging to the first class to be, say, above the hyperplane and all the vectors belonging to the second class to be below the hyperplane. Each new document to be classified is represented in the vector space and the class it belongs to depends on whether it is below or above the plane. This is a simplification of how LSVMs work but sufficient to show that it can be used with a Bag of Words feature to classify documents into one of two classes. The LSVM binary classifier can be employed in different ways to perform a multi-classification and, in our case, we used LSVM for multi-classification.    
+The job of the classifier then is to look at the training data and derive these associations between the words and classes and then use that knowledge to predict the class for new tweets. Of the classifiers we tried using the bag of words model, the classifier that performed best was the Linear Support Vector Machine (LSVM) classifier. LSVMs are by default binary classifiers. Each document to be classified is represented as a vector based on the features of the document. In our case, the features was the words making up the document (Bag of words). The document turned feature vector is then represented in some n-dimensional vector space where n is the dimensions of the feature vectors. 
+
+Having represented these vectors, the Support Vector machine learns a hyperplane that separates the vectors based on the class. Ideally, you want all the vectors belonging to the first class to be, say, above the hyperplane and all the vectors belonging to the second class to be below the hyperplane. Each new document to be classified is represented in the vector space and the class it belongs to depends on whether it is below or above the plane. The way the separating hyperplane is drawn (e.g. slope) is determined by vectors close to it known as support vectors. Specifically, the hyperplane is drawn so as to maximize the distance between it and these support vectors. This is a simplification of how LSVMs work but sufficient to show that it can be used with a Bag of Words feature to classify documents into one of two classes. The LSVM binary classifier can be employed in different ways to perform a multi-classification and, in our case, we used LSVM for multi-classification.    
 
 
 Below is a confusion matrix for the English results (first fold):
@@ -98,7 +100,26 @@ The first column has the emoji labels (classes). Label numbers and their corresp
 
 The first most important trend we observe is that labels 0, 1 and 2 perform pretty well in terms of true positives - ~83% for label 0 (8848/10622), ~57% for label 1 (2903/5077) and ~63% for label 2 (3171/5067) while at the same time being false positives for many classes. Take label 5 for instance. 327 tweets are correctly classified as belonging to label 5. However, 732 tweets that should have been classified as label 5 are misclassified as label 1. The trend of misclassifying more tweets as label 1 than are correctly classified can be seen in labels 6, 7, 8, 13, 14, 15, 16 and 19. Similarly, label 2 is incorrectly assigned to many tweets and the number of misclassified tweets often exceeds the number of tweets correctly classified. See the row for label 6 as an example. We suppose that the size of these three classes contribute to this phenomenon. Labels 1 and 2 are almost twice the size of the fourth most populous class while label 0 is about four times larger.
 
-Below are some of the tweets that were either misclassified as 0, 1 or 2. The correct label that should have been assigned follows the tweet in parenthesis. 
+Below are some of the tweets that were either misclassified as 1 rather than 5.
+
+```
+Hi. I have a light skin friend named Felicia. This is her. Hi Felicia @ Waveland Bowl
+It's an 8.1 Blood Orange! - Drinking an Ogre by @user at @user —
+Great films and a BEAUTIFUL night (@ Columbus Circle in New York, NY)
+#FellowHeadliner The Amazing Julia @ Edc New York Citi Field 2016
+Full Set of Lash Extensions! @ Geneva, New York
+```
+
+Below are some tweets that were correctly classified as 5.
+
+```
+I think today is about to be a great day..
+Thank God 4 another day!!
+Good morning! My day is starting out happy crazy hair morning day!…
+Sorry I'm a day late but you get on my nerves so it's okay Happy…
+Good morning Church Flow @ New Mercies
+```
+
 
 
 
@@ -170,3 +191,5 @@ OTHER HELPFUL REFERENCES
 https://machinelearningmastery.com/support-vector-machines-for-machine-learning/
 
 https://nlp.stanford.edu/IR-book/html/htmledition/multiclass-svms-1.html
+
+https://nlp.stanford.edu/IR-book/html/htmledition/support-vector-machines-the-linearly-separable-case-1.html
