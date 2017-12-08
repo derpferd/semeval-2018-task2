@@ -209,7 +209,34 @@ Similar to the confusion matrix for English, the first column has the emoji labe
 19	🔝	_TOP_arrow_	
 ```
 
-Let’s analyze. 
+From the confusion matrix, we observe the same trend where the first three labels have high true positives but at the same time are false positives for many other labels. A similar analysis like we did for the English data will show this to be the case. One other glaring thing in the Spanish confusion matrix is that the model fares very well for label 9 (Spanish flag) - 63%(209/331). Below are some of those tweets.
+
+Label 9 Tweets in Spanish
+
+```
+Views From España @ Hotel Riviera Ibiza
+Puerta de la mar #portadelamar #Valencia #España #spain @ Porta de…
+@ Plaza de Colón
+Amigos como estos hay muy pocos, los quiero, zoquetes #Madrid #España #Europe #Eurotrip # …
+#MuseodelPrado #Madrid # @ Museo Nacional del Prado
+#fountain #Valladolid #spain #drummingaroundtheworld @ Plaza Mayor, Valladolid
+Park chillings in Parque del Retiro #parquedelretiro #spain #madrid #citytrip #city…
+```
+
+Translation of Above Tweets in English (Google Translate)
+
+```
+Views From Spain @ Riviera Ibiza Hotel
+Door of the sea #portadelamar #Valencia # Spain #spain @ Porta de ...
+@ Plaza de Colón
+Friends like these there are very few, I love them, zoquetes #Madrid # Spain #Europe #Eurotrip # ...
+#MuseodelPrado #Madrid # @ Museo Nacional del Prado
+#fountain #Valladolid #spain #drummingaroundtheworld @ Plaza Mayor, Valladolid
+Park chillings in Retiro Park #parquedelretiro #spain #madrid #citytrip # city ...
+```
+
+
+SO, it will seem that the flag emoji - whether American or Spanish - is predictable but for the other emojis we are not so sure at this point! :-)
 
 
 CITED
