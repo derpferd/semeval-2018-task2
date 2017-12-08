@@ -1,0 +1,42 @@
+Author: Sai Cheedella
+
+Normalise is a python module developed by University of Cambridge to normalise the text data. The module is developed
+on Richard Sporat's famous paper "Normalization of non-standard words". The module can be installed using pip or can be
+downloaded from github and installed on a system. Full details of the module are described in a paper called
+"A Text Normalisation System for Non-Standard English Words".
+
+The main objective of the paper is finding, classifying and expanding of Non Standard Words(Out of Vocabulary Words) in
+the given text. The paper uses 4 different classes to classify a NSW and then uses Oxford and NLTK's Brown Dictonaries to
+Lemmatize or split the NSW.
+
+The 4 classes used to classify NSW's are
+
+ALPHA:  For Alphabetic tokens. Eg: 'it''is''an''awesome''readme'.
+NUMB:   For Numerical tokens.  Eg: '150(will be normalised as on hundred and 50)'.
+SPLT:   For alphanumeric tokens which have to be further split. Eg: 543cm(normalised as five hundred and forty three Centimeters).
+MISC:   For all the other cases Eg: #coolproject (normalised as 'hashtag cool project'), @username(Normalised as '@''user').
+
+
+The module is mainly designed for english data and can be used in variants of American English and British English
+Even though the module was designed for english, it works on tokenizing the spanish data and separate
+usernames and hashtags from the text data(in our case).
+
+The data given as input to the normalise module was given by the semeval task organisers.
+The system was robust to the size of the data but had few issues while splitting the words. So, Instead of installing
+it via pip, We used the code from the authors git and ran in development mode to handle minor errors and
+make small changes to the code.
+
+
+To install normalise package run: ./install.sh
+To normalise the data run: ./normalize.sh
+
+
+Complete description of the system can be found in : http://aclweb.org/anthology/W17-4414
+
+For more details about the module, check the readme available in "normalise" folder
+
+Reference:
+
+1) Emma Flint, Elliot Ford, Olivia Thomas, Andrew Caines & Paula Buttery (2016) - A Text Normalisation System for Non-Standard Words.
+
+2) https://github.com/EFord36/normalise

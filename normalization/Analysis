@@ -1,0 +1,20 @@
+Author: Sai Cheedella
+
+Analysis:
+
+It took us 7 hours to normalise the 500k english tweets and 2 hours to normalise 100k spanish tweets.
+The output is stored in a separate file with one tweet per line without disturbing the line order with the labels.
+
+The performance of normalisation program was poor when it was handling braces('['','{,'('),html tags and mutliple
+repetition of an alphabet("hiiiiiiiiiiiiiiii"). We had to add few regexs to remove the white spaces and repetitons of the alphabet.
+
+For few cases, the pakcage was not able to normalise the text and the program crashed. So we had to add few additional lines
+of code to prevent this case from repeating. The edited line are
+
+1) line 389 in class_NUMB.py in normalization/normalise/normalise/class_NUMB.py
+
+2) line 105 in normalization/normalise/normalise/normalisation.py.
+
+Because we did not have enough time to retrain our neural network models, the normalised data is UNTESTED.
+
+
