@@ -171,28 +171,80 @@ It contains the following classes (which contain a different model except the fi
        - This function uses the model created by `train` to predict the class based on the tweet text.
  - CharLSTMModel
  - CharBiLSTMModel
- - CharLSTMCNNModel
  - CharBiLSTMCNNModel
+
+All of our Neural Network Models have a of things in common. I will discuss these things here.
+
+#### Early Stopping
+When it comes to NN Models over-fitting is a very real issue. This is mostly due to the fact most if not all NN Models are trained using many iterations(aka. epochs). As the model gets trained more and more on the train data the score keeps increasing however at some point the model will be fit so closely to the training data it will not work well with other data of the same type. To prevent this we use a **validation set**. This data set is removed from the training dataset and used to score the model after each training epoch. After each epoch if the model stops improving the score for the validation data we stop the training. Note: The size of the validation set is hard coded to 10% of the training set (should make this configurable in the future however for now a 90/10 split is pretty standard so no change needed).
+
+In our case we have a configuration value, `max_non_improving_iterations`, which controls how many iterations to train without them improving the score against the validation set. The default value is 5. This allows the model's score to go down some for an iteration when it might go much higher in the next.
+
+#### Dropout Layer
+Another technique we use to prevent over-fitting our models is a Dropout layer. In this layer some of the learned data is "thrown away". This is done by randomly removing the values
+
+#### Layers
+All our NN Models have a common structure. Each one is a sequential model made up of **layers**. Each layer's output is the next ones input. The first layer takes two values. First is an array of vectors, where each vector is a list of integers which represent the tokens in the tweet text (ex. char-based "speech" -> [1,2,3,3,4,5]). Note this vector is padded such that all the vectors have the same length. This length is configured in the `maxlen` variable. The other parameter is the "answers" in our case this is an array of one-hot encoded vectors, where each vector represents the class/label (e.g. emoji) which belongs to the matching text.
+
+#### Embedding Layer
+For all of out char-based NN models the first layer is a trainable character embedding layer. This layer creates a unique vector to represent each token (note this adds a dimension, so now the data is an array of vectors where the vectors are embeddings, which are vectors themselves). Each vector is randomly assigned at first however during the training phase it is modified based the output of the system compared to the correct values. The size of these embeddings are set based on the `embedding_size` configuration, which defaults to 128 (experimentally found to be the based for our use case).
+
+
+
+Note: Below we will talk about of the layers in the models.
 
 ### CharLSTMModel
 This model is a "plain" lstm model.
+This model has four layers:
+ - Embedding (This is discussed in the section above.)
+ - LSTM
+   - This is a type of RNN, which means it's input and output layer are connected by multiple hidden layers.
+   -
+ - Dropout (This is discussed in the section above.)
+ - Dense
+     model.add(Embedding(char_count, self.embedding_size, input_length=maxlen))
+     model.add(LSTM(self.lstm_size))
+     model.add(Dropout(0.5))
+     model.add(Dense(class_count, activation="sigmoid"))
+
 
 ### CharBiLSTMModel
+This model was inspired by the work by in *Are emojis predictable?* [1]. Their best model was a Character-based Bidirectional (Long Short Term Memory)LSTM Model.
 
 
-### CharLSTMCNNModel
 
 
 ### CharBiLSTMCNNModel
 
+
 ### References
 
-3. Francesco Barbieri, Miguel Ballesteros, and Horacio Saggion. 2017. Are emojis predictable? In Proceedings of the 15th Conference of the European Chapter of the Association for Computational Linguistics: Volume 2, Short Papers. Association for Computational Linguistics, pages 105–111. http://www.aclweb.org/anthology/E17-2017.
-4. Cicero dos Santos and Maira Gatti. 2014. Deep convolutional neural networks for sentiment analysis of short texts. In Proceedings of COLING 2014, the 25th International Conference on Computational Linguistics: Technical Papers. Dublin City University and Association for Computational Linguistics, Dublin, Ireland, pages 69–78. http://www.aclweb.org/anthology/C14-1008.
-5.
+1. Francesco Barbieri, Miguel Ballesteros, and Horacio Saggion. 2017. Are emojis predictable? In Proceedings of the 15th Conference of the European Chapter of the Association for Computational Linguistics: Volume 2, Short Papers. Association for Computational Linguistics, pages 105–111. http://www.aclweb.org/anthology/E17-2017.
+2. Cicero dos Santos and Maira Gatti. 2014. Deep convolutional neural networks for sentiment analysis of short texts. In Proceedings of COLING 2014, the 25th International Conference on Computational Linguistics: Technical Papers. Dublin City University and Association for Computational Linguistics, Dublin, Ireland, pages 69–78. http://www.aclweb.org/anthology/C14-1008.
 
 ## model_word_nn.py
 Author: Jonathan Beaulieu
 
 ## model_svm.py
 Author: Jonathan Beaulieu
+
+Quoted from Dennis:
+> [Linear Support Vector Machine] LSVMs are by default binary classifiers. Each document to be classified is represented as a vector based on the features of the document. In our case, the features was the words making up the document (Bag of words). The document turned feature vector is then represented in some n-dimensional vector space where n is the dimensions of the feature vectors.
+
+> Having represented these vectors, the Support Vector machine learns a hyperplane that separates the vectors based on the class. Ideally, you want all the vectors belonging to the first class to be, say, above the hyperplane and all the vectors belonging to the second class to be below the hyperplane. Each new document to be classified is represented in the vector space and the class it belongs to depends on whether it is below or above the plane. The way the separating hyperplane is drawn (e.g. slope) is determined by vectors close to it known as support vectors. Specifically, the hyperplane is drawn so as to maximize the distance between it and these support vectors. This is a simplification of how LSVMs work but sufficient to show that it can be used with a Bag of Words feature to classify documents into one of two classes. The LSVM binary classifier can be employed in different ways to perform a multi-classification and, in our case, we used a one-vs-rest strategy for doing multi-classification. This means the multi-classification is broken up into many binary-classifications, one for each class. Each binary-classification decides whether the input belongs more in the class or one of the rest of the classes. We compare all the results and pick the class with the highest probability
+
+To create a Support Vector Machine Model we used the SKLearn Library.
+We used a pipeline similar to the one we used for our Baseline Model.
+Our pipeline looks like:
+ - Tokenization
+ - TfidfTransform
+ - train SVM classifier
+
+Tokenization is done as described in the [Tokenization](#tokenization) section. Likewise with the [TfidfTransform](#tfidftransform).
+
+In the training phase of Pipeline we use SKLearn Library to train the classifier. We use a one-vs-rest strategy for doing multi-classification as mentioned by Dennis. To understand how this step works please read Dennis' description above.
+
+### References
+https://machinelearningmastery.com/support-vector-machines-for-machine-learning/  
+https://nlp.stanford.edu/IR-book/html/htmledition/multiclass-svms-1.html  
+https://nlp.stanford.edu/IR-book/html/htmledition/support-vector-machines-the-linearly-separable-case-1.html  
