@@ -1,0 +1,422 @@
+%
+% File naaclhlt2018.tex
+%
+%% Based on the style files for NAACL-HLT 2018, which were
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{naaclhlt2018}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{textcomp}
+
+\usepackage{url}
+\usepackage{booktabs}
+
+% This is to make urls break on any letter.
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks% save the current one
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+  \do\Y\do\Z\do\*\do\-\do\~\do\'\do\"\do\-}%
+
+\aclfinalcopy % Uncomment this line for all SemEval submissions
+
+
+% Reviewer comments:
+% Detailed Comments
+% The table maybe more clear and standard.
+% ---------------------------------------------------------------------------
+
+% Detailed Comments
+% ---------------------------------------------------------------------------
+
+% 1) I suggest to transform many passives into active form
+% 2) There are some citations that are not well formatted (e.g. two in a row, or Barbierei and others)
+% 4) there are spelling errors
+% 5) Table formatting is very poor: please, use emojis directly as labels, even if that requires some work: it makes the reader unhappy if he has to look up indexes!
+% 7) the 'Discussion' section in particular is full of writing errors
+
+% On the Experiments
+
+% 2) the neural network section is not clear: what does it mean that a network has 'size 128': hidden nodes? embeddings size? layers? Explain it better
+% 3) what does it mean that the output layer of the CNN is 64 ? Are you expecting 64 labels?
+
+% With these corrections, this paper is a nice work to present as students. Well done!
+% ---------------------------------------------------------------------------
+
+
+% Detailed Comments
+% ---------------------------------------------------------------------------
+% The weaknesses of this manuscript are listed below:
+% 1. In Introduction, “We analyzed the results, performed some variations of the baseline to gain more insights into the results and then used those insights to implement our final system”, but in Discussion, the authors said the final system performs better only because of marginal improvements in the classification itself. I think such a description is contradictory.
+% 2. Some places in Table 3 and Table 5 are empty. I can’t understand what these empty places mean.
+% ---------------------------------------------------------------------------
+
+
+% Detailed Comments
+% ---------------------------------------------------------------------------
+% Formal check:
+
+
+% Jon: I have inserted this link as a footnote. But I think they might mean that we should use these scores in our Abstract and Introduction.
+% - Ranking: since you are describing the participant system presented by the 'Hopper' team you should report also clearly the official results in:
+% https://docs.google.com/spreadsheets/d/1on1Oj53EFcE4n-yO_sJc1JEo6x8hcUh5hsWTkTYdc_o/edit#gid=885431079
+
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B{\sc ib}\TeX}
+\newcommand{\winksmile}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f609.png}%
+  \endgroup
+  \space
+}
+\newcommand{\redheart}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u2764.png}%
+  \endgroup
+  \space
+}
+\newcommand{\hearteyes}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f60d.png}%
+  \endgroup
+  \space
+}
+\newcommand{\joytears}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f602.png}%
+  \endgroup
+  \space
+}
+\newcommand{\smileeyes}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f60a.png}%
+  \endgroup
+  \space
+}
+\newcommand{\smileshades}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f60e.png}%
+  \endgroup
+  \space
+}
+\newcommand{\purpleheart}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f49c.png}%
+  \endgroup
+  \space
+}
+\newcommand{\twohearts}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f495.png}%
+  \endgroup
+  \space
+}
+\newcommand{\blowingkiss}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f618.png}%
+  \endgroup
+  \space
+}
+\newcommand{\music}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f3b6.png}%
+  \endgroup
+  \space
+}
+\newcommand{\camera}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f4f7.png}%
+  \endgroup
+  \space
+}
+\newcommand{\cameraflash}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f4f8.png}%
+  \endgroup
+  \space
+}
+\newcommand{\esflag}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/ES.png}%
+  \endgroup
+  \space
+}
+\newcommand{\usflag}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/US.png}%
+  \endgroup
+  \space
+}
+\newcommand{\fire}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f525.png}%
+  \endgroup
+  \space
+}
+\newcommand{\christmastree}{%
+  \begingroup\normalfont
+  \includegraphics[height=\fontcharht\font`\B]{emojis/emoji_u1f384.png}%
+  \endgroup
+  \space
+}
+
+%Title format for system description papers by task participants
+\title{UMDuluth-CS8761 at SemEval-2018 Task 2:\\
+Emojis: Too many Choices? \winksmile}
+%Title format for task description papers by task organizers
+%\title{SemEval-2018 Task [TaskNumber]:  [Task Name]}
+
+\author{
+  Dennis Asamoah Owusu \& Jonathan Beaulieu \\
+  Department of Computer Science \\
+  University of Minnesota Duluth \\
+  Duluth, MN 55812 USA \\
+  {\tt \{asamo012,beau0307\}@d.umn.edu} \\
+  {\tt https://github.com/derpferd/semeval-2018-task2/} \\
+}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+In this paper, we present our system for assigning an emoji to a tweet based on the text. Each tweet was originally posted with an emoji which the task providers removed. Our task was to decide out of 20 emojis, which originally came with the tweet. Two datasets were provided - one in English and the other in Spanish. We treated the task as a standard classification task with the emojis as our classes and the tweets as our documents. Our best performing system used a Bag of Words model with a Linear Support Vector Machine as its' classifier. We achieved a macro F1 score of 32.73\% for the English data and 17.98\% for the Spanish data.
+   
+\end{abstract}
+
+\section{Introduction}
+
+An AI system that can associate text with appropriate emojis could be useful for generating content that is sparkled with emojis among other uses \cite{Barb:17}. Given only the text from a tweet in English or Spanish, the SemEval \cite{semeval2018task2} task was to determine the emoji that was in the original tweet. To learn how users associate emojis with text, a dataset comprised of 489,609 tweets in English and 98,289 tweets in Spanish was provided. Each tweet had a corresponding label representing the emoji that was in the tweet. The labels were assigned based on the frequency of the emoji, 0 being assigned to the most frequent emoji. The total number of labels was 20 for the English data and 19 for the Spanish data. We classified the tweets, our documents, by their emojis, our classes. We viewed the emojis as approximations of the sentiment expressed in the text.
+
+For our baseline, we implemented a Bag of Words model using a Bernoulli Naive Bayes classifier. We analyzed the results and used the insights to implement our final system, which used a Linear Support Vector machine for classification and also used a Bag of Words model to represent each document. This system performed better than our baseline by \texttildelow 3.5 percentage points for our English data and \texttildelow 1.5 percentage points for our Spanish data. It also performed better than several neural network models we experimented with. Our macro F1 score were 32.73\% and 17.98\% for our English data and Spanish data respectively.
+
+\section{Baseline}
+
+For our Baseline, we used a Bag of Words model (BOW) with a Bernoulli Naive Bayes Classifier. We also implemented a Most Frequent Class Model (MFC) and a Random Model (RAND) to help draw insights from our baseline. The results of these models for the English and Spanish data are shown in Table \ref{table:baseline-en} and Table \ref{table:baseline-es} respectively. The tables show mean and standard deviation over the folds using 10-fold cross-validation. We reserved 10\% of the data for testing and trained on the remaining 90\% for each fold. We followed the same approach in all our experiments. The Micro F1 scores are heavily influenced by the performance of the dominant classes. Since \texttildelow 21\% of the tweets belong to label 0 (\redheart) for English, the micro F1 score was \texttildelow 21\% for the MFC model. Macro F1 scores, on the other hand, give equal weight to each class, since they average the F1 scores of each class. 
+
+
+We chose Bernoulli style Naive Bayes because it generally works better for short texts (e.g. Tweets) than its Multinomial counterpart \cite{Manning2008}. We empirically verified this with our task and data. To implement this model, we used the NLTK library for preprocessing and the scikit-learn framework for the model training \cite{BirdKleinLoper09,scikit-learn}. 
+
+Our data pipeline consisted of four steps: Tokenization, Bagination, Tf-idf transform and Training. For tokenization we used NLTK's TweetTokenizer function. We configured it to convert all text to lowercase, crop repeating characters to a max of 3 and remove tweeter handles. We created the BOW by making a set of the tokens which appeared per the document. The next step was to normalize the frequency data into term-frequency times inverse document-frequency(tf-idf) representation. Finally, we trained a Bernoulli Naive Bayes classifier on this data.
+
+\subsection{Insights from BOW English Results}
+  For the English tweets, the difference between the macro and micro F-scores for our Bernoulli model lies in the fact that the distribution of classes is very unbalanced. This is demonstrated from the results shown in Table \ref{table:baseline-en}.
+
+Table \ref{table:confusion-matrix1} shows a confusion matrix for some labels of our BOW results for the English data. A mapping of select labels to emojis and their descriptions is shown in Table \ref{table:emojis1}. The matrix illustrates the struggles of the BOW model.  Generally many tweets are misclassified as \hearteyes and \joytears. Take \smileshades for instance. While only 332 tweets were correctly labeled, 558 tweets and 385 tweets that should have been labeled \smileshades were labeled \hearteyes and \joytears respectively. This misclassification of \smileshades as \hearteyes and \joytears is  not only the case for the selected classes represented in the matrix but also for most of the classes. Emojis \smileeyes and \hearteyes illustrate another pattern we observed. 653 out of 2312 tweets that should have been classified as \smileeyes were misclassified as \hearteyes. Since \smileeyes is a smiling face with smiling eyes and \hearteyes is smiling face with heart eyes, we inferred that the model might have trouble discriminating between classes with similar semantics.
+
+\begin{table}[]
+\centering
+
+\begin{tabular}{ r|l|l|l|l| }
+\cline{2-5}
+ & \multicolumn{2}{c|}{\textbf{Macro F1}} & \multicolumn{2}{c|}{\textbf{Micro F1}} \\ \cline{2-5} 
+                                    & \textbf{Mean}     & \textbf{S-Dev}     & \textbf{Mean}     & \textbf{S-Dev}     \\ 
+\cline{1-5}
+\multicolumn{1}{|l|}{\textbf{BOW}}  & 29.1              & 0.2                & 42.1                & 0.3                 \\ 
+
+\multicolumn{1}{|l|}{\textbf{MFC}}  & 1.8               & 0.0                  & 21.7                & 0.2                 \\
+\multicolumn{1}{|l|}{\textbf{RAND}} & 4.5               & 0.1                & 5.0                & 0.1                 \\ \hline
+\end{tabular}
+\caption{Baseline results for English}
+\label{table:baseline-en}
+\end{table}
+
+
+\begin{table}[]
+\centering
+
+\begin{tabular}{l|l|l|l|l|}
+\cline{2-5}
+                                    & \multicolumn{2}{c|}{\textbf{Macro F1}} & \multicolumn{2}{c|}{\textbf{Micro F1}} \\ \cline{2-5} 
+                                    & \textbf{Mean}     & \textbf{S-Dev}     & \textbf{Mean}     & \textbf{S-Dev}     \\ \hline
+\multicolumn{1}{|l|}{\textbf{BOW}}  & 16.5              & 0.4                & 29.6                & 0.4                 \\
+\multicolumn{1}{|l|}{\textbf{MFC}}  & 1.7               & 0.0                  & 20.0                & 0.4                 \\
+\multicolumn{1}{|l|}{\textbf{RAND}} & 4.8               & 0.2                & 5.5                & 0.2                 \\ \hline
+\end{tabular}
+\caption{Baseline results for Spanish}
+\label{table:baseline-es}
+\end{table}
+
+That inference is supported by the fact that the model also struggles to discriminate between \camera, a camera, and \cameraflash, a camera with flash. 458 tweets out of 1344 tweets (34\%) that should have been labeled as \cameraflash where incorrectly labeled as \camera. This is more significant when one notes that only 148 of \cameraflash tweets (11\%) where labeled correctly. 
+
+To measure the impact of these semantically similar classes on our model, we collapsed classes that were semantically similar and reran the BOW model. All of the ``heart'' emojis were put into a single class; the ``smiling'' emojis (except the hearty eyes one) were put into another class; the ``camera'' emojis were collapsed into one class; and each remaining emoji had its own class. In the end, we had 13 classes after merging.
+
+After running the model on these new set of classes, the macro F1 score improved by 6 percent points suggesting that the semantic similarity between emojis, such as \camera and \cameraflash, has an effect although the effect was not nearly as significant as we had expected. It is worth noting that after collapsing the semantically similar classes, plenty of tweets were misclassified as the most frequent class. Thus, it may be that the semantic similarity of the classes does really matter but the gain in performance from collapsing the classes was offset by the fact that we had a class that was relatively much larger than the largest class before.
+
+The BOW performed relatively well for labels 0, 1, 2, 4 and 17 (\redheart, \hearteyes, \joytears, \fire and \christmastree respectively) for the English data.
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\begin{tabular}{c | c | c | c | c | c || c |}
+\cline{2-7}
+ & \redheart & \hearteyes & \joytears & \smileeyes & \smileshades & Total \\ \hline
+\multicolumn{1}{|l|}{\redheart}		& 8637	& 618	&		&  		&		& 10752	\\
+\multicolumn{1}{|l|}{\hearteyes}	&		& 2358	& 832	&  		&		& 5145	\\
+\multicolumn{1}{|l|}{\joytears}		&		& 1022	& 2718	&  		&		& 5114	\\
+\multicolumn{1}{|l|}{\smileeyes}	&		& 653	& 437	& 251	& 139	& 2313	\\
+\multicolumn{1}{|l|}{\smileshades}	&		& 558	& 385	&  		& 332	& 2092	\\
+\hline
+\end{tabular}
+\caption{BOW Confusion Matrix for English. We have choose to leave some numbers out to prevent distraction from the patterns we are trying to show. All left out numbers are negligible.}
+\label{table:confusion-matrix1}
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\begin{tabular}{@{}l l l@{}}
+\toprule
+\textbf{Label} & \textbf{Emoji} & \textbf{Description} \\ \midrule
+0 & \redheart & Red heart \\ \midrule
+1 & \hearteyes & Smiley face with heart eyes \\ \midrule
+2 & \joytears & Face with tears of joy \\ \midrule
+4 & \fire & Fire \\ \midrule
+5 & \smileeyes & Smiling face with smiling eyes \\ \midrule
+6 & \smileshades & Smiling face with sunglasses \\ \midrule
+13 & \purpleheart & Purple Heart \\ \midrule
+10 & \camera & Camera \\ \midrule
+17 & \christmastree & Christmas Tree \\ \midrule
+18 & \cameraflash & Camera with Flash \\ \bottomrule
+\end{tabular}
+\caption{Some English Emojis}
+\label{table:emojis1}
+\end{table}
+
+\subsection{Insights from BOW Spanish Results}
+The Spanish results were much worse than the English results. Table \ref{table:results-es} illustrates the major trend we noticed with the BOW model's performance on the Spanish data. Count is the number of tweets that correctly belong to a class. \%C is what percentage of tweets were correctly labeled. \%\redheart, \%\hearteyes and \%\joytears are the percentages of tweets that our model misclassified as labels 0, 1 and 2 respectively. Thus for \redheart, there were 1882 tweets in the test data; 62\% of these were labeled correctly while 14\% was incorrectly as \hearteyes. As the table shows, a significant percentage of tweets were either misclassified as \redheart, \hearteyes or \joytears. The exception to this is \esflag - the Spanish flag. Table \ref{table:emojis-es} shows the emojis corresponding to the numerical labels. 
+
+\begin{table}[]
+\centering
+\begin{tabular}{ c | c c c c || c | }
+\cline{2-6}
+ & \textbf{\%C} & \textbf{\%\redheart} & \textbf{\%\hearteyes} & \textbf{\%\joytears} & \textbf{Count} \\ \hline
+\multicolumn{1}{|l|}{\redheart}		& 62	& -		& 14 & 0 	& 1882 \\
+\multicolumn{1}{|l|}{\hearteyes}	& 43	& 16	& -  & 14 	& 1338 \\
+\multicolumn{1}{|l|}{\joytears}		& 46	& 0 	& 25 & - 	& 908 \\
+\multicolumn{1}{|l|}{\twohearts}	& 15	& 32 	& 24 & 0 	& 641 \\
+\multicolumn{1}{|l|}{\smileeyes}	& 9		& 14 	& 32 & 17 	& 647 \\
+\multicolumn{1}{|l|}{\blowingkiss}	& 11	& 22 	& 29 & 11 	& 438 \\
+\multicolumn{1}{|l|}{\esflag}		& 63	& 5 	& 17 & 4 	& 331 \\
+\multicolumn{1}{|l|}{\smileshades}	& 7		& 12 	& 30 & 20 	& 332 \\
+\multicolumn{1}{|l|}{\music}		& 24	& 13 	& 19 & 27 	& 283 \\
+\hline
+\end{tabular}
+\caption{BOW Spanish results. \textbf{\%C} refers to the percent correctly labeled and \textbf{\%}\emph{emoji} refers to the percent mislabeled as \emph{emoji}.}
+\label{table:results-es}
+\end{table}
+
+\subsection{Neural Network}
+Upon reading about how neural models achieved high scores on similar tasks, we decided to try out methods based on \cite{Barb:17} and \cite{Dos:14}. The task this paper tries to solve is based on Barbieri et al.'s work where they do the same task. Their best performing model was a character based Bi-directional Long Short-term Memory Network (char-BLSTM). We also took inspiration from dos Santos and Gatti's work. They were able to achieve very good results using a Convolutional Neural Network (CNN) to do sentiment analysis. We tested four different types of neural network models: LSTM, BLSTM, CNN-LSTM and CNN-BLSTM. For the LSTM based models, we used a network size of 128. The only difference between our LSTM and our BLSTM is that we added a layer to train each input bidirectionally. Our CNN's convolution layer had an output dimension of 64 and a kernel size of 5. For it's pooling layer we chose a pool size of 4. When training each of the neural network models we used a development set which was 10\% of the training set to select the best parameters and to know how many epochs to train for. We settled on these specific parameters after trying out different parameters on the development set. None of our neural network models performed significantly better than our baseline.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Label} & \textbf{Emoji} & \textbf{Description} \\ \midrule
+0 & \redheart & Red heart \\ \midrule
+1 & \hearteyes & Smiley with heart eyes \\ \midrule
+2 & \joytears & Face with tears of joy \\ \midrule
+3 & \twohearts & Two hearts \\ \midrule
+4 & \smileeyes & Smiley with smiling eyes \\ \midrule
+5 & \blowingkiss & Face blowing a kiss \\ \midrule
+9 & \esflag & Spain \\ \midrule
+10 & \smileshades & Smiling face with sunglasses \\ \midrule
+16 & \music & Musical notes \\ \bottomrule
+\end{tabular}
+\caption{Some Spanish Emojis}
+\label{table:emojis-es}
+\end{table}
+
+\subsection{Linear SVM}
+Realizing that our neural network models did not perform any better than our BOW baseline, we decided to try a BOW model with other classifiers which were not neural networks. We settled on a Linear Support Vector Machine. To enable multi-class classification we used a one-vs-rest approach. 
+
+\subsection{Sampling}
+Roughly 20\% of the tweets in the English data belong to label 0. The performance of classifiers such as Naive Bayes degrades when there is such a dominant class \cite{Rennie03}. This data imbalance exists in the Spanish data as well. To improve the performance of our classifiers, we perform a sampling of the data so that we train on a data set where the classes are roughly equally represented. We performed a simple under sampling by randomly selecting an equal number of tweets from each class even though a more sophisticated re-sampling method will likely improve the results \cite{Estabrooks:Resampling}. 
+
+
+\section{Results}
+% \begin{table}[]
+% \centering
+% \begin{tabular}{@{}l|l|l|l|l|@{}}
+% \cmidrule(l){2-5}
+%                                     & \multicolumn{2}{c|}{\textbf{Macro F1}} & \multicolumn{2}{c|}{\textbf{Micro F1}} \\ \cmidrule(l){2-5} 
+%                                     & \textbf{Mean}     & \textbf{S-Dev}     & \textbf{Mean}     & \textbf{S-Dev}     \\ \midrule
+% \multicolumn{1}{|l|}{\textbf{BOW}}  & 16.5              & 0.4                & 29.6                & 0.4                 \\ \midrule
+% \multicolumn{1}{|l|}{\textbf{MFC}}  & 1.7               & 0.0                  & 20.0                & 0.4                 \\ \midrule
+% \multicolumn{1}{|l|}{\textbf{RAND}} & 4.8               & 0.2                & 5.5                & 0.2                 \\ \bottomrule
+% \end{tabular}
+% \caption{Results for Spanish}
+% \label{table:results-es}
+% \end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{ l | l | l | l | l | }
+\cline{2-5}
+ & \multicolumn{2}{c|}{\textbf{English}} & \multicolumn{2}{c|}{\textbf{Spanish}} \\ 
+\cline{2-5}
+ & \textbf{Mean}     & \textbf{S-Dev}     & \textbf{Mean}     & \textbf{S-Dev}     \\ 
+\hline
+\multicolumn{1}{|l|}{\textbf{Base}}  & 29.10 & 0.20 & 16.49 & 0.42 \\
+\multicolumn{1}{|l|}{\textbf{C+L}}  & 29.30 & 0.36 & - & - \\
+\multicolumn{1}{|l|}{\textbf{C+L(f)}}  & 29.35 & 0.44 & - & - \\
+\multicolumn{1}{|l|}{\textbf{LSVM}}  & 32.73 & 0.24 & 17.98 & 0.31 \\
+\hline
+\end{tabular}
+\caption{Macro F1 scores. Base is baseline, L is LSTM, C is CNN, (f) means each class was equally represented.}
+\label{table:results-en}
+\end{table}
+
+The neural network models that we tested ended up achieving around the same score as our BOW baseline. 
+The BOW model with a Linear Support Vector Machine for classification provided the best results. Table \ref{table:results-en} shows the results of the LSVM along with the results of our baseline and our best performing neural network models for comparison. The effect of sampling the dataset to balance the frequency of each class was negligible as shown in Table \ref{table:results-en}. The improvement to employing sampling was 0.05 percentage points for our CNN combined with LSTM model. The F1 score of our LSVM model on the test data from the task organizers was 31.834 which is within one percent of the 32.73 from our 10-fold cross-validation. Precision on the test data was 39.803, recall was 31.365 and accuracy was 45.732. \footnote{Task Scoreboard： \url{https://docs.google.com/spreadsheets/d/1on1Oj53EFcE4n-yO_sJc1JEo6x8hcUh5hsWTkTYdc_o/edit\#gid=885431079}. We submitted under the　team name: Hopper.}
+
+
+\section{Discussion}
+
+The first important trend we observe with our system (BOW model with LSVM classifier) is the most frequently seen emojis \redheart, \hearteyes and \joytears perform well in terms of true positives - \texttildelow 83\% for \redheart (8848/10622), \texttildelow 57\% for \hearteyes (2903/5077) and \texttildelow 63\% for \joytears (3171/5067) while at the same time being false positives for many classes. Take \smileeyes (label 5) for instance. 327 tweets are correctly classified as belonging to \smileeyes. However, 732 tweets that should have been classified as \smileeyes are misclassified as \hearteyes. The trend of misclassifying more tweets as \hearteyes was seen for labels 6, 7, 8, 13, 14, 15, 16 and 19 as well. This trend carried through from our baseline; the final system performs better only because of marginal improvements in the classification itself.
+
+Below are some tweets for \cameraflash that the LSVM succeed in classifying that the Bernoulli Naive Bayes could not find. We choose \cameraflash because the percentage difference in performance (in favor of the LSVM) is the greatest here.
+
+\begin{quote}
+Different angles to the same goal. by @user @ New…
+\end{quote}
+
+\begin{quote}
+When iris.apfel speaks...knowledge and wisdom is all you hear so listen up... :@drummondphotog…
+\end{quote}
+
+Our supposition is that the Linear Support Vector Machine is able to make associations that the Bernoulli Naive Bayes is unable to make. "Angles", we suspect, correlates with camera than the other emojis and the LSVM finds that association. The second tweet is interesting because it would seem that the LSVM is able to connect the ``photog'' in ``@drummondphotog'' despite our use of a Bag of Words Model unless the prediction was based on some other less obvious word in the tweet.
+
+
+\section*{Acknowledgments}
+
+This project was carried out as a part of CS 8761, Natural Language Processing, offered in Fall 2017 at the University of Minnesota, Duluth by Dr. Ted Pedersen. We are grateful to Dr. Ted Pedersen for his support and guidance in this project. Authors are listed in alphabetical order.
+
+\bibliography{semeval2018}
+\bibliographystyle{acl_natbib}
+
+\end{document}
