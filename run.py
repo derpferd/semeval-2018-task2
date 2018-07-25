@@ -299,6 +299,7 @@ def run_non_nn_model(config, fold=-1, save_examples=False):
 
         if VERBOSE:
             print("Took {} seconds to run fold.".format(time.time() - start_time))
+            print("Took {} seconds to run fold.".format(time.time() - start_time), file=log, flush=True)
 
     print("\n----- Results for all folds -----\n{}\n".format(total_scorer.get_score()), file=log, flush=True)
     if config.confusion_matrix:

@@ -196,9 +196,9 @@ class CharLSTMCNNModel(CharNNModel):
         # TODO: add batch_size
         configs = [{"name": "embedding_size", "default": 128},
                    {"name": "lstm_size", "default": 64},
-                   {"name": "kernel_size", "default": 5},
+                   {"name": "kernel_size", "default": 5},  # maybe 3 is better
                    {"name": "filters", "default": 64},
-                   {"name": "pool_size", "default": 4}]
+                   {"name": "pool_size", "default": 4}]  # maybe 2 is better
         return super(CharBiLSTMModel, CharBiLSTMModel).get_extra_configs() + configs
 
     def create_model(self, maxlen, char_count, class_count):
